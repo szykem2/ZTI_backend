@@ -136,17 +136,12 @@ version: v1
       responses:
         200:
 
+/projects/{id}
   delete:
     description: Delete a project
       headers:
         Authorization:
           token <GENERATED_TOKEN>
-      body:
-        application/json:
-          example: |
-            {
-              "id": <projectID>
-            }
       responses:
         204:
 		    404:
@@ -156,30 +151,30 @@ version: v1
   get:
     description: Get list of users without permission to view project with given id
     headers:
-        Authorization:
-          token <GENERATED_TOKEN>
-      body:
-        application/json:
-          example: |
-            {
-              "id": <projectID>
-            }
-      responses:
-        200:
-          body:
-            application/json:
-              example: |
-                [
-                  {
-                    "id" : 1,
-                    "username" : "testUser",
-                  },
-                  {
-                    "id" : 2,
-                    "username" : "testUser",
-                  }
-                ]
-        406:
+      Authorization:
+        token <GENERATED_TOKEN>
+    body:
+      application/json:
+        example: |
+          {
+            "id": <projectID>
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "id" : 1,
+                  "username" : "testUser",
+                },
+                {
+                  "id" : 2,
+                  "username" : "testUser",
+                }
+              ]
+      406:
 
   post:
     description: Add permission to view project for a given user
@@ -199,9 +194,27 @@ version: v1
           {
             "itemid": <itemid>
           }
-    
 
-/projects/{id}/items/{itemid}/comments:
+/items: 
+  get:
+    description: Get list of items assigned to a given project
+  post:
+    description: Create item in a given project area
+  put:
+    description: Update item
+
+/items/{itemid}:
+  delete:
+    description: Remove work item
+      headers:
+        Authorization:
+          token <GENERATED_TOKEN>
+    responses:
+      204:
+	    404:
+	    406:
+
+/items/{itemid}/comments:
   get:
     description: Retrieve coments for a given item in a given project
   responses:
@@ -223,27 +236,3 @@ version: v1
                   "content": <content_of_the_comment>
                 }
               ]
-
-/projects/{id}/items: 
-  get:
-    description: Get list of items assigned to a given project
-  post:
-    description: Create item in a given project area
-  put:
-    description: Update item
-  delete:
-    description: Remove work item
-      headers:
-        Authorization:
-          token <GENERATED_TOKEN>
-      body:
-        application/json:
-          example: |
-            {
-              "id": <projectID>
-              "itemid": <itemid>
-            }
-    responses:
-      204:
-	    404:
-	    406:
