@@ -1,56 +1,80 @@
-package project.models;
-import javax.persistence.*;
-import java.util.*;
+package test;
 
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Date;
+
+
+/**
+ * The persistent class for the COMMENTS database table.
+ * 
+ */
 @Entity
-@Table(name="comments")
-public class Comment {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int commentID;
-	
-	@ManyToOne
-	@JoinColumn(name = "userid")
-	private int userID;
-	
-	@ManyToOne
-	@JoinColumn(name = "itemid")
-	private int itemID;
+@Table(name="COMMENTS")
+@NamedQuery(name="Comment.findAll", query="SELECT c FROM Comment c")
+public class Comment implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private int commentid;
 	private String content;
 	private Date created;
-	
-	public int getCommentID() {
-		return commentID;
+	private Item item;
+	private User user;
+
+	public Comment() {
 	}
-	public void setCommentID(int id) {
-		this.commentID = id;
+
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public int getCommentid() {
+		return this.commentid;
 	}
-	
-	public int getUserID() {
-		return userID;
+
+	public void setCommentid(int commentid) {
+		this.commentid = commentid;
 	}
-	public void setUserID(int id) {
-		this.userID = id;
-	}
-	
-	public int getItemID() {
-		return itemID;
-	}
-	public void setItemID(int id) {
-		this.itemID = id;
-	}
-	
+
+
 	public String getContent() {
-		return content;
+		return this.content;
 	}
-	public void setContent(String cnt) {
-		this.content = cnt;
+
+	public void setContent(String content) {
+		this.content = content;
 	}
-	
+
+
+	@Temporal(TemporalType.DATE)
 	public Date getCreated() {
-		return created;
+		return this.created;
 	}
+
 	public void setCreated(Date created) {
 		this.created = created;
 	}
+
+
+	//bi-directional many-to-one association to Item
+	@ManyToOne
+	@JoinColumn(name="ITEMID")
+	public Item getItem() {
+		return this.item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
+	}
+
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="USERID")
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }

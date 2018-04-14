@@ -20,6 +20,7 @@ version: v1
                   "email": "testMail3"
                 }
               ]
+
 /users/{userId}:
     get:
     description: Retrieve user with given id
@@ -144,7 +145,7 @@ version: v1
           token <GENERATED_TOKEN>
       responses:
         204:
-		    404:
+        404:
         406:
 
 /projects/{id}/users:
@@ -211,8 +212,8 @@ version: v1
           token <GENERATED_TOKEN>
     responses:
       204:
-	    404:
-	    406:
+      404:
+      406:
 
 /items/{itemid}/comments:
   get:

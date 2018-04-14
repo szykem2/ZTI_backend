@@ -1,71 +1,103 @@
-package project.models;
+package test;
+
+import java.io.Serializable;
 import javax.persistence.*;
-import java.util.*;
+import java.util.List;
 
+
+/**
+ * The persistent class for the PROJECTS database table.
+ * 
+ */
 @Entity
-@Table(name="projects")
-public class Project {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="projectid")
-	private int projectID;
-	private String name;
+@Table(name="PROJECTS")
+@NamedQuery(name="Project.findAll", query="SELECT p FROM Project p")
+public class Project implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private int projectid;
 	private String description;
-	
-	/*@ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "document_inbox", joinColumns = @JoinColumn(name = "userinbox_id"),
-               inverseJoinColumns = @JoinColumn(name = "inbox_id"))
-    private List<User> userinbox  = new ArrayList<User>();
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "document_outbox", joinColumns = @JoinColumn(name = "useroutbox_id"),
-               inverseJoinColumns = @JoinColumn(name = "outbox_id"))
-    private List<User> useroutbox  = new ArrayList<User>();*/
-	
-	@ManyToMany(targetEntity=User.class)
-	@JoinTable(name = "admins", joinColumns = @JoinColumn(name = "userID"))
-	private List<User> admins = new ArrayList<>();
-	
-	@ManyToMany(targetEntity=User.class)
-	@JoinTable(name = "users_projects", joinColumns = @JoinColumn(name = "userID"))
-	private List<User> authorizedUsers = new ArrayList<>();
-	
-	public int getProjectId() {
-	      return projectID;
+	private String name;
+	private List<Item> items;
+	private List<User> projects;
+	private List<User> isAdminFor;
+
+	public Project() {
 	}
 
-	public void setProjectId(int id) {
-		this.projectID = id;
-	}
-	
-	public String getName( ){
-		return name;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public int getProjectid() {
+		return this.projectid;
 	}
 
-	public void setName( String name ){
+	public void setProjectid(int projectid) {
+		this.projectid = projectid;
+	}
+
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public void setDescription(String desc) {
-		this.description = desc;
+
+
+	//bi-directional many-to-one association to Item
+	@OneToMany(mappedBy="project")
+	public List<Item> getItems() {
+		return this.items;
 	}
-	
-	public String getDescription() {
-		return description;
+
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
-	
-	public void setAdmins(List<User> admins) {
-		this.admins = admins;
+
+	public Item addItem(Item item) {
+		getItems().add(item);
+		item.setProject(this);
+
+		return item;
 	}
-	
-	public List<User> getAdmins() {
-		return admins;
+
+	public Item removeItem(Item item) {
+		getItems().remove(item);
+		item.setProject(null);
+
+		return item;
 	}
-	
-	public void setAuthorizedUsers(List<User> authorizedUsers) {
-		this.authorizedUsers = authorizedUsers;
+
+
+	//bi-directional many-to-many association to User
+	@ManyToMany(mappedBy="users")
+	public List<User> getProjects() {
+		return this.projects;
 	}
-	
-	public List<User> getAuthorizedUsers() {
-		return authorizedUsers;
+
+	public void setProjects(List<User> projects) {
+		this.projects = projects;
 	}
+
+
+	//bi-directional many-to-many association to User
+	@ManyToMany(mappedBy="admins")
+	public List<User> getIsAdminFor() {
+		return this.isAdminFor;
+	}
+
+	public void setIsAdminFor(List<User> isAdminFor) {
+		this.isAdminFor = isAdminFor;
+	}
+
 }
