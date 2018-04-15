@@ -7,9 +7,7 @@ import javax.ws.rs.core.Application;
 import project.models.Project;
 
 @ApplicationPath("/")
-@Path("/MyRestService")
 public class App extends Application {
-	
 	@Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<>();
@@ -18,5 +16,4 @@ public class App extends Application {
         resources.add(Projects.class);
         return resources;
     }
-
 }

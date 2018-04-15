@@ -5,6 +5,7 @@ import javax.ws.rs.core.MediaType;
 
 import project.dbutils.*;
 import project.models.*;
+import javax.json.*;
 
 @Path("/users")
 public class Authentication extends Application {
