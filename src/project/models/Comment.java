@@ -53,8 +53,6 @@ public class Comment implements Serializable {
 		this.created = created;
 	}
 
-
-	//bi-directional many-to-one association to Item
 	@ManyToOne
 	@JoinColumn(name="ITEMID")
 	public Item getItem() {
@@ -65,8 +63,6 @@ public class Comment implements Serializable {
 		this.item = item;
 	}
 
-
-	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="USERID")
 	public User getUser() {

@@ -24,7 +24,6 @@ public class Project implements Serializable {
 	public Project() {
 	}
 
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getProjectid() {
@@ -53,8 +52,6 @@ public class Project implements Serializable {
 		this.name = name;
 	}
 
-
-	//bi-directional many-to-one association to Item
 	@OneToMany(mappedBy="project")
 	public List<Item> getItems() {
 		return this.items;
@@ -78,8 +75,6 @@ public class Project implements Serializable {
 		return item;
 	}
 
-
-	//bi-directional many-to-many association to User
 	@ManyToMany(mappedBy="users")
 	public List<User> getProjects() {
 		return this.projects;
@@ -89,8 +84,6 @@ public class Project implements Serializable {
 		this.projects = projects;
 	}
 
-
-	//bi-directional many-to-many association to User
 	@ManyToMany(mappedBy="admins")
 	public List<User> getIsAdminFor() {
 		return this.isAdminFor;

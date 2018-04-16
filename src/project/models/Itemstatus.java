@@ -39,8 +39,6 @@ public class Itemstatus implements Serializable {
 		this.status = status;
 	}
 
-
-	//bi-directional many-to-one association to Item
 	@OneToMany(mappedBy="itemstatus")
 	public List<Item> getItems() {
 		return this.items;

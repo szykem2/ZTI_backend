@@ -15,11 +15,11 @@ import java.util.List;
 public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int itemid;
-	private Object approved;
+	private Boolean approved;
 	private Timestamp creationdate;
 	private String description;
 	private Timestamp resolutiondate;
-	private Object resolved;
+	private Boolean resolved;
 	private String title;
 	private List<Comment> comments;
 	private Itemstatus itemstatus;
@@ -43,11 +43,11 @@ public class Item implements Serializable {
 	}
 
 
-	public Object getApproved() {
+	public Boolean getApproved() {
 		return this.approved;
 	}
 
-	public void setApproved(Object approved) {
+	public void setApproved(Boolean approved) {
 		this.approved = approved;
 	}
 
@@ -79,11 +79,11 @@ public class Item implements Serializable {
 	}
 
 
-	public Object getResolved() {
+	public Boolean getResolved() {
 		return this.resolved;
 	}
 
-	public void setResolved(Object resolved) {
+	public void setResolved(Boolean resolved) {
 		this.resolved = resolved;
 	}
 
@@ -96,8 +96,6 @@ public class Item implements Serializable {
 		this.title = title;
 	}
 
-
-	//bi-directional many-to-one association to Comment
 	@OneToMany(mappedBy="item")
 	public List<Comment> getComments() {
 		return this.comments;
@@ -121,8 +119,6 @@ public class Item implements Serializable {
 		return comment;
 	}
 
-
-	//bi-directional many-to-one association to Itemstatus
 	@ManyToOne
 	@JoinColumn(name="STATUSID")
 	public Itemstatus getItemstatus() {
@@ -133,8 +129,6 @@ public class Item implements Serializable {
 		this.itemstatus = itemstatus;
 	}
 
-
-	//bi-directional many-to-one association to Itemtype
 	@ManyToOne
 	@JoinColumn(name="TYPEID")
 	public Itemtype getItemtype() {
@@ -145,8 +139,6 @@ public class Item implements Serializable {
 		this.itemtype = itemtype;
 	}
 
-
-	//bi-directional many-to-one association to Project
 	@ManyToOne
 	@JoinColumn(name="PROJECTID")
 	public Project getProject() {
@@ -157,8 +149,6 @@ public class Item implements Serializable {
 		this.project = project;
 	}
 
-
-	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="OWNER")
 	public User getOwner() {
@@ -169,8 +159,6 @@ public class Item implements Serializable {
 		this.owner = owner;
 	}
 
-
-	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="APPROVER")
 	public User getApprover() {

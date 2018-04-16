@@ -2,10 +2,14 @@ package project;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import org.json.*;
 import project.dbutils.*;
 import project.models.*;
-import javax.json.*;
+import project.utils.Token;
+
+import java.util.*;
 
 @Path("/users")
 public class Authentication extends Application {
@@ -14,8 +18,18 @@ public class Authentication extends Application {
 	@POST
 	@Path("/login")
 	@Consumes({MediaType.APPLICATION_JSON})
-	public String login(User usr) {
-		return "Login here";
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response login(Vector<Map<String,String>> vec) {
+		Map<String, String> mp = (Map<String,String>)vec.get(0);
+		User usr = new Database().authorize(mp.get("login"), mp.get("password"));
+		if(usr == null) {
+			return Response.status(Response.Status.NOT_FOUND).entity("Invalid credentials").build();
+		}
+		Token tkn = Token.generateToken(usr);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("token", tkn.getToken());
+		System.out.println(tkn.getToken());
+		return Response.ok(tkn, MediaType.APPLICATION_JSON).build();
 	}
 	
 	@POST
@@ -32,5 +46,12 @@ public class Authentication extends Application {
         //Database data = new Database();
 		//return data.readPerson(id);
         return new User();
+    }
+	
+	@GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<User> get() {
+        Database data = new Database();
+		return data.getUsers();
     }
 }

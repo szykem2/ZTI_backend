@@ -41,8 +41,6 @@ public class Itemtype implements Serializable {
 		this.type = type;
 	}
 
-
-	//bi-directional many-to-one association to Item
 	@OneToMany(mappedBy="itemtype")
 	public List<Item> getItems() {
 		return this.items;

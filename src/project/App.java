@@ -6,7 +6,8 @@ import javax.ws.rs.core.Application;
 
 import project.models.Project;
 
-@ApplicationPath("/")
+@ApplicationPath("")
+@Path("")
 public class App extends Application {
 	@Override
     public Set<Class<?>> getClasses() {

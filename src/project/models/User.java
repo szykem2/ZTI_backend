@@ -11,7 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="USERS")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedQueries({
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
+@NamedQuery(name="User.findOne", query="SELECT u FROM User u WHERE u.login=:login AND u.password=:pass")
+})
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int userid;
@@ -66,8 +69,6 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-
-	//bi-directional many-to-one association to Comment
 	@OneToMany(mappedBy="user")
 	public List<Comment> getComments() {
 		return this.comments;
@@ -91,8 +92,6 @@ public class User implements Serializable {
 		return comment;
 	}
 
-
-	//bi-directional many-to-one association to Item
 	@OneToMany(mappedBy="owner")
 	public List<Item> getItems() {
 		return this.items;
@@ -116,8 +115,6 @@ public class User implements Serializable {
 		return item;
 	}
 
-
-	//bi-directional many-to-one association to Item
 	@OneToMany(mappedBy="approver")
 	public List<Item> getIsAdminFor() {
 		return this.isAdminFor;
@@ -141,8 +138,6 @@ public class User implements Serializable {
 		return isAdminFor;
 	}
 
-
-	//bi-directional many-to-many association to Project
 	@ManyToMany
 	@JoinTable(
 		name="USERS_PROJECTS"
@@ -161,8 +156,6 @@ public class User implements Serializable {
 		this.users = users;
 	}
 
-
-	//bi-directional many-to-many association to Project
 	@ManyToMany
 	@JoinTable(
 		name="ADMINS"
