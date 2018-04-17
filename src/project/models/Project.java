@@ -18,8 +18,8 @@ public class Project implements Serializable {
 	private String description;
 	private String name;
 	private List<Item> items;
-	private List<User> projects;
-	private List<User> isAdminFor;
+	private List<User> users;
+	private List<User> admins;
 
 	public Project() {
 	}
@@ -75,22 +75,22 @@ public class Project implements Serializable {
 		return item;
 	}
 
-	@ManyToMany(mappedBy="users")
-	public List<User> getProjects() {
-		return this.projects;
+	@ManyToMany(mappedBy="projects")
+	public List<User> getUsers() {
+		return this.users;
 	}
 
-	public void setProjects(List<User> projects) {
-		this.projects = projects;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
-	@ManyToMany(mappedBy="admins")
-	public List<User> getIsAdminFor() {
-		return this.isAdminFor;
+	@ManyToMany(mappedBy="isAdmin")
+	public List<User> getAdmins() {
+		return this.admins;
 	}
 
-	public void setIsAdminFor(List<User> isAdminFor) {
-		this.isAdminFor = isAdminFor;
+	public void setAdmins(List<User> admins) {
+		this.admins = admins;
 	}
 
 }

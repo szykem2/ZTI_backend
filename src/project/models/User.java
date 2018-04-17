@@ -13,7 +13,9 @@ import java.util.List;
 @Table(name="USERS")
 @NamedQueries({
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
-@NamedQuery(name="User.findOne", query="SELECT u FROM User u WHERE u.login=:login AND u.password=:pass")
+@NamedQuery(name="User.findOne", query="SELECT u FROM User u WHERE u.login=:login AND u.password=:pass"),
+@NamedQuery(name="User.findEmail", query="SELECT u FROM User u WHERE u.email=:email"),
+@NamedQuery(name="User.findLogin", query="SELECT u FROM User u WHERE u.login=:login")
 })
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -22,10 +24,10 @@ public class User implements Serializable {
 	private String login;
 	private String password;
 	private List<Comment> comments;
-	private List<Item> items;
-	private List<Item> isAdminFor;
-	private List<Project> users;
-	private List<Project> admins;
+	private List<Item> isOwner;
+	private List<Item> isApprover;
+	private List<Project> projects;
+	private List<Project> isAdmin;
 
 	public User() {
 	}
@@ -93,49 +95,49 @@ public class User implements Serializable {
 	}
 
 	@OneToMany(mappedBy="owner")
-	public List<Item> getItems() {
-		return this.items;
+	public List<Item> getIsOwner() {
+		return this.isOwner;
 	}
 
-	public void setItems(List<Item> items) {
-		this.items = items;
+	public void setIsOwner(List<Item> isOwner) {
+		this.isOwner = isOwner;
 	}
 
-	public Item addItem(Item item) {
-		getItems().add(item);
+	public Item addIsOwner(Item item) {
+		getIsOwner().add(item);
 		item.setOwner(this);
 
 		return item;
 	}
 
-	public Item removeItem(Item item) {
-		getItems().remove(item);
+	public Item removeIsOwner(Item item) {
+		getIsOwner().remove(item);
 		item.setOwner(null);
 
 		return item;
 	}
 
 	@OneToMany(mappedBy="approver")
-	public List<Item> getIsAdminFor() {
-		return this.isAdminFor;
+	public List<Item> getIsApprover() {
+		return this.isApprover;
 	}
 
-	public void setIsAdminFor(List<Item> isAdminFor) {
-		this.isAdminFor = isAdminFor;
+	public void setIsApprover(List<Item> isApprover) {
+		this.isApprover = isApprover;
 	}
 
-	public Item addIsAdminFor(Item isAdminFor) {
-		getIsAdminFor().add(isAdminFor);
-		isAdminFor.setApprover(this);
+	public Item addIsApprover(Item isApprover) {
+		getIsOwner().add(isApprover);
+		isApprover.setApprover(this);
 
-		return isAdminFor;
+		return isApprover;
 	}
 
-	public Item removeIsAdminFor(Item isAdminFor) {
-		getIsAdminFor().remove(isAdminFor);
-		isAdminFor.setApprover(null);
+	public Item removeIsApprover(Item isApprover) {
+		getIsApprover().remove(isApprover);
+		isApprover.setApprover(null);
 
-		return isAdminFor;
+		return isApprover;
 	}
 
 	@ManyToMany
@@ -148,12 +150,12 @@ public class User implements Serializable {
 			@JoinColumn(name="PROJECTID")
 			}
 		)
-	public List<Project> getUsers() {
-		return this.users;
+	public List<Project> getProjects() {
+		return this.projects;
 	}
 
-	public void setUsers(List<Project> users) {
-		this.users = users;
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
 
 	@ManyToMany
@@ -166,12 +168,12 @@ public class User implements Serializable {
 			@JoinColumn(name="PROJECTID")
 			}
 		)
-	public List<Project> getAdmins() {
-		return this.admins;
+	public List<Project> getIsAdmin() {
+		return this.isAdmin;
 	}
 
-	public void setAdmins(List<Project> admins) {
-		this.admins = admins;
+	public void setIsAdmin(List<Project> isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 }

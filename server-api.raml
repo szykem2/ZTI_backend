@@ -71,6 +71,13 @@ version: v1
           }
     responses:
       200:
+      400:
+        body:
+          application/json:
+            example: |
+              {
+                "errors": ["password must contain special characters or numbers", "email structure is not correct"]
+              }
 
 /validateLogin:
   post:
@@ -83,7 +90,7 @@ version: v1
           }
     responses:
       204:
-      406:
+      409:
 
 /validateEmail:
   post:
@@ -96,7 +103,7 @@ version: v1
           }
     responses:
       204:
-      406:
+      409:
 
 /projects: 
   get:

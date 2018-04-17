@@ -52,12 +52,18 @@ public class Token implements Serializable{
 	}
 	
 	public User decodeToken() throws TokenException{
-		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(apiKey))
+		Claims claims = null;
+		try {
+		claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(apiKey))
 		       					 	 .parseClaimsJws(token).getBody();
+		}
+		catch(SignatureException e) {
+			throw new TokenException("Token Invalid"); 
+		}
 		Database db = new Database();
 		User usr = db.getUser(Integer.parseInt(claims.getId()));
 		if(usr != null && usr.getLogin().equals(claims.getIssuer()) && usr.getEmail().equals(claims.getSubject())) {
-			if(claims.getExpiration().getTime() > System.currentTimeMillis()) {
+			if(claims.getExpiration().getTime() < System.currentTimeMillis()) {
 				throw new TokenException("Token Expired");
 			}
 			return usr;
