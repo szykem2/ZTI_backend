@@ -186,10 +186,16 @@ version: v1
 
   post:
     description: Add permission to view project for a given user
+
+/projects/{id}/users/{userid}:
   delete:
-    description: Revoke privilege to view project by a given user
+    description: Remove user from project area
+      headers:
+        Authorization:
+          token <GENERATED_TOKEN>
     responses:
       204:
+      403:
 
 /projects/{id}/reports:
   get:

@@ -60,9 +60,16 @@ public class Projects {
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response addProject(Project pr) {
+	public Response addProject(@Context  HttpHeaders headers, Project pr) {
+		User usr = null;
+		try {
+			usr = HeaderValidator.validate(headers);
+		}
+		catch(HeaderException e) {
+			return e.getResponse();
+		}
 		Database db = new Database();
-		db.newProject(pr);
+		db.newProject(usr, pr);
 		return Response.ok().build();
 	}
 	
@@ -92,10 +99,37 @@ public class Projects {
 		return Response.ok(l, MediaType.APPLICATION_JSON).build();
 	}
 	
+	@Path("{id}/users")
+	@POST
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response addUser(@PathParam("id") String id, User usr) {
+		Database data = new Database();
+        Project pr = data.getProject(Integer.parseInt(id));
+        data.addUserToProject(pr, usr);
+		return Response.ok().build();
+	}
+	
+	@Path("{id}/users/{userid}")
+	@DELETE
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response reomveUser(@PathParam("id") String id, @PathParam("userid") String userid) {
+		Database db = new Database();
+		db.removeUserFromProject(Integer.parseInt(id), Integer.parseInt(userid));
+		return Response.ok().build();
+	}
+	
 	@OPTIONS
 	public Response getOptions() {
     	return Response.ok().header("Access-Control-Allow-Origin", "*")
-    			.header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
+    			.header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, DELETE, OPTIONS")
+    			.header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, Authorization").build(); 
+    	}
+	
+	@Path("{id}")
+	@OPTIONS
+	public Response getOptionsl() {
+    	return Response.ok().header("Access-Control-Allow-Origin", "*")
+    			.header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, DELETE, OPTIONS")
     			.header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, Authorization").build(); 
     	}
 }

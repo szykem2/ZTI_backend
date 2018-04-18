@@ -12,7 +12,6 @@ public class HeaderValidator {
 	public static User validate(HttpHeaders header) throws HeaderException{
 		MultivaluedMap<String, String> rh = header.getRequestHeaders();
 	    List<String> l = rh.get("Authorization");
-	    System.out.println(l.get(0));
 	    User usr = null;
 	    try {
 	    	usr = Token.decodeToken(l.get(0));
@@ -26,7 +25,7 @@ public class HeaderValidator {
 	    		throw new HeaderException(Response.status(Response.Status.FORBIDDEN).entity("Token expired").build());
 	    	}
 	    }
-	    catch(IndexOutOfBoundsException e) {
+	    catch(NullPointerException e) {
 	    	System.out.println(e.getMessage());
 	    	throw new HeaderException(Response.status(Response.Status.FORBIDDEN).entity("No Token provided").build());
 	    }

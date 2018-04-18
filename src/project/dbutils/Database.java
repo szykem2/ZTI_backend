@@ -1,6 +1,8 @@
 package project.dbutils;
 
 import project.models.*;
+import project.utils.UserJson;
+
 import java.util.*;
 
 public class Database {
@@ -56,12 +58,17 @@ public class Database {
 	
 	public void removeItem(int id) {
 		Item it = connection.getItem(id);
+		it.getApprover().getIsApprover().remove(it);
+		it.getOwner().getIsOwner().remove(it);
 		if(it != null) {
 			connection.removeItem(it);
 		}
 	}
 	
-	public void newProject(Project pr) {
+	public void newProject(User issuer, Project pr) {
+		issuer.getIsAdmin().add(pr);
+		issuer.getProjects().add(pr);
+		connection.updateUser(issuer);
 		connection.newProject(pr);
 	}
 	
@@ -70,5 +77,28 @@ public class Database {
 		if(pr != null) {
 			connection.removeProject(pr);
 		}
+	}
+
+	public void removeUserFromProject(int id, int userid) {
+        Project pr = connection.getProject(id);
+        User usr = connection.getUser(userid);
+        pr.getUsers().remove(usr);
+        if(pr.getAdmins().contains(usr)) {
+        	pr.getAdmins().remove(usr);
+        }
+        if(usr.getIsAdmin().contains(pr)) {
+        	usr.getIsAdmin().remove(pr);
+        }
+        usr.getProjects().remove(pr);
+        connection.updateUser(usr);
+        connection.updateProject(pr);
+	}
+
+	public void addUserToProject(Project pr, User usr) {
+		User u = connection.getUser(usr.getLogin());
+		pr.getUsers().add(u);
+		u.getProjects().add(pr);
+		connection.updateProject(pr);
+		connection.updateUser(u);
 	}
 }

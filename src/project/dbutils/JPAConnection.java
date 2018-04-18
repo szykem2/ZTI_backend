@@ -10,8 +10,8 @@ import javax.persistence.Persistence;
 import project.models.*;
 
 class JPAConnection {
-	private EntityManagerFactory managerFactory; // = Persistence.createEntityManagerFactory(persistenceUnitName);
-    private EntityManager entityManager; // = managerFactory.createEntityManager();
+	private EntityManagerFactory managerFactory;
+    private EntityManager entityManager;
     private EntityTransaction entityTransaction;
  
     public JPAConnection() {
@@ -25,7 +25,6 @@ class JPAConnection {
         List<User> people = null;
         try {
             people = (List<User>) entityManager.createNamedQuery("User.findAll").getResultList();
-            entityManager.close();
         } catch (Exception e) {
             System.out.println("Failed !!! " + e.getMessage());
         }
@@ -36,7 +35,6 @@ class JPAConnection {
     	User usr = null;
     	try {
     		usr = (User) entityManager.find(User.class, id);
-    		entityManager.close();
     	}
     	catch (Exception e) {
     		System.out.println("Failed! " + e.getMessage());
@@ -50,7 +48,6 @@ class JPAConnection {
     		List<User> lst = (List<User>) entityManager.createNamedQuery("User.findOne").setParameter("login", login).setParameter("pass", password).getResultList();
     		System.out.println(lst);
     		usr = lst.get(0);
-    		entityManager.close();
     	}
     	catch (Exception e) {
     		System.out.println("Failed! " + e.getMessage());
@@ -62,7 +59,6 @@ class JPAConnection {
 		Project pr = null;
     	try {
     		pr = (Project) entityManager.find(Project.class, id);
-    		entityManager.close();
     	}
     	catch (Exception e) {
     		System.out.println("Failed! " + e.getMessage());
@@ -76,7 +72,6 @@ class JPAConnection {
     		List<User> lst = (List<User>) entityManager.createNamedQuery("User.findEmail").setParameter("email", email).getResultList();
     		System.out.println(lst);
     		usr = lst.get(0);
-    		entityManager.close();
     		return false;
     	}
     	catch (Exception e) {
@@ -91,7 +86,6 @@ class JPAConnection {
     		List<User> lst = (List<User>) entityManager.createNamedQuery("User.findLogin").setParameter("login", login).getResultList();
     		System.out.println(lst);
     		usr = lst.get(0);
-    		entityManager.close();
     		return false;
     	}
     	catch (Exception e) {
@@ -111,7 +105,6 @@ class JPAConnection {
 		Item it = null;
     	try {
     		it = (Item) entityManager.find(Item.class, id);
-    		entityManager.close();
     	}
     	catch (Exception e) {
     		System.out.println("Failed! " + e.getMessage());
@@ -155,10 +148,39 @@ class JPAConnection {
 	}
 	
 	public void removeProject(Project pr) {
-		System.out.println("Delete item - " + pr.getName() + " ID: " + pr.getProjectid());
+		System.out.println("Delete project - " + pr.getName() + " ID: " + pr.getProjectid());
+        pr.getAdmins().clear();
+        pr.getItems().clear();
+        pr.getUsers().clear();
 	    entityTransaction.begin();
+	    entityManager.merge(pr);
 	    entityManager.remove(pr);
 	    entityManager.flush();
 	    entityTransaction.commit();
+	}
+
+	public void updateUser(User issuer) {
+		entityTransaction.begin();
+	    entityManager.merge(issuer);
+	    entityTransaction.commit();
+	}
+
+	public void updateProject(Project pr) {
+		entityTransaction.begin();
+	    entityManager.merge(pr);
+	    entityTransaction.commit();
+	}
+
+	public User getUser(String login) {
+		User usr = null;
+    	try {
+    		List<User> lst = (List<User>) entityManager.createNamedQuery("User.findLogin").setParameter("login", login).getResultList();
+    		System.out.println(lst);
+    		usr = lst.get(0);
+    	}
+    	catch (Exception e) {
+    		System.out.println(e.getMessage());
+    	}
+    	return usr;
 	}
 }

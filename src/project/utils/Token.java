@@ -60,6 +60,9 @@ public class Token implements Serializable{
 		catch(SignatureException e) {
 			throw new TokenException("Token Invalid"); 
 		}
+		catch(ExpiredJwtException e) {
+			throw new TokenException("Token Expired"); 
+		}
 		Database db = new Database();
 		User usr = db.getUser(Integer.parseInt(claims.getId()));
 		if(usr != null && usr.getLogin().equals(claims.getIssuer()) && usr.getEmail().equals(claims.getSubject())) {
