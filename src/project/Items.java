@@ -8,12 +8,16 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import project.dbutils.Database;
 import project.models.*;
 import project.utils.CommentJson;
+import project.utils.HeaderException;
+import project.utils.HeaderValidator;
 import project.utils.ItemJson;
 
 import java.util.*;
@@ -24,8 +28,18 @@ public class Items {
 	@Path("{projectid}")
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getItems(@PathParam("projectid") String projectid) {
+	public Response getItems(@Context  HttpHeaders headers, @PathParam("projectid") String projectid) {
+		User usr = null;
+		try {
+			usr = HeaderValidator.validate(headers);
+		}
+		catch(HeaderException e) {
+			return e.getResponse();
+		}
 		Database db = new Database();
+		if(!usr.getProjects().contains(db.getProject(Integer.parseInt(projectid)))) {
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
 		List<Item> lst = db.getProject(Integer.parseInt(projectid)).getItems();
 		System.out.println("List: " + lst.size());
 		if(lst.size() > 0) {
@@ -40,8 +54,18 @@ public class Items {
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response newItem(Item it) {
+	public Response newItem(@Context  HttpHeaders headers, Item it) {
+		User usr = null;
+		try {
+			usr = HeaderValidator.validate(headers);
+		}
+		catch(HeaderException e) {
+			return e.getResponse();
+		}
 		Database db = new Database();
+		if(!usr.getProjects().contains(it.getProject())) {
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
 		db.newItem(it);
 		return Response.ok().build();
 	}
@@ -49,26 +73,56 @@ public class Items {
 	@Path("{id}")
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response updateItem(@PathParam("id") String itemid, Item it) {
-		it.setItemid(Integer.parseInt(itemid));
+	public Response updateItem(@Context  HttpHeaders headers, @PathParam("id") String itemid, Item it) {
+		User usr = null;
+		try {
+			usr = HeaderValidator.validate(headers);
+		}
+		catch(HeaderException e) {
+			return e.getResponse();
+		}
 		Database db = new Database();
+		if(!usr.getProjects().contains(it.getProject())) {
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
+		it.setItemid(Integer.parseInt(itemid));
 		db.updateItem(it);
 		return Response.ok().build();
 	}
 	
 	@Path("{id}")
 	@DELETE
-	public Response deleteItem(@PathParam("id") String itemid) {
+	public Response deleteItem(@Context  HttpHeaders headers, @PathParam("id") String id) {
+		User usr = null;
+		try {
+			usr = HeaderValidator.validate(headers);
+		}
+		catch(HeaderException e) {
+			return e.getResponse();
+		}
 		Database db = new Database();
-		db.removeItem(Integer.parseInt(itemid));
+		if(!usr.getProjects().contains(db.getItem(Integer.parseInt(id)).getProject())) {
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
+		db.removeItem(Integer.parseInt(id));
 		return Response.ok().build();
 	}
 	
 	@Path("{id}/comments")
 	@GET
-	public Response getComments(@PathParam("id") String id) {
+	public Response getComments(@Context  HttpHeaders headers, @PathParam("id") String id) {
+		User usr = null;
+		try {
+			usr = HeaderValidator.validate(headers);
+		}
+		catch(HeaderException e) {
+			return e.getResponse();
+		}
 		Database db = new Database();
 		Item it = db.getItem(Integer.parseInt(id));
+		if(!usr.getProjects().contains(it.getProject())) {
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
 		List<Comment> lst = it.getComments();
 		System.out.println("List: " + lst.size());
 		if(lst.size() > 0) {

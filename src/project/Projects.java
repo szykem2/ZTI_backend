@@ -44,6 +44,7 @@ public class Projects {
 			usr = HeaderValidator.validate(headers);
 		}
 		catch(HeaderException e) {
+			System.out.println(e.getResponse().toString());
 			return e.getResponse();
 		}
 		List<Project> lst = usr.getProjects();
@@ -75,8 +76,18 @@ public class Projects {
 	
 	@Path("{id}")
 	@DELETE
-	public Response deleteProject(@PathParam("id") String id) {
+	public Response deleteProject(@Context  HttpHeaders headers, @PathParam("id") String id) {
+		User usr = null;
+		try {
+			usr = HeaderValidator.validate(headers);
+		}
+		catch(HeaderException e) {
+			return e.getResponse();
+		}
 		Database db = new Database();
+		if(!usr.getIsAdmin().contains(db.getProject(Integer.parseInt(id)))) {
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
 		db.removeProject(Integer.parseInt(id));
 		return Response.ok().build();
 	}
@@ -84,13 +95,27 @@ public class Projects {
 	@Path("{id}/users")
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getUsers(@PathParam("id") String id) {
-		Database data = new Database();
-        Project pr = data.getProject(Integer.parseInt(id));
+	public Response getUsers(@Context  HttpHeaders headers, @PathParam("id") String id) {
+		User usr = null;
+		try {
+			usr = HeaderValidator.validate(headers);
+		}
+		catch(HeaderException e) {
+			return e.getResponse();
+		}
+		Database db = new Database();
+		System.out.println("db");
+		System.out.println(usr.getProjects().size());
+		System.out.println(db.getProject(Integer.parseInt(id)).getProjectid());
+		if(!usr.getProjects().contains(db.getProject(Integer.parseInt(id)))) {
+			System.out.println("dupa");
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
+        Project pr = db.getProject(Integer.parseInt(id));
         List<User> lst = pr.getUsers();
         List<UserJson> l = new ArrayList<UserJson>();
         if(lst.size() > 0) {
-        	User usr = lst.get(0);//just to instantiate list due to jpa lazy binding
+        	usr = lst.get(0);//just to instantiate list due to jpa lazy binding
         }
         System.out.println(lst);
         for(User u : lst) {
@@ -102,18 +127,38 @@ public class Projects {
 	@Path("{id}/users")
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response addUser(@PathParam("id") String id, User usr) {
-		Database data = new Database();
-        Project pr = data.getProject(Integer.parseInt(id));
-        data.addUserToProject(pr, usr);
+	public Response addUser(@Context  HttpHeaders headers, @PathParam("id") String id, User usr) {
+		User user = null;
+		try {
+			user = HeaderValidator.validate(headers);
+		}
+		catch(HeaderException e) {
+			return e.getResponse();
+		}
+		Database db = new Database();
+		if(!user.getIsAdmin().contains(db.getProject(Integer.parseInt(id)))) {
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
+        Project pr = db.getProject(Integer.parseInt(id));
+        db.addUserToProject(pr, usr);
 		return Response.ok().build();
 	}
 	
 	@Path("{id}/users/{userid}")
 	@DELETE
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response reomveUser(@PathParam("id") String id, @PathParam("userid") String userid) {
+	public Response reomveUser(@Context  HttpHeaders headers, @PathParam("id") String id, @PathParam("userid") String userid) {
+		User usr = null;
+		try {
+			usr = HeaderValidator.validate(headers);
+		}
+		catch(HeaderException e) {
+			return e.getResponse();
+		}
 		Database db = new Database();
+		if(!usr.getIsAdmin().contains(db.getProject(Integer.parseInt(id)))) {
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
 		db.removeUserFromProject(Integer.parseInt(id), Integer.parseInt(userid));
 		return Response.ok().build();
 	}

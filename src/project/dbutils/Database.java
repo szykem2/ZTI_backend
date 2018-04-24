@@ -68,6 +68,8 @@ public class Database {
 	public void newProject(User issuer, Project pr) {
 		issuer.getIsAdmin().add(pr);
 		issuer.getProjects().add(pr);
+		pr.getAdmins().add(issuer);
+		pr.getUsers().add(issuer);
 		connection.updateUser(issuer);
 		connection.newProject(pr);
 	}

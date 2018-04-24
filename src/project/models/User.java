@@ -176,4 +176,8 @@ public class User implements Serializable {
 		this.isAdmin = isAdmin;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return this.userid == ((User)obj).getUserid();
+	}
 }

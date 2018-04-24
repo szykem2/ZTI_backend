@@ -92,5 +92,10 @@ public class Project implements Serializable {
 	public void setAdmins(List<User> admins) {
 		this.admins = admins;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return this.projectid == ((Project)obj).getProjectid();
+	}
 
 }

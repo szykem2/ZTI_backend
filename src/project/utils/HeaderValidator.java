@@ -19,6 +19,7 @@ public class HeaderValidator {
 	    catch(TokenException e) {
 	    	System.out.println(e.getMessage());
 	    	if (e.getMessage().equalsIgnoreCase("Token invalid")) {
+	    		System.out.println("dupsko");
 	    		throw new HeaderException(Response.status(Response.Status.FORBIDDEN).entity("Invalid token").build());
 	    	}
 	    	else if(e.getMessage().equalsIgnoreCase("Token expired")) {

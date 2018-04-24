@@ -169,4 +169,8 @@ public class Item implements Serializable {
 		this.approver = approver;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return this.itemid == ((Item)obj).getItemid();
+	}
 }
