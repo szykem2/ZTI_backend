@@ -58,9 +58,9 @@ public class Database {
 	
 	public void removeItem(int id) {
 		Item it = connection.getItem(id);
-		it.getApprover().getIsApprover().remove(it);
-		it.getOwner().getIsOwner().remove(it);
 		if(it != null) {
+			it.getApprover().getIsApprover().remove(it);
+			it.getOwner().getIsOwner().remove(it);
 			connection.removeItem(it);
 		}
 	}
@@ -68,15 +68,26 @@ public class Database {
 	public void newProject(User issuer, Project pr) {
 		issuer.getIsAdmin().add(pr);
 		issuer.getProjects().add(pr);
-		pr.getAdmins().add(issuer);
-		pr.getUsers().add(issuer);
+		List<User> lst = new ArrayList<User>();
+		lst.add(issuer);
+		pr.setAdmins(lst);
+		pr.setUsers(lst);
 		connection.updateUser(issuer);
 		connection.newProject(pr);
 	}
 	
 	public void removeProject(int id) {
 		Project pr = connection.getProject(id);
+		
 		if(pr != null) {
+			for(User a : pr.getAdmins()) {
+				a.getIsAdmin().remove(pr);
+				connection.updateUser(a);
+			}
+			for(User a : pr.getUsers()) {
+				a.getProjects().remove(pr);
+				connection.updateUser(a);
+			}
 			connection.removeProject(pr);
 		}
 	}
