@@ -48,6 +48,8 @@ public class Database {
 	
 	public void newItem(Item it) {
 		connection.newItem(it);
+		it.getProject().getItems().add(it);
+		connection.updateProject(it.getProject());
 	}
 	
 	public void updateItem(Item it) {
@@ -164,5 +166,23 @@ public class Database {
 
 	public List<Project> getProjects() {
 		return connection.getProjects();
+	}
+
+	public Itemstatus getStatus(int id) {
+		for(Itemstatus t : connection.getStatuses()) {
+			if (t.getStatusid() == id) {
+				return t;
+			}
+		}
+		return null;
+	}
+
+	public Itemtype getType(int id) {
+		for(Itemtype t : connection.getTypes()) {
+			if (t.getTypeid() == id) {
+				return t;
+			}
+		}
+		return null;
 	}
 }

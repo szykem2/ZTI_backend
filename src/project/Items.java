@@ -12,6 +12,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.json.JSONObject;
+
 import project.dbutils.Database;
 import project.models.*;
 import project.utils.CommentJson;
@@ -21,6 +24,7 @@ import project.utils.ItemJson;
 import project.utils.ItemstatusJson;
 import project.utils.ItemtypeJson;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 @Path("/items")
@@ -93,7 +97,7 @@ public class Items {
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response newItem(@Context  HttpHeaders headers, Item it) {
+	public Response newItem(@Context  HttpHeaders headers, String it) {
 		User usr = null;
 		try {
 			usr = HeaderValidator.validate(headers);
@@ -102,10 +106,25 @@ public class Items {
 			return e.getResponse();
 		}
 		Database db = new Database();
-		if(!usr.getProjects().contains(it.getProject())) {
+		JSONObject obj = new JSONObject(it);
+		Project pr = db.getProject(obj.getInt("projectid"));
+		if(!usr.getProjects().contains(pr)) {
 			return Response.status(Response.Status.FORBIDDEN).build();
 		}
-		db.newItem(it);
+		Item item = new Item();
+		item.setApproved(false);
+		item.setComments(null);
+		item.setApprover(db.getUser(obj.getInt("approver")));
+		item.setCreationdate(Timestamp.valueOf(obj.getString("creationDate")));
+		item.setDescription(obj.getString("description"));
+		item.setItemstatus(db.getStatus(1));
+		item.setItemtype(db.getType(obj.getInt("type")));
+		item.setOwner(db.getUser(obj.getInt("owner")));
+		item.setProject(pr);
+		item.setResolutiondate(null);
+		item.setResolved(false);
+		item.setTitle(obj.getString("title"));
+		db.newItem(item);
 		return Response.ok().build();
 	}
 	

@@ -21,6 +21,7 @@ public class ItemJson {
 		this.setApproved(it.getApproved());
 		this.setDescription(it.getDescription());
 		this.setResolutiondate(it.getResolutiondate());
+		this.setCreationdate(it.getCreationdate());
 		this.setResolved(it.getResolved());
 		this.setTitle(it.getTitle());
 		this.setItemstatus(new ItemstatusJson(it.getItemstatus()));
