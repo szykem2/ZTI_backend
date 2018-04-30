@@ -1,7 +1,6 @@
 package project.utils;
 
 import java.util.Date;
-
 import project.models.Comment;
 
 public class CommentJson {

@@ -1,7 +1,6 @@
 package project.utils;
 
 import java.io.Serializable;
-
 import project.models.Project;
 
 public class ProjectJson implements Serializable{
@@ -10,11 +9,13 @@ public class ProjectJson implements Serializable{
 	private int id;
 	private String description;
 	private String title;
+	private boolean isAdmin;
 	
 	public ProjectJson(Project p) {
 		this.setId(p.getProjectid());
 		this.setDescription(p.getDescription());
 		this.setTitle(p.getName());
+		this.isAdmin = false;
 	}
 	public String getTitle() {
 		return title;
@@ -33,5 +34,11 @@ public class ProjectJson implements Serializable{
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	public void setIsAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 }

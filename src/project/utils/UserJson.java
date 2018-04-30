@@ -1,7 +1,6 @@
 package project.utils;
 
 import java.io.Serializable;
-
 import project.models.User;
 
 public class UserJson implements Serializable{

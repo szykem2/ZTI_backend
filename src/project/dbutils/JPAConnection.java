@@ -1,7 +1,6 @@
 package project.dbutils;
 
 import java.util.List;
- 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -42,6 +41,7 @@ class JPAConnection {
     	return usr;
     }
 
+    @SuppressWarnings("unchecked")
 	public User getUser(String login, String password) {
 		User usr = null;
     	try {
@@ -66,6 +66,7 @@ class JPAConnection {
     	return pr;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Boolean validateEmail(String email) {
 		User usr = null;
     	try {
@@ -80,6 +81,7 @@ class JPAConnection {
     	}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Boolean validateLogin(String login) {
 		User usr = null;
     	try {
@@ -171,6 +173,7 @@ class JPAConnection {
 	    entityTransaction.commit();
 	}
 
+	@SuppressWarnings("unchecked")
 	public User getUser(String login) {
 		User usr = null;
     	try {
@@ -182,5 +185,38 @@ class JPAConnection {
     		System.out.println(e.getMessage());
     	}
     	return usr;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Itemstatus> getStatuses() {
+		List<Itemstatus> sts = null;
+        try {
+            sts = (List<Itemstatus>) entityManager.createNamedQuery("Itemstatus.findAll").getResultList();
+        } catch (Exception e) {
+            System.out.println("Failed !!! " + e.getMessage());
+        }
+        return sts;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Itemtype> getTypes() {
+		List<Itemtype> types = null;
+        try {
+        	types = (List<Itemtype>) entityManager.createNamedQuery("Itemtype.findAll").getResultList();
+        } catch (Exception e) {
+            System.out.println("Failed !!! " + e.getMessage());
+        }
+        return types;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Project> getProjects() {
+		List<Project> pr = null;
+        try {
+            pr = (List<Project>) entityManager.createNamedQuery("Project.findAll").getResultList();
+        } catch (Exception e) {
+            System.out.println("Failed !!! " + e.getMessage());
+        }
+        return pr;
 	}
 }

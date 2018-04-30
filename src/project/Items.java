@@ -12,13 +12,14 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import project.dbutils.Database;
 import project.models.*;
 import project.utils.CommentJson;
 import project.utils.HeaderException;
 import project.utils.HeaderValidator;
 import project.utils.ItemJson;
+import project.utils.ItemstatusJson;
+import project.utils.ItemtypeJson;
 
 import java.util.*;
 
@@ -48,6 +49,44 @@ public class Items {
 		List<ItemJson> list = new ArrayList<ItemJson>();
 		for(Item it: lst) {
 			list.add(new ItemJson(it));
+		}
+		return Response.ok(list, MediaType.APPLICATION_JSON).build();
+	}
+	
+	@Path("itemstatus")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getStatuses() {
+
+		Database db = new Database();
+
+		List<Itemstatus> lst = db.getStatuses();
+		System.out.println("List: " + lst.size());
+		if(lst.size() > 0) {
+			Itemstatus cmt = lst.get(0);
+		}
+		List<ItemstatusJson> list = new ArrayList<ItemstatusJson>();
+		for(Itemstatus it: lst) {
+			list.add(new ItemstatusJson(it));
+		}
+		return Response.ok(list, MediaType.APPLICATION_JSON).build();
+	}
+	
+	@Path("itemtypes")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getTypes() {
+
+		Database db = new Database();
+
+		List<Itemtype> lst = db.getTypes();
+		System.out.println("List: " + lst.size());
+		if(lst.size() > 0) {
+			Itemtype cmt = lst.get(0);
+		}
+		List<ItemtypeJson> list = new ArrayList<ItemtypeJson>();
+		for(Itemtype it: lst) {
+			list.add(new ItemtypeJson(it));
 		}
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
 	}

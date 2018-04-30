@@ -1,14 +1,11 @@
 package project;
 import java.util.Set;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
-
-import project.models.Project;
 import project.utils.EmailValidator;
 import project.utils.LoginValidator;
 
-@ApplicationPath("/")
+@ApplicationPath("")
 @Path("")
 public class App extends Application {
 	@Override
@@ -17,6 +14,7 @@ public class App extends Application {
         resources.add(Authentication.class);
         resources.add(Items.class);
         resources.add(Projects.class);
+        resources.add(Requests.class);
         resources.add(EmailValidator.class);
         resources.add(LoginValidator.class);
         return resources;

@@ -4,7 +4,6 @@ import javax.ws.rs.Consumes;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
-
 import javax.json.*;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

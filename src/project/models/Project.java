@@ -20,6 +20,7 @@ public class Project implements Serializable {
 	private List<Item> items;
 	private List<User> users;
 	private List<User> admins;
+	private List<User> requestors;
 
 	public Project() {
 	}
@@ -91,6 +92,15 @@ public class Project implements Serializable {
 
 	public void setAdmins(List<User> admins) {
 		this.admins = admins;
+	}
+
+	@ManyToMany(mappedBy="requests")
+	public List<User> getRequestors() {
+		return requestors;
+	}
+
+	public void setRequestors(List<User> requestors) {
+		this.requestors = requestors;
 	}
 	
 	@Override

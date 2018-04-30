@@ -1,7 +1,6 @@
 package project.utils;
 
 import java.util.List;
-
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
@@ -23,12 +22,12 @@ public class HeaderValidator {
 	    		throw new HeaderException(Response.status(Response.Status.FORBIDDEN).entity("Invalid token").build());
 	    	}
 	    	else if(e.getMessage().equalsIgnoreCase("Token expired")) {
-	    		throw new HeaderException(Response.status(Response.Status.FORBIDDEN).entity("Token expired").build());
+	    		throw new HeaderException(Response.status(Response.Status.UNAUTHORIZED).entity("Token expired").build());
 	    	}
 	    }
 	    catch(NullPointerException e) {
 	    	System.out.println(e.getMessage());
-	    	throw new HeaderException(Response.status(Response.Status.FORBIDDEN).entity("No Token provided").build());
+	    	throw new HeaderException(Response.status(Response.Status.UNAUTHORIZED).entity("No Token provided").build());
 	    }
 	    return usr;
 	}

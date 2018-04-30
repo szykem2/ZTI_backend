@@ -1,37 +1,11 @@
 package project;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.OPTIONS;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
 import project.dbutils.Database;
 import project.models.*;
-import project.utils.HeaderException;
-import project.utils.HeaderValidator;
-import project.utils.ProjectJson;
-import project.utils.Token;
-import project.utils.TokenException;
-import project.utils.UserJson;
-
+import project.utils.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Path("/projects")
 public class Projects {
@@ -52,11 +26,14 @@ public class Projects {
 		System.out.println(lst);
 		List<ProjectJson> list = new ArrayList<ProjectJson>();
 		for(Project p: lst) {
-			list.add(new ProjectJson(p));
+			ProjectJson pr = new ProjectJson(p);
+			if(usr.getIsAdmin().contains(p)) {
+				pr.setIsAdmin(true);
+			}
+			list.add(pr);
 		}
 
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
-
 	}
 	
 	@POST
@@ -73,6 +50,8 @@ public class Projects {
 		db.newProject(usr, pr);
 		return Response.ok().build();
 	}
+	
+	
 	
 	@Path("{id}")
 	@DELETE
@@ -108,7 +87,6 @@ public class Projects {
 		System.out.println(usr.getProjects().size());
 		System.out.println(db.getProject(Integer.parseInt(id)).getProjectid());
 		if(!usr.getProjects().contains(db.getProject(Integer.parseInt(id)))) {
-			System.out.println("dupa");
 			return Response.status(Response.Status.FORBIDDEN).build();
 		}
         Project pr = db.getProject(Integer.parseInt(id));
@@ -126,7 +104,6 @@ public class Projects {
 	
 	@Path("{id}/users")
 	@POST
-	@Produces({MediaType.APPLICATION_JSON})
 	public Response addUser(@Context  HttpHeaders headers, @PathParam("id") String id, User usr) {
 		User user = null;
 		try {
@@ -141,6 +118,50 @@ public class Projects {
 		}
         Project pr = db.getProject(Integer.parseInt(id));
         db.addUserToProject(pr, usr);
+		return Response.ok().build();
+	}
+	
+	@Path("{id}/admins")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getAdmins(@Context  HttpHeaders headers, @PathParam("id") String id) {
+		User usr = null;
+		try {
+			usr = HeaderValidator.validate(headers);
+		}
+		catch(HeaderException e) {
+			return e.getResponse();
+		}
+		Database db = new Database();
+
+        Project pr = db.getProject(Integer.parseInt(id));
+        List<User> lst = pr.getAdmins();
+        List<UserJson> l = new ArrayList<UserJson>();
+        if(lst.size() > 0) {
+        	usr = lst.get(0);//just to instantiate list due to jpa lazy binding
+        }
+        for(User u : lst) {
+        	l.add(new UserJson(u));
+        }
+		return Response.ok(l, MediaType.APPLICATION_JSON).build();
+	}
+	
+	@Path("{id}/admins")
+	@POST
+	public Response addAdmin(@Context  HttpHeaders headers, @PathParam("id") String id, User usr) {
+		User user = null;
+		try {
+			user = HeaderValidator.validate(headers);
+		}
+		catch(HeaderException e) {
+			return e.getResponse();
+		}
+		Database db = new Database();
+		if(!user.getIsAdmin().contains(db.getProject(Integer.parseInt(id)))) {
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
+        Project pr = db.getProject(Integer.parseInt(id));
+        db.addAdminToProject(pr, usr);
 		return Response.ok().build();
 	}
 	
@@ -168,7 +189,7 @@ public class Projects {
     	return Response.ok().header("Access-Control-Allow-Origin", "*")
     			.header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, DELETE, OPTIONS")
     			.header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, Authorization").build(); 
-    	}
+	}
 	
 	@Path("{id}")
 	@OPTIONS
@@ -176,5 +197,5 @@ public class Projects {
     	return Response.ok().header("Access-Control-Allow-Origin", "*")
     			.header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, DELETE, OPTIONS")
     			.header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, Authorization").build(); 
-    	}
+	}
 }

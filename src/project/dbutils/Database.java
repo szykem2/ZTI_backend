@@ -1,8 +1,6 @@
 package project.dbutils;
 
 import project.models.*;
-import project.utils.UserJson;
-
 import java.util.*;
 
 public class Database {
@@ -113,5 +111,58 @@ public class Database {
 		u.getProjects().add(pr);
 		connection.updateProject(pr);
 		connection.updateUser(u);
+	}
+
+	public void newRequestor(User usr, int id) {
+		Project pr = connection.getProject(id);
+		pr.getRequestors().add(usr);
+		usr.getRequests().add(pr);
+		connection.updateProject(pr);
+		connection.updateUser(usr);
+	}
+
+	public List<User> getRequested(User usr, int id) {
+		Project pr = connection.getProject(id);
+		return pr.getRequestors();
+	}
+
+	public void denyAccess(User usr, int project) {
+		Project pr = connection.getProject(project);
+		pr.getRequestors().remove(usr);
+		usr.getRequests().remove(pr);
+		System.out.println("denying");
+		connection.updateProject(pr);
+		connection.updateUser(usr);
+	}
+
+	public void acceptRequest(int project, int user) {
+		Project pr = connection.getProject(project);
+		User usr = connection.getUser(user);
+		pr.getRequestors().remove(usr);
+		pr.getUsers().add(usr);
+		usr.getRequests().remove(pr);
+		usr.getProjects().add(pr);
+		connection.updateProject(pr);
+		connection.updateUser(usr);
+	}
+
+	public List<Itemstatus> getStatuses() {
+		return connection.getStatuses();
+	}
+
+	public List<Itemtype> getTypes() {
+		return connection.getTypes();
+	}
+
+	public void addAdminToProject(Project pr, User usr) {
+		User u = connection.getUser(usr.getLogin());
+		pr.getUsers().add(u);
+		u.getProjects().add(pr);
+		connection.updateProject(pr);
+		connection.updateUser(u);
+	}
+
+	public List<Project> getProjects() {
+		return connection.getProjects();
 	}
 }

@@ -1,18 +1,9 @@
 package project;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
+import javax.ws.rs.core.*;
 import project.dbutils.*;
 import project.models.*;
-import project.utils.HeaderException;
-import project.utils.HeaderValidator;
-import project.utils.Token;
-import project.utils.UserJson;
-
+import project.utils.*;
 import java.util.*;
 
 @Path("/users")

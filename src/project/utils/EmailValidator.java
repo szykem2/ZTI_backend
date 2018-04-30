@@ -2,7 +2,6 @@ package project.utils;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
-
 import javax.json.Json;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;

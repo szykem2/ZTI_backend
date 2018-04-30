@@ -28,6 +28,7 @@ public class User implements Serializable {
 	private List<Item> isApprover;
 	private List<Project> projects;
 	private List<Project> isAdmin;
+	private List<Project> requests;
 
 	public User() {
 	}
@@ -174,6 +175,25 @@ public class User implements Serializable {
 
 	public void setIsAdmin(List<Project> isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	@ManyToMany
+	@JoinTable(
+		name="REQUESTS"
+		, joinColumns={
+			@JoinColumn(name="USERID")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="PROJECTID")
+			}
+		)
+	public List<Project> getRequests() {
+		return requests;
+	}
+
+
+	public void setRequests(List<Project> requests) {
+		this.requests = requests;
 	}
 
 	@Override
