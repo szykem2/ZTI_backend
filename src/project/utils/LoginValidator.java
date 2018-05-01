@@ -22,9 +22,11 @@ public class LoginValidator extends Application {
 		String lgn = Json.createReader(new ByteArrayInputStream(login.getBytes(StandardCharsets.UTF_8))).readObject().getString("login");
 		Database db = new Database();
 		if (db.validateLogin(lgn)) {
+			db.closeConnection();
 			return Response.ok().build();
 		}
 		else {
+			db.closeConnection();
 			return Response.status(Response.Status.CONFLICT).build();
 		}
 	}

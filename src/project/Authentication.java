@@ -62,15 +62,15 @@ public class Authentication extends Application {
 		catch(HeaderException e) {
 			return e.getResponse();
 		}
-        Database data = new Database();
-        List<User> lst = data.getUsers();
+        Database db = new Database();
+        List<User> lst = db.getUsers();
         System.out.println(lst.size());
         usr = lst.get(0);//just to instantiate the list due to jpa lazy binding
         List<UserJson> l = new ArrayList<UserJson>();
         for(User u : lst) {
         	l.add(new UserJson(u));
         }
-        data.closeConnection();
+        db.closeConnection();
 		return Response.ok(l, MediaType.APPLICATION_JSON).build();
     }
 	

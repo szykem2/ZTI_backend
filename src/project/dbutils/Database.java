@@ -129,6 +129,7 @@ public class Database {
         if(usr.getIsAdmin().contains(pr)) {
         	usr.getIsAdmin().remove(pr);
         }
+        System.out.println("deleting");
         usr.getProjects().remove(pr);
         connection.begin();
         connection.updateUser(usr);
@@ -194,8 +195,8 @@ public class Database {
 
 	public void addAdminToProject(Project pr, User usr) {
 		User u = connection.getUser(usr.getLogin());
-		pr.getUsers().add(u);
-		u.getProjects().add(pr);
+		pr.getAdmins().add(u);
+		u.getIsAdmin().add(pr);
 		connection.begin();
 		connection.updateProject(pr);
 		connection.updateUser(u);
