@@ -37,6 +37,7 @@ public class Requests {
 		}
 		Database db = new Database();
 		db.newRequestor(usr, Integer.parseInt(id));
+		db.closeConnection();
 		return Response.ok().build();
 	}
 	
@@ -56,10 +57,10 @@ public class Requests {
         if(lst.size() > 0) {
         	usr = lst.get(0);//just to instantiate list due to jpa lazy binding
         }
-        System.out.println(lst);
         for(User u : lst) {
         	l.add(new UserJson(u));
         }
+        db.closeConnection();
 		return Response.ok(l, MediaType.APPLICATION_JSON).build();
 	}
 	
@@ -85,6 +86,7 @@ public class Requests {
         		l.add(new ProjectJson(pr));
         	}
         }
+        db.closeConnection();
 		return Response.ok(l, MediaType.APPLICATION_JSON).build();
 	}
 	
@@ -100,6 +102,7 @@ public class Requests {
 		}
 		Database db = new Database();
 		db.acceptRequest(Integer.parseInt(id), Integer.parseInt(userid));
+		db.closeConnection();
 		return Response.ok().build();
 	}
 	
@@ -116,6 +119,7 @@ public class Requests {
 		Database db = new Database();
 		System.out.println("deleteRequest");
 		db.denyAccess(db.getUser(Integer.parseInt(userid)), Integer.parseInt(id));
+		db.closeConnection();
 		return Response.ok().build();
 	}
 	

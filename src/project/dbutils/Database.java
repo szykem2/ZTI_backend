@@ -10,6 +10,10 @@ public class Database {
 		connection = new JPAConnection();
 	}
 	
+	public void closeConnection() {
+		connection.closeConnection();
+	}
+	
 	public List<User> getUsers() {
 		return connection.getUserList();
 	}
@@ -43,13 +47,21 @@ public class Database {
 	}
 	
 	public void newComment(Comment cmt) {
+		cmt.getUser().getComments().add(cmt);
+		cmt.getItem().getComments().add(cmt);
+		connection.begin();
 		connection.newComment(cmt);
+		connection.updateUser(cmt.getUser());
+		connection.updateItem(cmt.getItem());
+		connection.commit();
 	}
 	
 	public void newItem(Item it) {
+		connection.begin();
 		connection.newItem(it);
 		it.getProject().getItems().add(it);
 		connection.updateProject(it.getProject());
+		connection.commit();
 	}
 	
 	public void updateItem(Item it) {
@@ -57,12 +69,23 @@ public class Database {
 	}
 	
 	public void removeItem(int id) {
+		connection.begin();
 		Item it = connection.getItem(id);
 		if(it != null) {
+			it.getProject().getItems().remove(it);
 			it.getApprover().getIsApprover().remove(it);
+			it.getItemstatus().getItems().remove(it);
+			it.getItemtype().getItems().remove(it);
 			it.getOwner().getIsOwner().remove(it);
+			//TODO: add handling nulls: owner, approver
+			connection.updateProject(it.getProject());
+			connection.updateUser(it.getOwner());
+			connection.updateUser(it.getApprover());
+			connection.updateStatus(it.getItemstatus());
+			connection.updateType(it.getItemtype());
 			connection.removeItem(it);
 		}
+		connection.commit();
 	}
 	
 	public void newProject(User issuer, Project pr) {
@@ -72,14 +95,17 @@ public class Database {
 		lst.add(issuer);
 		pr.setAdmins(lst);
 		pr.setUsers(lst);
+		connection.begin();
 		connection.updateUser(issuer);
 		connection.newProject(pr);
+		connection.commit();
 	}
 	
 	public void removeProject(int id) {
 		Project pr = connection.getProject(id);
 		
 		if(pr != null) {
+			connection.begin();
 			for(User a : pr.getAdmins()) {
 				a.getIsAdmin().remove(pr);
 				connection.updateUser(a);
@@ -89,6 +115,7 @@ public class Database {
 				connection.updateUser(a);
 			}
 			connection.removeProject(pr);
+			connection.commit();
 		}
 	}
 
@@ -103,24 +130,30 @@ public class Database {
         	usr.getIsAdmin().remove(pr);
         }
         usr.getProjects().remove(pr);
+        connection.begin();
         connection.updateUser(usr);
         connection.updateProject(pr);
+        connection.commit();
 	}
 
 	public void addUserToProject(Project pr, User usr) {
 		User u = connection.getUser(usr.getLogin());
 		pr.getUsers().add(u);
 		u.getProjects().add(pr);
+		connection.begin();
 		connection.updateProject(pr);
 		connection.updateUser(u);
+		connection.commit();
 	}
 
 	public void newRequestor(User usr, int id) {
 		Project pr = connection.getProject(id);
 		pr.getRequestors().add(usr);
 		usr.getRequests().add(pr);
+		connection.begin();
 		connection.updateProject(pr);
 		connection.updateUser(usr);
+		connection.commit();
 	}
 
 	public List<User> getRequested(User usr, int id) {
@@ -132,9 +165,10 @@ public class Database {
 		Project pr = connection.getProject(project);
 		pr.getRequestors().remove(usr);
 		usr.getRequests().remove(pr);
-		System.out.println("denying");
+		connection.begin();
 		connection.updateProject(pr);
 		connection.updateUser(usr);
+		connection.commit();
 	}
 
 	public void acceptRequest(int project, int user) {
@@ -144,8 +178,10 @@ public class Database {
 		pr.getUsers().add(usr);
 		usr.getRequests().remove(pr);
 		usr.getProjects().add(pr);
+		connection.begin();
 		connection.updateProject(pr);
 		connection.updateUser(usr);
+		connection.commit();
 	}
 
 	public List<Itemstatus> getStatuses() {
@@ -160,8 +196,10 @@ public class Database {
 		User u = connection.getUser(usr.getLogin());
 		pr.getUsers().add(u);
 		u.getProjects().add(pr);
+		connection.begin();
 		connection.updateProject(pr);
 		connection.updateUser(u);
+		connection.commit();
 	}
 
 	public List<Project> getProjects() {

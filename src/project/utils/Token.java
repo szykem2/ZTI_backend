@@ -64,6 +64,7 @@ public class Token implements Serializable{
 		}
 		Database db = new Database();
 		User usr = db.getUser(Integer.parseInt(claims.getId()));
+		db.closeConnection();
 		if(usr != null && usr.getLogin().equals(claims.getIssuer()) && usr.getEmail().equals(claims.getSubject())) {
 			if(claims.getExpiration().getTime() < System.currentTimeMillis()) {
 				throw new TokenException("Token Expired");

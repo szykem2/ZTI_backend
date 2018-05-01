@@ -2,6 +2,9 @@ package project;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+
+import com.ibm.db2.jcc.t2zos.db;
+
 import project.dbutils.Database;
 import project.models.*;
 import project.utils.*;
@@ -32,7 +35,6 @@ public class Projects {
 			}
 			list.add(pr);
 		}
-
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
 	}
 	
@@ -48,6 +50,7 @@ public class Projects {
 		}
 		Database db = new Database();
 		db.newProject(usr, pr);
+		db.closeConnection();
 		return Response.ok().build();
 	}
 	
@@ -68,6 +71,7 @@ public class Projects {
 			return Response.status(Response.Status.FORBIDDEN).build();
 		}
 		db.removeProject(Integer.parseInt(id));
+		db.closeConnection();
 		return Response.ok().build();
 	}
 	
@@ -99,6 +103,7 @@ public class Projects {
         for(User u : lst) {
         	l.add(new UserJson(u));
         }
+        db.closeConnection();
 		return Response.ok(l, MediaType.APPLICATION_JSON).build();
 	}
 	
@@ -118,6 +123,7 @@ public class Projects {
 		}
         Project pr = db.getProject(Integer.parseInt(id));
         db.addUserToProject(pr, usr);
+        db.closeConnection();
 		return Response.ok().build();
 	}
 	
@@ -143,6 +149,7 @@ public class Projects {
         for(User u : lst) {
         	l.add(new UserJson(u));
         }
+        db.closeConnection();
 		return Response.ok(l, MediaType.APPLICATION_JSON).build();
 	}
 	
@@ -162,6 +169,7 @@ public class Projects {
 		}
         Project pr = db.getProject(Integer.parseInt(id));
         db.addAdminToProject(pr, usr);
+        db.closeConnection();
 		return Response.ok().build();
 	}
 	
@@ -181,6 +189,7 @@ public class Projects {
 			return Response.status(Response.Status.FORBIDDEN).build();
 		}
 		db.removeUserFromProject(Integer.parseInt(id), Integer.parseInt(userid));
+		db.closeConnection();
 		return Response.ok().build();
 	}
 	

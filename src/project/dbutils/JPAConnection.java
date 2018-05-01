@@ -12,11 +12,26 @@ class JPAConnection {
 	private EntityManagerFactory managerFactory;
     private EntityManager entityManager;
     private EntityTransaction entityTransaction;
+    private boolean isWithinTransaction = false;
  
     public JPAConnection() {
         managerFactory = Persistence.createEntityManagerFactory("PU_DB2");
         entityManager = managerFactory.createEntityManager();
         entityTransaction = entityManager.getTransaction(); 
+    }
+    
+    public void begin() {
+    	entityTransaction.begin();
+    	isWithinTransaction = true;
+    }
+    
+    public void commit() {
+    	entityTransaction.commit();
+    	isWithinTransaction = false;
+    }
+    
+    public void closeConnection() {
+    	entityManager.close();
     }
  
     @SuppressWarnings("unchecked")
@@ -97,10 +112,16 @@ class JPAConnection {
 	}
 
 	public void newUser(User usr) {
-		entityTransaction.begin();
-		entityManager.persist(usr);
-	    entityManager.flush();
-		entityTransaction.commit();
+		if(!isWithinTransaction) {
+			entityTransaction.begin();
+			entityManager.persist(usr);
+		    entityManager.flush();
+			entityTransaction.commit();
+		}
+		else {
+			entityManager.persist(usr);
+		    entityManager.flush();
+		}
 	}
 
 	public Item getItem(int id) {
@@ -115,62 +136,106 @@ class JPAConnection {
 	}
 	
 	public void newComment(Comment cmt) {
-		entityTransaction.begin();
-		entityManager.persist(cmt);
-	    entityManager.flush();
-		entityTransaction.commit();
+		if(!isWithinTransaction) {
+			entityTransaction.begin();
+			entityManager.persist(cmt);
+		    entityManager.flush();
+			entityTransaction.commit();
+		}
+		else {
+			entityManager.persist(cmt);
+		    entityManager.flush();
+		}
 	}
 	
 	public void newItem(Item it) {
-		entityTransaction.begin();
-		entityManager.persist(it);
-	    entityManager.flush();
-		entityTransaction.commit();
+		if(!isWithinTransaction) {
+			entityTransaction.begin();
+			entityManager.persist(it);
+		    entityManager.flush();
+			entityTransaction.commit();
+		}
+		else {
+			entityManager.persist(it);
+		    entityManager.flush();
+		}
 	}
 	
 	public void updateItem(Item it) {
-		entityTransaction.begin();
-	    entityManager.merge(it);
-	    entityTransaction.commit();
+		if(!isWithinTransaction) {
+			entityTransaction.begin();
+		    entityManager.merge(it);
+		    entityTransaction.commit();
+		}
+		else {
+			entityManager.merge(it);
+		}
 	}
 	
 	public void removeItem(Item it) {
-		System.out.println("Delete item - " + it.getTitle() + " ID: " + it.getItemid());
-	    entityTransaction.begin();
-	    entityManager.remove(it);
-	    entityManager.flush();
-	    entityTransaction.commit();
+		if(!isWithinTransaction) {
+			entityTransaction.begin();
+		    entityManager.remove(it);
+		    entityManager.flush();
+		    entityTransaction.commit();
+		}
+		else {
+			entityManager.remove(it);
+		    entityManager.flush();
+		}
 	}
 	
 	public void newProject(Project pr) {
-		entityTransaction.begin();
-		entityManager.persist(pr);
-	    entityManager.flush();
-		entityTransaction.commit();
+		if(!isWithinTransaction) {
+			entityTransaction.begin();
+			entityManager.persist(pr);
+		    entityManager.flush();
+			entityTransaction.commit();
+		}
+		else {
+			entityManager.persist(pr);
+		    entityManager.flush();
+		}
 	}
 	
 	public void removeProject(Project pr) {
-		System.out.println("Delete project - " + pr.getName() + " ID: " + pr.getProjectid());
-        pr.getAdmins().clear();
+		pr.getAdmins().clear();
         pr.getItems().clear();
         pr.getUsers().clear();
-	    entityTransaction.begin();
-	    entityManager.merge(pr);
-	    entityManager.remove(pr);
-	    entityManager.flush();
-	    entityTransaction.commit();
+		if(!isWithinTransaction) {
+		    entityTransaction.begin();
+		    entityManager.merge(pr);
+		    entityManager.remove(pr);
+		    entityManager.flush();
+		    entityTransaction.commit();
+		}
+		else {
+			entityManager.merge(pr);
+		    entityManager.remove(pr);
+		    entityManager.flush();
+		}
 	}
 
 	public void updateUser(User issuer) {
-		entityTransaction.begin();
-	    entityManager.merge(issuer);
-	    entityTransaction.commit();
+		if(!isWithinTransaction) {
+			entityTransaction.begin();
+		    entityManager.merge(issuer);
+		    entityTransaction.commit();
+		}
+		else {
+			entityManager.merge(issuer);
+		}
 	}
 
 	public void updateProject(Project pr) {
-		entityTransaction.begin();
-	    entityManager.merge(pr);
-	    entityTransaction.commit();
+		if(!isWithinTransaction) {
+			entityTransaction.begin();
+		    entityManager.merge(pr);
+		    entityTransaction.commit();
+		}
+		else {
+			entityManager.merge(pr);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -218,5 +283,27 @@ class JPAConnection {
             System.out.println("Failed !!! " + e.getMessage());
         }
         return pr;
+	}
+	
+	public void updateStatus(Itemstatus itemstatus) {
+		if(!isWithinTransaction) {
+			entityTransaction.begin();
+		    entityManager.merge(itemstatus);
+		    entityTransaction.commit();
+		}
+		else {
+			entityManager.merge(itemstatus);
+		}
+	}
+
+	public void updateType(Itemtype itemtype) {
+		if(!isWithinTransaction) {
+			entityTransaction.begin();
+		    entityManager.merge(itemtype);
+		    entityTransaction.commit();
+		}
+		else {
+			entityManager.merge(itemtype);
+		}
 	}
 }

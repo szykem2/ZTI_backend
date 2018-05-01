@@ -25,6 +25,9 @@ import project.utils.ItemstatusJson;
 import project.utils.ItemtypeJson;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Path("/items")
@@ -54,6 +57,7 @@ public class Items {
 		for(Item it: lst) {
 			list.add(new ItemJson(it));
 		}
+		db.closeConnection();
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
 	}
 	
@@ -61,9 +65,7 @@ public class Items {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response getStatuses() {
-
 		Database db = new Database();
-
 		List<Itemstatus> lst = db.getStatuses();
 		System.out.println("List: " + lst.size());
 		if(lst.size() > 0) {
@@ -73,6 +75,7 @@ public class Items {
 		for(Itemstatus it: lst) {
 			list.add(new ItemstatusJson(it));
 		}
+		db.closeConnection();
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
 	}
 	
@@ -80,9 +83,7 @@ public class Items {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response getTypes() {
-
 		Database db = new Database();
-
 		List<Itemtype> lst = db.getTypes();
 		System.out.println("List: " + lst.size());
 		if(lst.size() > 0) {
@@ -92,6 +93,7 @@ public class Items {
 		for(Itemtype it: lst) {
 			list.add(new ItemtypeJson(it));
 		}
+		db.closeConnection();
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
 	}
 	
@@ -118,20 +120,21 @@ public class Items {
 		item.setCreationdate(Timestamp.valueOf(obj.getString("creationDate")));
 		item.setDescription(obj.getString("description"));
 		item.setItemstatus(db.getStatus(1));
-		item.setItemtype(db.getType(obj.getInt("type")));
+		item.setItemtype(db.getType(obj.getInt("itemType")));
 		item.setOwner(db.getUser(obj.getInt("owner")));
 		item.setProject(pr);
 		item.setResolutiondate(null);
 		item.setResolved(false);
 		item.setTitle(obj.getString("title"));
 		db.newItem(item);
+		db.closeConnection();
 		return Response.ok().build();
 	}
 	
 	@Path("{id}")
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response updateItem(@Context  HttpHeaders headers, @PathParam("id") String itemid, Item it) {
+	public Response updateItem(@Context  HttpHeaders headers, @PathParam("id") String itemid, String it) {
 		User usr = null;
 		try {
 			usr = HeaderValidator.validate(headers);
@@ -140,11 +143,22 @@ public class Items {
 			return e.getResponse();
 		}
 		Database db = new Database();
-		if(!usr.getProjects().contains(it.getProject())) {
+		JSONObject obj = new JSONObject(it);
+		if(!usr.getProjects().contains(db.getProject(obj.getInt("projectid")))) {
 			return Response.status(Response.Status.FORBIDDEN).build();
 		}
-		it.setItemid(Integer.parseInt(itemid));
-		db.updateItem(it);
+		Item item = db.getItem(Integer.parseInt(itemid));
+		item.setApprover(db.getUser(obj.getInt("approver")));
+		item.setCreationdate(Timestamp.valueOf(obj.getString("creationdate")));
+		item.setDescription(obj.getString("description"));
+		item.setItemstatus(db.getStatus(1));
+		item.setItemtype(db.getType(obj.getInt("itemtype")));
+		item.setItemstatus(db.getStatus(obj.getInt("itemstatus")));
+		item.setOwner(db.getUser(obj.getInt("owner")));
+		item.setResolutiondate(Timestamp.valueOf(obj.getString("resolutiondate")));
+		item.setTitle(obj.getString("title"));
+		db.updateItem(item);
+		db.closeConnection();
 		return Response.ok().build();
 	}
 	
@@ -163,6 +177,7 @@ public class Items {
 			return Response.status(Response.Status.FORBIDDEN).build();
 		}
 		db.removeItem(Integer.parseInt(id));
+		db.closeConnection();
 		return Response.ok().build();
 	}
 	
@@ -190,7 +205,38 @@ public class Items {
 		for(Comment cmt: lst) {
 			list.add(new CommentJson(cmt));
 		}
+		db.closeConnection();
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
+	}
+	
+	@Path("{id}/comments")
+	@POST
+	public Response newComment(@Context  HttpHeaders headers, @PathParam("id") String id, String it) {
+		User usr = null;
+		try {
+			usr = HeaderValidator.validate(headers);
+		}
+		catch(HeaderException e) {
+			return e.getResponse();
+		}
+		Database db = new Database();
+		JSONObject obj = new JSONObject(it);
+		Comment cmt = new Comment();
+		cmt.setContent(obj.getString("content"));
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+		Date date = null;
+		try {
+			date = format.parse(obj.getString("created"));
+		}
+		catch (ParseException e) {
+			
+		}
+		cmt.setCreated(date);
+		cmt.setUser(usr);
+		cmt.setItem(db.getItem(Integer.parseInt(id)));
+		db.newComment(cmt);
+		db.closeConnection();
+		return Response.ok().build();
 	}
 	
 	@OPTIONS
