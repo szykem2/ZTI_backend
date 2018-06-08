@@ -1,6 +1,7 @@
 package project.dbutils;
 
 import java.util.List;
+import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -8,6 +9,7 @@ import javax.persistence.Persistence;
  
 import project.models.*;
 
+@Singleton
 class JPAConnection {
 	private EntityManagerFactory managerFactory;
     private EntityManager entityManager;
@@ -31,7 +33,7 @@ class JPAConnection {
     }
     
     public void closeConnection() {
-    	entityManager.close();
+    	//entityManager.close();
     }
  
     @SuppressWarnings("unchecked")

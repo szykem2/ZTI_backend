@@ -7,24 +7,55 @@ import java.security.Key;
 import io.jsonwebtoken.*;
 import java.util.Date;
 import project.dbutils.Database;
+import project.exception.TokenException;
 import project.models.*;
 
+/**
+ * Klasa udostêpniaj¹ca interfejs do obs³ugi tokenów uwierzytelniaj¹cych
+ * @see Serializable
+ */
 public class Token implements Serializable{
 
+	/**
+	 * serial version UID
+	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Klucz aplikacji, u¿ywany do szyfrowania tokena
+	 */
 	private static final String apiKey = "74^ac0.#@!8bc?xf";
+	/**
+	 * czas ¿ycia tokena
+	 */
 	private static final int ttl = 3600000;
+	/**
+	 * token uwierzytelniaj¹cy
+	 */
 	private String token;
+	/**
+	 * algorytm szyfruj¹cy
+	 */
 	private static final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 	
+	/**
+	 * {@link Token#token}
+	 */
 	public String getToken() {
 		return token;
 	}
 	
+	/**
+	 * {@link Token#token}
+	 */
 	public void setToken(String token) {
 		this.token = token;
 	}
 	
+	/**
+	 * Metoda s³u¿¹ca do generowania tokena na podstawie danych u¿ytkownika.
+	 * @param user obiekt typu User zawieraj¹cy dane u¿ytkownika
+	 * @return token uwierzytelniaj¹cy
+	 */
 	public static Token generateToken(User user) {
 		Token ret = new Token();
 		long nowm = System.currentTimeMillis();
@@ -43,6 +74,12 @@ public class Token implements Serializable{
 		return ret;
 	}
 	
+	/**
+	 * Metoda wrapper s³u¿¹ca do dekodowania podanego tokena
+	 * @param tkn token uwierzytelniaj¹cy
+	 * @return obiekt typu user powsta³y z danych zakodowanych w tokenie
+	 * @throws TokenException gdy token jest b³êdny lub straci³ wa¿noœc
+	 */
 	public static User decodeToken(String tkn) throws TokenException {
 		Token token = new Token();
 		token.setToken(tkn);
@@ -50,6 +87,11 @@ public class Token implements Serializable{
 		return usr;
 	}
 	
+	/**
+	 * Metoda s³u¿¹ca do dekodowania podanego tokena
+	 * @return obiekt typu user powsta³y z danych zakodowanych w tokenie
+	 * @throws TokenException gdy token jest b³êdny lub straci³ wa¿noœc
+	 */
 	public User decodeToken() throws TokenException{
 		Claims claims = null;
 		try {

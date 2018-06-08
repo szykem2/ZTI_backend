@@ -1,11 +1,11 @@
-package project.utils;
+package project.dto;
 
 import project.models.Itemstatus;
 
-public class ItemstatusJson {
+public class ItemStatusDto {
 	private int statusid;
 	private String status;
-	public ItemstatusJson(Itemstatus itemstatus) {
+	public ItemStatusDto(Itemstatus itemstatus) {
 		this.setStatus(itemstatus.getStatus());
 		this.setStatusid(itemstatus.getStatusid());
 	}

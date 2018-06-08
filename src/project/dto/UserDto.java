@@ -1,15 +1,15 @@
-package project.utils;
+package project.dto;
 
 import java.io.Serializable;
 import project.models.User;
 
-public class UserJson implements Serializable{
+public class UserDto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String login;
 	private String email;
 	
-	public UserJson(User u) {
+	public UserDto(User u) {
 		this.setEmail(u.getEmail());
 		this.setId(u.getUserid());
 		this.setLogin(u.getLogin());

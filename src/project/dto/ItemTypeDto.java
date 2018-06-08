@@ -1,12 +1,12 @@
-package project.utils;
+package project.dto;
 
 import project.models.Itemtype;
 
-public class ItemtypeJson {
+public class ItemTypeDto {
 	private int typeid;
 	private String type;
 	
-	public ItemtypeJson(Itemtype itemtype) { 
+	public ItemTypeDto(Itemtype itemtype) { 
 		this.setType(itemtype.getType());
 		this.setTypeid(itemtype.getTypeid());
 	}

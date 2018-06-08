@@ -1,25 +1,25 @@
-package project.utils;
+package project.dto;
 
 import java.util.Date;
 import project.models.Comment;
 
-public class CommentJson {
+public class CommentDto {
 	private int commentid;
 	private String content;
 	private Date created;
-	private UserJson user;
+	private UserDto user;
 	
-	public CommentJson(Comment comment) {
+	public CommentDto(Comment comment) {
 		this.setCommentid(comment.getCommentid());
 		this.setContent(comment.getContent());
 		this.setCreated(new Date(comment.getCreated().getTime()));
-		this.setUser(new UserJson(comment.getUser()));
+		this.setUser(new UserDto(comment.getUser()));
 	}
 	
-	public UserJson getUser() {
+	public UserDto getUser() {
 		return user;
 	}
-	public void setUser(UserJson user) {
+	public void setUser(UserDto user) {
 		this.user = user;
 	}
 	public Date getCreated() {

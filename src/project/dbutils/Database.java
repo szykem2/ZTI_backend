@@ -4,10 +4,9 @@ import project.models.*;
 import java.util.*;
 
 public class Database {
-	private JPAConnection connection;
+	private static final JPAConnection connection = new JPAConnection();
 	
 	public Database() {
-		connection = new JPAConnection();
 	}
 	
 	public void closeConnection() {

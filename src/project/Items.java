@@ -16,27 +16,36 @@ import javax.ws.rs.core.Response;
 import org.json.JSONObject;
 
 import project.dbutils.Database;
+import project.dto.CommentDto;
+import project.dto.ItemDto;
+import project.dto.ItemStatusDto;
+import project.dto.ItemTypeDto;
+import project.exception.HeaderException;
 import project.models.*;
-import project.utils.CommentJson;
-import project.utils.HeaderException;
-import project.utils.HeaderValidator;
-import project.utils.ItemJson;
-import project.utils.ItemstatusJson;
-import project.utils.ItemtypeJson;
+import project.validators.HeaderValidator;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+/**
+ * Klasa udostêpniaj¹ca endpointy do obs³ugi elementów projektów
+ */
 @Path("/items")
 public class Items {
 
+	/**
+	 * Metoda s³u¿¹ca do pobierania elementów przypisanych do projektu o zadanym identyfikatorze.
+	 * @param headers header rz¹dania pobierany z kontekstu
+	 * @param projectid ID projektu, którego elementy maj¹ zostaæ przes³ane
+	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli nie uda³o siê  autoryzowaæ u¿ytkownika
+	 * @see Response
+	 */
 	@Path("{projectid}")
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getItems(@Context  HttpHeaders headers, @PathParam("projectid") String projectid) {
+	public Response getItems(@Context HttpHeaders headers, @PathParam("projectid") String projectid) {
 		User usr = null;
 		try {
 			usr = HeaderValidator.validate(headers);
@@ -53,14 +62,19 @@ public class Items {
 		if(lst.size() > 0) {
 			Item cmt = lst.get(0);
 		}
-		List<ItemJson> list = new ArrayList<ItemJson>();
+		List<ItemDto> list = new ArrayList<ItemDto>();
 		for(Item it: lst) {
-			list.add(new ItemJson(it));
+			list.add(new ItemDto(it));
 		}
 		db.closeConnection();
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
 	}
-	
+
+	/**
+	 * Metoda s³u¿¹ca do pobierania statusów, które mo¿na przypisaæ elementom.
+	 * @return odpowiedŸ serwera HTML status code 200 OK
+	 * @see Response
+	 */
 	@Path("itemstatus")
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
@@ -71,14 +85,19 @@ public class Items {
 		if(lst.size() > 0) {
 			Itemstatus cmt = lst.get(0);
 		}
-		List<ItemstatusJson> list = new ArrayList<ItemstatusJson>();
+		List<ItemStatusDto> list = new ArrayList<ItemStatusDto>();
 		for(Itemstatus it: lst) {
-			list.add(new ItemstatusJson(it));
+			list.add(new ItemStatusDto(it));
 		}
 		db.closeConnection();
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
 	}
-	
+
+	/**
+	 * Metoda s³u¿¹ca do pobierania typów, które mo¿na przypisaæ elementom.
+	 * @return odpowiedŸ serwera HTML status code 200 OK
+	 * @see Response
+	 */
 	@Path("itemtypes")
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
@@ -89,17 +108,24 @@ public class Items {
 		if(lst.size() > 0) {
 			Itemtype cmt = lst.get(0);
 		}
-		List<ItemtypeJson> list = new ArrayList<ItemtypeJson>();
+		List<ItemTypeDto> list = new ArrayList<ItemTypeDto>();
 		for(Itemtype it: lst) {
-			list.add(new ItemtypeJson(it));
+			list.add(new ItemTypeDto(it));
 		}
 		db.closeConnection();
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
 	}
-	
+
+	/**
+	 * Metoda s³u¿¹ca do dodawania nowego elementu do projektu.
+	 * @param headers header rz¹dania pobierany z kontekstu
+	 * @param it obiekt JSON, który przechowuje sk³adowe elementu
+	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli u¿ytkownik nie jest autoryzowany do zadanego projektu
+	 * @see Response
+	 */
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response newItem(@Context  HttpHeaders headers, String it) {
+	public Response newItem(@Context HttpHeaders headers, String it) {
 		User usr = null;
 		try {
 			usr = HeaderValidator.validate(headers);
@@ -120,7 +146,7 @@ public class Items {
 		item.setCreationdate(Timestamp.valueOf(obj.getString("creationDate")));
 		item.setDescription(obj.getString("description"));
 		item.setItemstatus(db.getStatus(1));
-		item.setItemtype(db.getType(obj.getInt("itemType")));
+		item.setItemtype(db.getType(obj.getInt("type")));
 		item.setOwner(db.getUser(obj.getInt("owner")));
 		item.setProject(pr);
 		item.setResolutiondate(null);
@@ -130,11 +156,19 @@ public class Items {
 		db.closeConnection();
 		return Response.ok().build();
 	}
-	
+
+	/**
+	 * Metoda s³u¿¹ca do aktualizowania elementu.
+	 * @param headers header rz¹dania pobierany z kontekstu
+	 * @param itemid ID elementu, który ma zostaæ zaktualizowany
+	 * @param it obiekt JSON, który przechowuje sk³adowe elementu
+	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli u¿ytkownik nie jest autoryzowany do zadanego projektu
+	 * @see Response
+	 */
 	@Path("{id}")
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response updateItem(@Context  HttpHeaders headers, @PathParam("id") String itemid, String it) {
+	public Response updateItem(@Context HttpHeaders headers, @PathParam("id") String itemid, String it) {
 		User usr = null;
 		try {
 			usr = HeaderValidator.validate(headers);
@@ -155,16 +189,28 @@ public class Items {
 		item.setItemtype(db.getType(obj.getInt("itemtype")));
 		item.setItemstatus(db.getStatus(obj.getInt("itemstatus")));
 		item.setOwner(db.getUser(obj.getInt("owner")));
-		item.setResolutiondate(Timestamp.valueOf(obj.getString("resolutiondate")));
+		String date = obj.optString("resolutiondate");
+		if (date.equals("")) {
+			item.setResolutiondate(null);
+		}
+		else {
+			item.setResolutiondate(Timestamp.valueOf(date));
+		}
 		item.setTitle(obj.getString("title"));
 		db.updateItem(item);
 		db.closeConnection();
 		return Response.ok().build();
 	}
-	
+	/**
+	 * Metoda s³u¿¹ca do dodawania nowego elementu do projektu.
+	 * @param headers header rz¹dania pobierany z kontekstu
+	 * @param id ID elementu, który ma zostaæ usuniêty
+	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli u¿ytkownik nie jest autoryzowany do zadanego projektu
+	 * @see Response
+	 */
 	@Path("{id}")
 	@DELETE
-	public Response deleteItem(@Context  HttpHeaders headers, @PathParam("id") String id) {
+	public Response deleteItem(@Context HttpHeaders headers, @PathParam("id") String id) {
 		User usr = null;
 		try {
 			usr = HeaderValidator.validate(headers);
@@ -181,9 +227,16 @@ public class Items {
 		return Response.ok().build();
 	}
 	
+	/**
+	 * Metoda s³u¿¹ca do pobierania komentarzy przypisanych do elementu o zadanym identyfikatorze.
+	 * @param headers header rz¹dania pobierany z kontekstu
+	 * @param projectid ID elementu, którego komentarze maj¹ zostaæ przes³ane
+	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli nie uda³o siê  autoryzowaæ u¿ytkownika
+	 * @see Response
+	 */
 	@Path("{id}/comments")
 	@GET
-	public Response getComments(@Context  HttpHeaders headers, @PathParam("id") String id) {
+	public Response getComments(@Context HttpHeaders headers, @PathParam("id") String id) {
 		User usr = null;
 		try {
 			usr = HeaderValidator.validate(headers);
@@ -201,17 +254,25 @@ public class Items {
 		if(lst.size() > 0) {
 			Comment cmt = lst.get(0);
 		}
-		List<CommentJson> list = new ArrayList<CommentJson>();
+		List<CommentDto> list = new ArrayList<CommentDto>();
 		for(Comment cmt: lst) {
-			list.add(new CommentJson(cmt));
+			list.add(new CommentDto(cmt));
 		}
 		db.closeConnection();
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
 	}
 	
+	/**
+	 * Metoda s³u¿¹ca do dodawania komentarza do elementu o zadanym identyfikatorze.
+	 * @param headers header rz¹dania pobierany z kontekstu
+	 * @param projectid ID projektu, do którego ma zostaæ przypisany komentarz
+	 * @param it treœæ komentarza
+	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
+	 * @see Response
+	 */
 	@Path("{id}/comments")
 	@POST
-	public Response newComment(@Context  HttpHeaders headers, @PathParam("id") String id, String it) {
+	public Response newComment(@Context HttpHeaders headers, @PathParam("id") String id, String it) {
 		User usr = null;
 		try {
 			usr = HeaderValidator.validate(headers);
@@ -239,6 +300,9 @@ public class Items {
 		return Response.ok().build();
 	}
 	
+	/**
+	 * Metoda s³u¿¹ca do obs³ugi rz¹dania typu OPTIONS dla endpointu /items.
+	 */
 	@OPTIONS
 	public Response getOptions() {
     	return Response.ok().header("Access-Control-Allow-Origin", "*")
@@ -246,6 +310,9 @@ public class Items {
     			.header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, Authorization").build(); 
     	}
 	
+	/**
+	 * Metoda s³u¿¹ca do obs³ugi rz¹dania typu OPTIONS dla endpointu /items/{id}.
+	 */
 	@Path("{id}")
 	@OPTIONS
 	public Response getOptionsl() {

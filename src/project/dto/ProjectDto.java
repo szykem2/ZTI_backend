@@ -1,9 +1,9 @@
-package project.utils;
+package project.dto;
 
 import java.io.Serializable;
 import project.models.Project;
 
-public class ProjectJson implements Serializable{
+public class ProjectDto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private int id;
@@ -11,7 +11,7 @@ public class ProjectJson implements Serializable{
 	private String title;
 	private boolean isAdmin;
 	
-	public ProjectJson(Project p) {
+	public ProjectDto(Project p) {
 		this.setId(p.getProjectid());
 		this.setDescription(p.getDescription());
 		this.setTitle(p.getName());
