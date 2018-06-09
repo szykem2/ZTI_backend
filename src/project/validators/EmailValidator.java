@@ -34,11 +34,9 @@ public class EmailValidator extends Application {
 		}
 		Database db = new Database();
 		if (db.validateEmail(em)) {
-			db.closeConnection();
 			return Response.ok().build();
 		}
 		else {
-			db.closeConnection();
 			return Response.status(Response.Status.CONFLICT).build();
 		}
 	}

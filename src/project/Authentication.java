@@ -30,7 +30,6 @@ public class Authentication extends Application {
 	public Response login(User usr) {
 		Database db = new Database();
 		User user = db.authorize(usr.getLogin(), usr.getPassword());
-		db.closeConnection();
 		if(user == null) {
 			return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid credentials").build();
 		}
@@ -50,7 +49,6 @@ public class Authentication extends Application {
 	public Response register(User usr) {
 		Database db = new Database();
 		db.newUser(usr);
-		db.closeConnection();
 		return Response.ok().build();
 	}
 	
@@ -74,7 +72,6 @@ public class Authentication extends Application {
 		}
 		Database db = new Database();
 		User us = db.getUser(Integer.parseInt(id));
-		db.closeConnection();
         return Response.ok(new UserDto(us), MediaType.APPLICATION_JSON).build();
     }
 
@@ -102,7 +99,6 @@ public class Authentication extends Application {
         for(User u : lst) {
         	l.add(new UserDto(u));
         }
-        db.closeConnection();
 		return Response.ok(l, MediaType.APPLICATION_JSON).build();
     }
 	

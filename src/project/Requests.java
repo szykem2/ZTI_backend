@@ -46,12 +46,11 @@ public class Requests {
 		}
 		Database db = new Database();
 		db.newRequestor(usr, Integer.parseInt(id));
-		db.closeConnection();
 		return Response.ok().build();
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do pobierania próœb o do³¹czenie do projektu.
+	 * Metoda s³u¿¹ca do pobierania proœby o do³¹czenie do projektu.
 	 * @param headers header rz¹dania pobierany z kontekstu
 	 * @param id ID projektu, o dostêp do którego sk³adana jest proœba
 	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
@@ -67,7 +66,6 @@ public class Requests {
 		catch(HeaderException e) {
 			return e.getResponse();
 		}
-		//TODO: check if user is admin of the project
 		Database db = new Database();
 		List<User> lst = db.getRequested(usr, Integer.parseInt(id));
 		List<UserDto> l = new ArrayList<UserDto>();
@@ -77,7 +75,6 @@ public class Requests {
         for(User u : lst) {
         	l.add(new UserDto(u));
         }
-        db.closeConnection();
 		return Response.ok(l, MediaType.APPLICATION_JSON).build();
 	}
 
@@ -108,7 +105,6 @@ public class Requests {
         		l.add(new ProjectDto(pr));
         	}
         }
-        db.closeConnection();
 		return Response.ok(l, MediaType.APPLICATION_JSON).build();
 	}
 
@@ -130,17 +126,18 @@ public class Requests {
 		catch(HeaderException e) {
 			return e.getResponse();
 		}
-		//TODO: check if user is admin
 		Database db = new Database();
-		db.acceptRequest(Integer.parseInt(id), Integer.parseInt(userid));
-		db.closeConnection();
+		if (usr.getIsAdmin().contains(db.getProject(Integer.parseInt(id)))) {
+			db.acceptRequest(Integer.parseInt(id), Integer.parseInt(userid));
+		}
 		return Response.ok().build();
 	}
 
 	/**
 	 * Metoda s³u¿¹ca do odrzucania proœby o do³¹czenie do projektu.
 	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID projektu, o dostêp do którego sk³adana jest proœba
+	 * @param id ID projektu, o dostêp do którego sk³adana proœba jest odrzucana
+	 * @param userid ID u¿ytkownika, o którego proœba jest odrzucana
 	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ lub autoryzowaæ u¿ytkownika
 	 * @see Response
 	 */
@@ -155,9 +152,9 @@ public class Requests {
 			return e.getResponse();
 		}
 		Database db = new Database();
-		//TODO: check if user is admin
-		db.denyAccess(db.getUser(Integer.parseInt(userid)), Integer.parseInt(id));
-		db.closeConnection();
+		if (usr.getIsAdmin().contains(db.getProject(Integer.parseInt(id)))) {
+			db.denyAccess(db.getUser(Integer.parseInt(userid)), Integer.parseInt(id));
+		}
 		return Response.ok().build();
 	}
 	

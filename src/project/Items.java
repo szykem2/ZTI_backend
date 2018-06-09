@@ -66,7 +66,6 @@ public class Items {
 		for(Item it: lst) {
 			list.add(new ItemDto(it));
 		}
-		db.closeConnection();
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
 	}
 
@@ -89,7 +88,6 @@ public class Items {
 		for(Itemstatus it: lst) {
 			list.add(new ItemStatusDto(it));
 		}
-		db.closeConnection();
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
 	}
 
@@ -112,7 +110,6 @@ public class Items {
 		for(Itemtype it: lst) {
 			list.add(new ItemTypeDto(it));
 		}
-		db.closeConnection();
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
 	}
 
@@ -142,18 +139,27 @@ public class Items {
 		Item item = new Item();
 		item.setApproved(false);
 		item.setComments(null);
-		item.setApprover(db.getUser(obj.getInt("approver")));
+		if(obj.getString("approver").equals("ua")) {
+			item.setOwner(null);
+		}
+		else {
+			item.setOwner(db.getUser(obj.getInt("approver")));
+		}
 		item.setCreationdate(Timestamp.valueOf(obj.getString("creationDate")));
 		item.setDescription(obj.getString("description"));
 		item.setItemstatus(db.getStatus(1));
 		item.setItemtype(db.getType(obj.getInt("type")));
-		item.setOwner(db.getUser(obj.getInt("owner")));
+		if(obj.getString("owner").equals("ua")) {
+			item.setOwner(null);
+		}
+		else {
+			item.setOwner(db.getUser(obj.getInt("owner")));
+		}
 		item.setProject(pr);
 		item.setResolutiondate(null);
 		item.setResolved(false);
 		item.setTitle(obj.getString("title"));
 		db.newItem(item);
-		db.closeConnection();
 		return Response.ok().build();
 	}
 
@@ -182,13 +188,41 @@ public class Items {
 			return Response.status(Response.Status.FORBIDDEN).build();
 		}
 		Item item = db.getItem(Integer.parseInt(itemid));
-		item.setApprover(db.getUser(obj.getInt("approver")));
+		String msg = usr.getLogin() + " made some changes:\n";
+		if((item.getApprover() == null && !obj.getString("approver").equals("ua")) || (!obj.getString("approver").equals("ua") && (item.getApprover().getUserid() != obj.getInt("approver")))) {
+			String lgn = "unassigned";
+			if(item.getApprover() != null) {
+				lgn = item.getApprover().getLogin();
+			}
+			msg += "Changed approver: " + lgn + " -> " + db.getUser(obj.getInt("approver")).getLogin() + "\n";
+			item.setApprover(db.getUser(obj.getInt("approver")));
+		}
 		item.setCreationdate(Timestamp.valueOf(obj.getString("creationdate")));
+		
+		if(!item.getDescription().equals(obj.getString("description"))) {
+			msg += "Changed description: " + item.getDescription() + " -> " + obj.getString("description") + "\n";
+		}
 		item.setDescription(obj.getString("description"));
-		item.setItemstatus(db.getStatus(1));
+		
+		if(item.getItemtype().getTypeid() != obj.getInt("itemtype")) {
+			msg += "Changed type: " + item.getItemtype().getType() + " -> " + db.getType(obj.getInt("itemtype")).getType() + "\n";
+		}
 		item.setItemtype(db.getType(obj.getInt("itemtype")));
+		
+		if(item.getItemstatus().getStatusid() != obj.getInt("itemstatus")) {
+			msg += "Changed type: " + item.getItemstatus().getStatus() + " -> " + db.getStatus(obj.getInt("itemstatus")).getStatus() + "\n";
+		}
 		item.setItemstatus(db.getStatus(obj.getInt("itemstatus")));
-		item.setOwner(db.getUser(obj.getInt("owner")));
+		
+		if((item.getOwner() == null && !obj.getString("owner").equals("ua")) || (!obj.getString("owner").equals("ua") && (item.getOwner().getUserid() != obj.getInt("owner")))) {
+			String lgn = "unassigned";
+			if(item.getOwner() != null) {
+				lgn = item.getOwner().getLogin();
+			}
+			msg += "Changed owner: " + lgn + " -> " + db.getUser(obj.getInt("owner")).getLogin() + "\n";
+			item.setOwner(db.getUser(obj.getInt("owner")));
+		}
+		
 		String date = obj.optString("resolutiondate");
 		if (date.equals("")) {
 			item.setResolutiondate(null);
@@ -198,7 +232,12 @@ public class Items {
 		}
 		item.setTitle(obj.getString("title"));
 		db.updateItem(item);
-		db.closeConnection();
+		Comment cmt = new Comment();
+		cmt.setContent(msg);
+		cmt.setCreated(new Date());
+		cmt.setItem(item);
+		cmt.setUser(usr);
+		db.newComment(cmt);
 		return Response.ok().build();
 	}
 	/**
@@ -223,14 +262,13 @@ public class Items {
 			return Response.status(Response.Status.FORBIDDEN).build();
 		}
 		db.removeItem(Integer.parseInt(id));
-		db.closeConnection();
 		return Response.ok().build();
 	}
 	
 	/**
 	 * Metoda s³u¿¹ca do pobierania komentarzy przypisanych do elementu o zadanym identyfikatorze.
 	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param projectid ID elementu, którego komentarze maj¹ zostaæ przes³ane
+	 * @param id ID elementu, którego komentarze maj¹ zostaæ przes³ane
 	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli nie uda³o siê  autoryzowaæ u¿ytkownika
 	 * @see Response
 	 */
@@ -258,14 +296,13 @@ public class Items {
 		for(Comment cmt: lst) {
 			list.add(new CommentDto(cmt));
 		}
-		db.closeConnection();
 		return Response.ok(list, MediaType.APPLICATION_JSON).build();
 	}
 	
 	/**
 	 * Metoda s³u¿¹ca do dodawania komentarza do elementu o zadanym identyfikatorze.
 	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param projectid ID projektu, do którego ma zostaæ przypisany komentarz
+	 * @param id ID elementu, do którego ma zostaæ przypisany komentarz
 	 * @param it treœæ komentarza
 	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
 	 * @see Response
@@ -296,7 +333,6 @@ public class Items {
 		cmt.setUser(usr);
 		cmt.setItem(db.getItem(Integer.parseInt(id)));
 		db.newComment(cmt);
-		db.closeConnection();
 		return Response.ok().build();
 	}
 	

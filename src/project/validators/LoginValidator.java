@@ -38,11 +38,9 @@ public class LoginValidator extends Application {
 		}
 		Database db = new Database();
 		if (db.validateLogin(lgn)) {
-			db.closeConnection();
 			return Response.ok().build();
 		}
 		else {
-			db.closeConnection();
 			return Response.status(Response.Status.CONFLICT).build();
 		}
 	}
@@ -54,6 +52,6 @@ public class LoginValidator extends Application {
 	 * @see Response
 	 */
 	private static boolean validate(String login) {
-		return true;
+		return login.length() > 30 || login.length() < 5;
 	}
 }
