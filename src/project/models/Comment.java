@@ -1,12 +1,9 @@
 package project.models;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+
 import javax.persistence.*;
-
-import project.dto.CommentDto;
-
-import java.util.Date;
-
 
 /**
  * Klasa trwa³oœci dla tabeli COMMENTS w bazie danych
@@ -32,9 +29,9 @@ public class Comment implements Serializable {
 	private String content;
 	
 	/**
-	 * Data utworzenia
+	 * Czas utworzenia
 	 */
-	private Date created;
+	private Timestamp created;
 	
 	/**
 	 * Element, do którego przypisany jest komentarz
@@ -82,15 +79,14 @@ public class Comment implements Serializable {
 	/**
 	 * {@link Comment#commentid}
 	 */
-	@Temporal(TemporalType.DATE)
-	public Date getCreated() {
+	public Timestamp getCreated() {
 		return this.created;
 	}
 
 	/**
 	 * {@link Comment#commentid}
 	 */
-	public void setCreated(Date created) {
+	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
 

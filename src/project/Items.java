@@ -102,7 +102,7 @@ public class Items {
 	public Response getTypes() {
 		Database db = new Database();
 		List<Itemtype> lst = db.getTypes();
-		System.out.println("List: " + lst.size());
+		lst.size();
 		if(lst.size() > 0) {
 			Itemtype cmt = lst.get(0);
 		}
@@ -234,7 +234,7 @@ public class Items {
 		db.updateItem(item);
 		Comment cmt = new Comment();
 		cmt.setContent(msg);
-		cmt.setCreated(new Date());
+		cmt.setCreated(new Timestamp(System.currentTimeMillis()));
 		cmt.setItem(item);
 		cmt.setUser(usr);
 		db.newComment(cmt);
@@ -288,7 +288,6 @@ public class Items {
 			return Response.status(Response.Status.FORBIDDEN).build();
 		}
 		List<Comment> lst = it.getComments();
-		System.out.println("List: " + lst.size());
 		if(lst.size() > 0) {
 			Comment cmt = lst.get(0);
 		}
@@ -319,16 +318,11 @@ public class Items {
 		}
 		Database db = new Database();
 		JSONObject obj = new JSONObject(it);
+		Timestamp date = null;
+		date = Timestamp.valueOf(obj.getString("created"));
+
 		Comment cmt = new Comment();
 		cmt.setContent(obj.getString("content"));
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-		Date date = null;
-		try {
-			date = format.parse(obj.getString("created"));
-		}
-		catch (ParseException e) {
-			
-		}
 		cmt.setCreated(date);
 		cmt.setUser(usr);
 		cmt.setItem(db.getItem(Integer.parseInt(id)));

@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{listing}
+\usepackage{float}
 
 \title{System zarządzania projektami\\Dokumentacja}
 \author{unknown}
@@ -13,8 +14,49 @@
 \maketitle
 
 \section{Wstęp}
-\section{Frontend}
-\section{Backend}
+\hspace{11pt} W ramach projektu wykonany został system zarządzania projektami inspirowany systemami IBM RTC oraz Atlassian JIRA. Jest to uproszczona wersja takiego systemu dająca podstawową ich funkcjonalność.
+
+Założenia projektu:
+\begin{itemize}
+\item Możliwość rejestracji użytkownika w systemie,
+\item Obsługa autoryzacji oraz uwierzytelniania,
+\item Każdy z użytkowników ma możliwość założenia nowego projektu. Taki użytkownik automatycznie zostaje administratorem projektu,
+\item Użytkownik ma możliwość wyszukania projektu oraz poproszenia o dostęp do niego,
+\item Użytkownik ma możliwość tworzenia elementu pracy przypisanego do projektu jeżeli sam jest autoryzowany do pracy wewnątrz projektu,
+\item Użytkownik ma możliwość usunięcia elementu pracy,
+\item Użytkownik ma możliwość komentowania elementu pracy,
+\item Administrator projektu ma możliwość dodawania oraz usuwania użytkowników,
+\item Administrator projektu ma możliwość akceptacji lub odrzucenia próśb o dołączenie do projektu,
+\item Administrator projektu ma możliwość usunięcia całego projektu,
+\end{itemize}
+
+\break
+
+\section{Baza danych}
+\hspace{11pt} W projekcie została wykorzystana baza danych IBM DB2 udostępniona w chmurze IBM Cloud.
+
+Struktura bazy danych:
+\begin{figure}[H]
+\caption{Diagram ERD bazy danych użytej w projekcie}
+\includegraphics[width=\textwidth]{database}
+\end{figure}
+
+Opis tabel:
+\begin{itemize}
+\item Users - tabela przechowująca dane o użytkownikach,
+\item Comments - tabela przechowująca komentarze,
+\item ItemStatus - tabela przechowująca dostępne statusy elementów pracy
+\item ItemType - tabela przechowująca dostępne typy elementów,
+\item Requests - tabela przechowująca prośby o dołączenie do projektów,
+\item Admins - tabela przechowująca administratorów projektów,
+\item Item - tabela przechowująca wszystkie elementy,
+\item Projects - tabela przechowująca wszystkie projekty.
+\end{itemize}
+
+Udostępniony został również skrypt w języku SQL, który tworzy bazę danych oraz dodaje rekordy stałe, czyli wypełnia tabele ItemType oraz ItemStatus.
+
+\section{Klient}
+\section{Serwer}
 \section{Informacje wdrożeniowe}
 \section{Działanie aplikacji}
 \section{Podsumowanie}

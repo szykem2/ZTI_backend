@@ -1,5 +1,6 @@
 package project.dto;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import project.models.Comment;
 
@@ -20,7 +21,7 @@ public class CommentDto {
 	/**
 	 * Data utworzenia
 	 */
-	private Date created;
+	private Timestamp created;
 	
 	/**
 	 * Autor komentarza
@@ -35,7 +36,7 @@ public class CommentDto {
 	public CommentDto(Comment comment) {
 		this.setCommentid(comment.getCommentid());
 		this.setContent(comment.getContent());
-		this.setCreated(new Date(comment.getCreated().getTime()));
+		this.setCreated(new Timestamp(comment.getCreated().getTime()));
 		this.setUser(new UserDto(comment.getUser()));
 	}
 	
@@ -56,14 +57,14 @@ public class CommentDto {
 	/**
 	 * {@link CommentDto#created}
 	 */
-	public Date getCreated() {
+	public Timestamp getCreated() {
 		return created;
 	}
 
 	/**
 	 * {@link CommentDto#created}
 	 */
-	public void setCreated(Date created) {
+	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
 

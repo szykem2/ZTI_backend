@@ -69,6 +69,13 @@ public class Projects {
 			return e.getResponse();
 		}
 		Database db = new Database();
+		List<Project> lst = db.getProjects();
+		lst.size();
+		for(Project p : lst) {
+			if(p.getName().equals(pr.getName())) {
+				return Response.status(Response.Status.CONFLICT).build();
+			}
+		}
 		db.newProject(usr, pr);
 		return Response.ok().build();
 	}
