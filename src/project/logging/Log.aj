@@ -1,4 +1,4 @@
-package project.logging;
+ï»¿package project.logging;
 
 import java.util.logging.*;
 import java.util.Date;
@@ -12,21 +12,21 @@ import project.models.User;
 import project.validators.HeaderValidator;
 
 /**
- * Aspekt s³u¿¹cy do logowania zdarzeñ zachodz¹cych na serwerze
+ * Aspekt sÅ‚uÅ¼Ä…cy do logowania zdarzeÅ„ zachodzÄ…cych na serwerze
  */
 public aspect Log {
 	/**
-	 * Logger s³u¿¹cy do zapisu logów
+	 * Logger sÅ‚uÅ¼Ä…cy do zapisu logÃ³w
 	 * @see java.util.logging.Logger
 	 */
 	private static Logger log = Logger.getLogger(Log.class.getName());
 	/**
-	 * obiekt s³u¿¹cy do konfiguracji loggera, przechowuje œcierzke do pliku, gdzie zapisywane s¹ logi
+	 * obiekt sÅ‚uÅ¼Ä…cy do konfiguracji loggera, przechowuje Å›cierzke do pliku, gdzie zapisywane sÄ… logi
 	 */
 	private static FileHandler fh;  
 
 	/**
-	 * Konstruktor statyczny s³u¿¹cy do konfiguracji loggera
+	 * Konstruktor statyczny sÅ‚uÅ¼Ä…cy do konfiguracji loggera
 	 */
 	static {
 	    try {  
@@ -44,26 +44,26 @@ public aspect Log {
 	}
 
 	/**
-	 * punkt przeciêcia dla wszystkich metod zwracaj¹cych Response
+	 * punkt przeciÄ™cia dla wszystkich metod zwracajÄ…cych Response
 	 */
     pointcut exception():
     	execution(public Response project..*(..));
     
     /**
-	 * punkt przeciêcia dla wszystkich metod zwracaj¹cych Response
+	 * punkt przeciÄ™cia dla wszystkich metod zwracajÄ…cych Response
 	 */
     pointcut regular():
     	execution(public Response project..*(..));
     
     /**
-	 * punkt przeciêcia dla wszystkich metod zwracaj¹cych Response i przyjmuj¹cych jako argument obiekt typu HttpHeaders
+	 * punkt przeciÄ™cia dla wszystkich metod zwracajÄ…cych Response i przyjmujÄ…cych jako argument obiekt typu HttpHeaders
 	 */
     pointcut withPermissions(HttpHeaders headers):
         execution(public Response project..*(HttpHeaders,..)) && args(headers,..);
 
     /**
-     * Rada uruchamiana jeœli zostanie rzucony wyj¹tek
-     * @param e rzucony wyj¹tek
+     * Rada uruchamiana jeÅ¼eli zostanie rzucony wyjÄ…tek
+     * @param e rzucony wyjÄ…tek
      */
     after() throwing (Exception e): exception() {
     	Date date = new Date( );
@@ -88,8 +88,8 @@ public aspect Log {
     }
 
     /**
-     * Rada uruchamiana dla metod zwracaj¹cych typ Response i przyjmuj¹cych obiekt typu HttpHeaders
-     * @param headers nag³ówek rz¹dania
+     * Rada uruchamiana dla metod zwracajÄ…cych typ Response i przyjmujÄ…cych obiekt typu HttpHeaders
+     * @param headers nagÅ‚Ã³wek rzÄ…dania
      */
     before(HttpHeaders headers): withPermissions(headers) {
     	Date date = new Date( );

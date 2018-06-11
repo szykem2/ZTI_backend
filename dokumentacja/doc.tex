@@ -5,6 +5,10 @@
 \usepackage{graphicx}
 \usepackage{listing}
 \usepackage{float}
+\usepackage{changepage}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{listings}
 
 \title{System zarządzania projektami\\Dokumentacja}
 \author{unknown}
@@ -38,7 +42,9 @@ Założenia projektu:
 Struktura bazy danych:
 \begin{figure}[H]
 \caption{Diagram ERD bazy danych użytej w projekcie}
-\includegraphics[width=\textwidth]{database}
+\begin{adjustwidth}{-3cm}{}
+\includegraphics[width=1.5\textwidth]{database}
+\end{adjustwidth}
 \end{figure}
 
 Opis tabel:
@@ -56,8 +62,199 @@ Opis tabel:
 Udostępniony został również skrypt w języku SQL, który tworzy bazę danych oraz dodaje rekordy stałe, czyli wypełnia tabele ItemType oraz ItemStatus.
 
 \section{Klient}
+\hspace{11pt} Klient został wykonany jako strona internetowa. Komunikacja z serwerem odbywa się poprzez obiekt XHR.
+
+Do stworzenia interfejsu wykorzystany został framework W3.CSS dostępny pod adresem:
+\begin{center}
+\url{https://www.w3schools.com/w3css/default.asp}
+\end{center}
+
+Klient znajduje się pod adresem:
+\begin{center}
+\url{http://orion.fis.agh.edu.pl/~4kubasiak/zti/projekt/}
+\end{center}
+
+Repozytorium z kodem klienta znajduje się pod adresem:
+\begin{center}
+\url{https://github.com/szykem2/ZTI}
+\end{center}
+
+\break
+
 \section{Serwer}
+\hspace{11pt} Serwer wykorzystuje architekturę REST w celu komunikacji. Do jego utworzenia została wykorzystana Java EE. Do komunikacji z bazą danych użyta została technologia JPA.
+
+Wykorzystane zostało również programowanie aspektowe w języku AspectJ. W tej technologii zrealizowana została funkcjonalność logowania zmian zachodzących na serwerze.
+
+W celu uwierzytelniania oraz autoryzacji wykorzystana została technologia JSON Web Token, zaimplementowana w w bibliotece JJWT dostępnej pod adresem:
+\begin{center}
+\url{https://github.com/jwtk/jjwt}
+\end{center}
+
+Po poprawnym uwierzytelnieniu, do klienta zwracany jest token, który następnie musi być przesyłany w nagłówku żądania aby przeprowadzić autoryzację.
+
+W celu przechowywania danych uwierzytelniających wykorzystana została technologia JNDI.
+
+Serwer został wdrożony w chmurze IBM Cloud pod adresem:
+\begin{center}
+\url{SK-project.eu-gb.mybluemix.net/}
+\end{center}
+
+Repozytorium z kodem serwera znajduje się pod adresem:
+\begin{center}
+\url{https://github.com/szykem2/ZTI_backend}
+\end{center}
+
+Udostępniony został również plik RAML przedstawiający interfejs programistyczny aplikacji:
+\begin{center}
+\begin{adjustwidth}{-0.0cm}{}
+\url{http://orion.fis.agh.edu.pl/~4kubasiak/zti/projekt/server-api.raml}
+\end{adjustwidth}
+\end{center}
+
+
+\break
+
+Diagram UML projektu:
+\begin{figure}[H]
+\caption{Diagram klas struktury projektu}
+\begin{adjustwidth}{-3cm}{}
+\includegraphics[width=1.5\textwidth]{uml}
+\end{adjustwidth}
+\end{figure}
+
 \section{Informacje wdrożeniowe}
+
+\hspace{11pt} Tu będzie opis jak zdeployować.
+
 \section{Działanie aplikacji}
-\section{Podsumowanie}
+\hspace{11pt} W tym punkcie opisana jest funkcjonalność aplikacji klienta. 
+
+Po załadowaniu strony widoczny jest następujący widok. Umożliwia on zalogowanie, rejestrację przejście do dokumentacji projektu oraz dokumentacji kodu, wygenerowanej przez narzędzie JavaDoc.
+
+\begin{figure}[H]
+\begin{adjustwidth}{-3cm}{}
+\includegraphics[width=1.5\textwidth]{index}
+\end{adjustwidth}
+\end{figure}
+
+Kliknięcie przycisku \textbf{Sign up} powoduje wyświetlenie poniższego elementu.
+
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{register}
+\end{figure}
+
+Udostępnia on funkcjonalność rejestracji do systemu. Podanie wszystkich danych jest wymagane aby się zarejestrować.
+
+Walidacja adresu email odbywa się w oparciu o wyrażenie regularne:
+\begin{adjustwidth}{-4cm}{}
+\begin{lstlisting}
+^[\w!#$%&'*+/=?`{|}~^-]+(?:\.[\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$
+\end{lstlisting}
+\end{adjustwidth}
+
+Nazwa użytkownika musi się składać z od 5 do 30 znaków.
+
+Hasło musi się składać z od 5 do 30 znaków, zawierać przynajmniej jedną wielką i małą literę oraz przynajmniej jedną cyfrę lub znak specjalny.
+
+\break
+
+Kliknięcie przycisku \textbf{Sign in} powoduje wyświetlenie poniższego elementu.
+
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{login}
+\end{figure}
+
+Element ten udostępnia funkcjonalność logowania do systemu. Jeżeli uwierzytelnienie się powiedzie, zwracany jest token, który następnie jest wysyłany przez klienta w nagłówku żądania w celu autoryzacji i uwierzytelniania.
+
+\break
+
+Po zalogowaniu się do systemu oczom użytkownika ukazuje się następujące okno:
+
+\begin{figure}[H]
+\begin{adjustwidth}{-3cm}{}
+\includegraphics[width=1.5\textwidth]{home}
+\end{adjustwidth}
+\end{figure}
+
+Okno udostępnia funkcjonalność utworzenia nowego projektu, wylogowania się, złożenia prośby o dołączenie do projektu, oraz, po otwarciu paska nawigacyjnego wybór projektu z listy projektów, do których użytkownik ma dostęp.
+
+\break
+
+Użytkownik może otworzyć pasek nawigacyjny poprzez kliknięcie w przycisk w lewym, górnym rogu. Po jego otworzeniu strona wygląda następująco:
+
+\begin{figure}[H]
+\begin{adjustwidth}{-3cm}{}
+\includegraphics[width=1.5\textwidth]{navbar}
+\end{adjustwidth}
+\end{figure}
+
+Z dostępnych projektów można wybrać jeden, którego zawartość zostanie pobrana z serwera. Dodany został również dynamiczny filtr projektów, który powoduje wyświetlenie tylko tych projektów, które pasują do wprowadzonego wzorca.
+
+\break
+
+Po wybraniu projektu ukazuje się następujący widok:
+
+\begin{figure}[H]
+\begin{adjustwidth}{-3cm}{}
+\includegraphics[width=1.5\textwidth]{non_admin_view}
+\end{adjustwidth}
+\end{figure}
+
+Jest to widok dla użytkownika, który nie jest administratorem. Ma on dostęp do informacji o projekcie, możliwość utworzenia nowego elementu pracy, widok użytkowników autoryzowanych do wyświetlenia tego projektu oraz administratorów projektu.
+
+Wyświetlone są również wszystkie elementy przypisane do tego projektu wraz z podstawowymi informacjami o nich.
+
+Zaimplementowany jest również filtr elementów, który wyświetla wszystkie elementy,  do których pasuje podany wzorzec. Filtr odnosi się do dowolnego z pól, nie tylko nazwy elementu.
+
+Klikając na wiersz tabeli użytkownik zostanie przekierowany do widoku elementu pracy, gdzie ma możliwość edycji, usuwania oraz komentowania.
+
+\break
+
+Widok projektu przeznaczony dla administratora:
+
+\begin{figure}[H]
+\begin{adjustwidth}{-3cm}{}
+\includegraphics[width=1.5\textwidth]{admin_view}
+\end{adjustwidth}
+\end{figure}
+
+Widać, że istnieją pewne zmiany. Dodana jest możliwość usuwania projektu, dodawania użytkowników, usuwania użytkowników, dodawania administratorów oraz obsługi próśb o dołączenie. Administrator ma możliwość akceptacji oraz odrzucenia prośby o dołączenie.
+
+Wszystkie pozostałe elementy strony działają tak samo jak dla zwykłego użytkownika.
+
+\break
+
+W przypadku składania prośby o dostęp otwierany jest poniższy element:
+
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{requesting}
+\end{figure}
+
+Użytkownik ma możliwość wyboru projektu, do którego chce mieć dostęp. Po kliknięciu rozwija się opis oraz przycisk, po kliknięciu którego zostanie wysłane żądanie do serwera aby dodać użytkownika do użytkowników proszących o dostęp.
+
+\break
+
+Chcąc utworzyć nowy projekt użytkownik musi wypełnić poniższy element:
+
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{new_project}
+\end{figure}
+
+Należy wypełnić oba pola, w których podaje się unikalną nazwę projektu oraz krótki opis co dany projekt zawiera.
+
+\break
+
+Widok elementu pracy:
+
+\begin{figure}[H]
+\begin{adjustwidth}{-3cm}{}
+\includegraphics[width=1.5\textwidth]{item}
+\end{adjustwidth}
+\end{figure}
+
+Zaprezentowany został tylko podgląd elementu. Pozostałe dwa tryby, czyli edycja oraz tworzenie nowego wyglądają identycznie, poza faktem edytowalności pól. Możliwość edycji uzyskuje się po kliknięciu przycisku \textbf{EDIT}.
+
+Poza podglądem oraz edycją użytkownik ma możliwość dodawania komentarzy. Możliwość ta jest całkowicie zablokowana podczas tworzenia nowego elementu.
+
 \end{document}

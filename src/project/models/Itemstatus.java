@@ -1,4 +1,4 @@
-package project.models;
+ï»¿package project.models;
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -7,7 +7,7 @@ import project.dto.ItemStatusDto;
 import java.util.List;
 
 /**
- * Klasa trwa³oœci dla tabeli ITEMSTATUS w bazie danych
+ * Klasa trwaÅ‚oÅ›ci dla tabeli ITEMSTATUS w bazie danych
  */
 @Entity
 @NamedQuery(name="Itemstatus.findAll", query="SELECT i FROM Itemstatus i")
@@ -24,12 +24,12 @@ public class Itemstatus implements Serializable {
 	private int statusid;
 	
 	/**
-	 * wartoœæ statusu
+	 * wartoÅ›Ä‡ statusu
 	 */
 	private String status;
 	
 	/**
-	 * Lista elementów, które posiadaj¹ dany status
+	 * Lista elementÃ³w, ktÃ³re posiadajÄ… dany status
 	 */
 	private List<Item> items;
 
@@ -85,9 +85,9 @@ public class Itemstatus implements Serializable {
 	}
 
 	/**
-	 * Metoda dodaj¹ca element do listy
-	 * @param item obiekt elementu, który ma zostaæ usuniêty
-	 * @return zmodyfikowany obiekt elementu przes³any jako argument
+	 * Metoda dodajÄ…ca element do listy
+	 * @param item obiekt elementu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return zmodyfikowany obiekt elementu przesÅ‚any jako argument
 	 */
 	public Item addItem(Item item) {
 		getItems().add(item);
@@ -96,9 +96,9 @@ public class Itemstatus implements Serializable {
 	}
 
 	/**
-	 * Metoda usuwaj¹ca element z listy
-	 * @param item obiekt elementu, który ma zostaæ usuniêty
-	 * @return zmodyfikowany obiekt elementu przes³any jako argument
+	 * Metoda usuwajÄ…ca element z listy
+	 * @param item obiekt elementu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return zmodyfikowany obiekt elementu przesÅ‚any jako argument
 	 */
 	public Item removeItem(Item item) {
 		getItems().remove(item);
@@ -106,4 +106,12 @@ public class Itemstatus implements Serializable {
 		return item;
 	}
 
+	/**
+	 * Metoda sÅ‚uÅ¼y do porÃ³wnywania ze sobÄ… obiektÃ³w typu Itemstatus
+	 * @param obj obiekt, ktÃ³ry chcemy porÃ³wnaÄ‡ do aktualnego
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return this.statusid == ((Itemstatus)obj).getStatusid();
+	}
 }

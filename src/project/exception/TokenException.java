@@ -1,6 +1,6 @@
-package project.exception;
+ï»¿package project.exception;
 /**
- * Klasa definiuj¹ca wyj¹tek rzucany w przypadku problemu z parsowaniem tokena uwierzytelniaj¹cego
+ * Klasa definiujÄ…ca wyjÄ…tek rzucany w przypadku problemu z parsowaniem tokena uwierzytelniajÄ…cego
  * @see Throwable
  */
 public class TokenException extends Throwable {
@@ -9,8 +9,8 @@ public class TokenException extends Throwable {
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
-	 * Konstruktor wyj¹tku
-	 * @param msg przekazywana wiadomoœæ
+	 * Konstruktor wyjÄ…tku
+	 * @param msg przekazywana wiadomoÅ›Ä‡
 	 */
 	public TokenException(String msg) {
 		super(msg);

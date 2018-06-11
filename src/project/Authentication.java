@@ -1,4 +1,4 @@
-package project;
+ï»¿package project;
 import javax.ws.rs.*;
 
 import javax.ws.rs.core.*;
@@ -12,15 +12,15 @@ import project.validators.HeaderValidator;
 import java.util.*;
 
 /**
- * Klasa udostêpniaj¹ca endpointy do obs³ugi rz¹dañ zwi¹zanych z u¿ytkownikami
+ * Klasa udostÄ™pniajÄ…ca endpointy do obsÅ‚ugi rzÄ…daÅ„ zwiÄ…zanych z uÅ¼ytkownikami
  */
 @Path("/users")
 public class Authentication extends Application {
 
 	/**
-	 * Metoda s³u¿¹ca do uwierzytelniania u¿ytkowników.
-	 * @param usr sparsowany obiekt typu User, w którym zapisane s¹ dane u¿ytkownika
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do uwierzytelniania uÅ¼ytkownikÃ³w.
+	 * @param usr sparsowany obiekt typu User, w ktÃ³rym zapisane sÄ… dane uÅ¼ytkownika
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania lub 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@POST
@@ -38,9 +38,9 @@ public class Authentication extends Application {
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do rejestracji u¿ytkowników.
-	 * @param usr sparsowany obiekt typu User, w którym zapisane s¹ dane u¿ytkownika
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 409 CONFLICT je¿eli podane dane logowania nie spe³niaj¹ wymagañ
+	 * Metoda sÅ‚uÅ¼Ä…ca do rejestracji uÅ¼ytkownikÃ³w.
+	 * @param usr sparsowany obiekt typu User, w ktÃ³rym zapisane sÄ… dane uÅ¼ytkownika
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania lub 409 CONFLICT jeÅ¼eli podane dane logowania nie speÅ‚niajÄ… wymagaÅ„
 	 * @see Response
 	 */
 	@POST
@@ -53,10 +53,10 @@ public class Authentication extends Application {
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do pobierania u¿ytkownika o zadanym numerze identyfikacyjnym.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID u¿ytkownika, którego dane maj¹ zostaæ zwrócone
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do pobierania uÅ¼ytkownika o zadanym numerze identyfikacyjnym.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID uÅ¼ytkownika, ktÃ³rego dane majÄ… zostaÄ‡ zwrÃ³cone
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania lub 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@GET
@@ -76,9 +76,9 @@ public class Authentication extends Application {
     }
 
 	/**
-	 * Metoda s³u¿¹ca do pobierania zarejestrowanych u¿ytkowników.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do pobierania zarejestrowanych uÅ¼ytkownikÃ³w.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania lub 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@GET
@@ -103,7 +103,7 @@ public class Authentication extends Application {
     }
 	
 	/**
-	 * Metoda s³u¿¹ca do obs³ugi rz¹dania typu OPTIONS dla endpointu /users.
+	 * Metoda sÅ‚uÅ¼Ä…ca do obsÅ‚ugi rzÄ…dania typu OPTIONS dla endpointu /users.
 	 */
 	@OPTIONS
 	public Response getOptions() {

@@ -1,9 +1,10 @@
-package project.dto;
+﻿package project.dto;
 
+import project.models.Itemstatus;
 import project.models.Itemtype;
 
 /**
- * Klasa s�u��ca do przesy�ania obiektu typu elementu
+ * Klasa służąca do przesyłania obiektu typu elementu
  */
 public class ItemTypeDto {
 	/**
@@ -18,7 +19,7 @@ public class ItemTypeDto {
 	
 	/**
 	 * Konstruktor obiektu
-	 * @param itemtype obiekt typu, kt�ry ma zosta� przes�any
+	 * @param itemtype obiekt typu, który ma zostać przesłany
 	 * @see project.models.Itemtype
 	 */
 	public ItemTypeDto(Itemtype itemtype) { 
@@ -52,5 +53,14 @@ public class ItemTypeDto {
 	 */
 	public void setTypeid(int typeid) {
 		this.typeid = typeid;
+	}
+
+	/**
+	 * Metoda służy do porównywania ze sobą obiektów typu ItemTypeDto
+	 * @param obj obiekt, który chcemy porównać do aktualnego
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return this.typeid == ((ItemTypeDto)obj).getTypeid();
 	}
 }

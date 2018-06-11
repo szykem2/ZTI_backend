@@ -1,9 +1,7 @@
-package project.validators;
+ï»¿package project.validators;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.json.Json;
 import javax.ws.rs.Consumes;
@@ -19,9 +17,9 @@ import project.dbutils.Database;
 public class EmailValidator extends Application {
 	
 	/*
-	 * Metoda s³u¿¹ca do sprawdzania poprawnoœci adresu email zarówno poprawnoœci sk³adniowej i dostêpnoœci w bazie.
-	 * @param login login u¿ytkownika podlegaj¹cy walidacji
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 409 COINFLICT je¿eli nie uda³o siê  autoryzowaæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do sprawdzania poprawnoÅ›ci adresu email zarÃ³wno poprawnoÅ›ci skÅ‚adniowej i dostÄ™pnoÅ›ci w bazie.
+	 * @param login login uÅ¼ytkownika podlegajÄ…cy walidacji
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania, 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika lub 409 COINFLICT jeÅ¼eli nie udaÅ‚o siÄ™  autoryzowaÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@POST
@@ -42,9 +40,9 @@ public class EmailValidator extends Application {
 	}
 	
 	/*
-	 * Metoda s³u¿¹ca do sprawdzania poprawnoœci sk³adniowej adresu email.
-	 * @param email email u¿ytkownika podlegaj¹cy walidacji
-	 * @return wartoœæ logiczna mówi¹ca o poprawnoœci adresu email
+	 * Metoda sÅ‚uÅ¼Ä…ca do sprawdzania poprawnoÅ›ci skÅ‚adniowej adresu email.
+	 * @param email email uÅ¼ytkownika podlegajÄ…cy walidacji
+	 * @return wartoÅ›Ä‡ logiczna mÃ³wiÄ…ca o poprawnoÅ›ci adresu email
 	 * @see Response
 	 */
 	private static boolean validate(String email) {

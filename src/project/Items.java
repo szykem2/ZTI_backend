@@ -1,4 +1,4 @@
-package project;
+ï»¿package project;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -30,16 +30,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 /**
- * Klasa udostêpniaj¹ca endpointy do obs³ugi elementów projektów
+ * Klasa udostÄ™pniajÄ…ca endpointy do obsÅ‚ugi elementÃ³w projektÃ³w
  */
 @Path("/items")
 public class Items {
 
 	/**
-	 * Metoda s³u¿¹ca do pobierania elementów przypisanych do projektu o zadanym identyfikatorze.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param projectid ID projektu, którego elementy maj¹ zostaæ przes³ane
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli nie uda³o siê  autoryzowaæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do pobierania elementÃ³w przypisanych do projektu o zadanym identyfikatorze.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param projectid ID projektu, ktÃ³rego elementy majÄ… zostaÄ‡ przesÅ‚ane
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania, 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika lub 403 FORBIDDEN jeÅ¼eli nie udaÅ‚o siÄ™  autoryzowaÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@Path("{projectid}")
@@ -70,8 +70,8 @@ public class Items {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do pobierania statusów, które mo¿na przypisaæ elementom.
-	 * @return odpowiedŸ serwera HTML status code 200 OK
+	 * Metoda sÅ‚uÅ¼Ä…ca do pobierania statusÃ³w, ktÃ³re moÅ¼na przypisaÄ‡ elementom.
+	 * @return odpowiedÅº serwera HTML status code 200 OK
 	 * @see Response
 	 */
 	@Path("itemstatus")
@@ -92,8 +92,8 @@ public class Items {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do pobierania typów, które mo¿na przypisaæ elementom.
-	 * @return odpowiedŸ serwera HTML status code 200 OK
+	 * Metoda sÅ‚uÅ¼Ä…ca do pobierania typÃ³w, ktÃ³re moÅ¼na przypisaÄ‡ elementom.
+	 * @return odpowiedÅº serwera HTML status code 200 OK
 	 * @see Response
 	 */
 	@Path("itemtypes")
@@ -114,10 +114,10 @@ public class Items {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do dodawania nowego elementu do projektu.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param it obiekt JSON, który przechowuje sk³adowe elementu
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli u¿ytkownik nie jest autoryzowany do zadanego projektu
+	 * Metoda sÅ‚uÅ¼Ä…ca do dodawania nowego elementu do projektu.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param it obiekt JSON, ktÃ³ry przechowuje skÅ‚adowe elementu
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania, 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika lub 403 FORBIDDEN jeÅ¼eli uÅ¼ytkownik nie jest autoryzowany do zadanego projektu
 	 * @see Response
 	 */
 	@POST
@@ -164,11 +164,11 @@ public class Items {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do aktualizowania elementu.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param itemid ID elementu, który ma zostaæ zaktualizowany
-	 * @param it obiekt JSON, który przechowuje sk³adowe elementu
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli u¿ytkownik nie jest autoryzowany do zadanego projektu
+	 * Metoda sÅ‚uÅ¼Ä…ca do aktualizowania elementu.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param itemid ID elementu, ktÃ³ry ma zostaÄ‡ zaktualizowany
+	 * @param it obiekt JSON, ktÃ³ry przechowuje skÅ‚adowe elementu
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania, 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika lub 403 FORBIDDEN jeÅ¼eli uÅ¼ytkownik nie jest autoryzowany do zadanego projektu
 	 * @see Response
 	 */
 	@Path("{id}")
@@ -241,10 +241,10 @@ public class Items {
 		return Response.ok().build();
 	}
 	/**
-	 * Metoda s³u¿¹ca do dodawania nowego elementu do projektu.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID elementu, który ma zostaæ usuniêty
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli u¿ytkownik nie jest autoryzowany do zadanego projektu
+	 * Metoda sÅ‚uÅ¼Ä…ca do dodawania nowego elementu do projektu.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID elementu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania, 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika lub 403 FORBIDDEN jeÅ¼eli uÅ¼ytkownik nie jest autoryzowany do zadanego projektu
 	 * @see Response
 	 */
 	@Path("{id}")
@@ -266,10 +266,10 @@ public class Items {
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do pobierania komentarzy przypisanych do elementu o zadanym identyfikatorze.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID elementu, którego komentarze maj¹ zostaæ przes³ane
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli nie uda³o siê  autoryzowaæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do pobierania komentarzy przypisanych do elementu o zadanym identyfikatorze.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID elementu, ktÃ³rego komentarze majÄ… zostaÄ‡ przesÅ‚ane
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania, 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika lub 403 FORBIDDEN jeÅ¼eli nie udaÅ‚o siÄ™  autoryzowaÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@Path("{id}/comments")
@@ -299,11 +299,11 @@ public class Items {
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do dodawania komentarza do elementu o zadanym identyfikatorze.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID elementu, do którego ma zostaæ przypisany komentarz
-	 * @param it treœæ komentarza
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do dodawania komentarza do elementu o zadanym identyfikatorze.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID elementu, do ktÃ³rego ma zostaÄ‡ przypisany komentarz
+	 * @param it treÅ›Ä‡ komentarza
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania lub 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@Path("{id}/comments")
@@ -331,7 +331,7 @@ public class Items {
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do obs³ugi rz¹dania typu OPTIONS dla endpointu /items.
+	 * Metoda sÅ‚uÅ¼Ä…ca do obsÅ‚ugi rzÄ…dania typu OPTIONS dla endpointu /items.
 	 */
 	@OPTIONS
 	public Response getOptions() {
@@ -341,7 +341,7 @@ public class Items {
     	}
 	
 	/**
-	 * Metoda s³u¿¹ca do obs³ugi rz¹dania typu OPTIONS dla endpointu /items/{id}.
+	 * Metoda sÅ‚uÅ¼Ä…ca do obsÅ‚ugi rzÄ…dania typu OPTIONS dla endpointu /items/{id}.
 	 */
 	@Path("{id}")
 	@OPTIONS

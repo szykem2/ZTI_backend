@@ -1,9 +1,9 @@
-package project.dto;
+﻿package project.dto;
 
 import project.models.Itemstatus;
 
 /**
- * Klasa s�u��ca do przesy�ania obiektu statusu elementu
+ * Klasa służąca do przesyłania obiektu statusu elementu
  */
 public class ItemStatusDto {
 	/**
@@ -12,13 +12,13 @@ public class ItemStatusDto {
 	private int statusid;
 	
 	/**
-	 * warto�� statusu
+	 * wartość statusu
 	 */
 	private String status;
 	
 	/**
 	 * Konstruktor obiektu
-	 * @param itemstatus obiekt statusu, kt�ry ma zosta� przes�any
+	 * @param itemstatus obiekt statusu, który ma zostać przesłany
 	 * @see project.models.Itemstatus
 	 */
 	public ItemStatusDto(Itemstatus itemstatus) {
@@ -53,5 +53,13 @@ public class ItemStatusDto {
 	public void setStatusid(int statusid) {
 		this.statusid = statusid;
 	}
-	
+
+	/**
+	 * Metoda służy do porównywania ze sobą obiektów typu ItemstatusDto
+	 * @param obj obiekt, który chcemy porównać do aktualnego
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return this.statusid == ((ItemStatusDto)obj).getStatusid();
+	}
 }

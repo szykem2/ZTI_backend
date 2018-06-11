@@ -1,11 +1,12 @@
-package project.dto;
+﻿package project.dto;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import project.models.Comment;
+import project.models.Itemstatus;
 
 /**
- * Klasa s�u��ca do przesy�ania obiektu komentarza
+ * Klasa służąca do przesyłania obiektu komentarza
  */
 public class CommentDto {
 	/**
@@ -14,7 +15,7 @@ public class CommentDto {
 	private int commentid;
 	
 	/**
-	 * Zawarto�� komentarza
+	 * Zawartość komentarza
 	 */
 	private String content;
 	
@@ -30,7 +31,7 @@ public class CommentDto {
 	
 	/**
 	 * Konstruktor obiektu
-	 * @param comment obiekt komentarza, kt�ry ma zosta� przes�any
+	 * @param comment obiekt komentarza, który ma zostać przesłany
 	 * @see project.models.Comment
 	 */
 	public CommentDto(Comment comment) {
@@ -94,5 +95,14 @@ public class CommentDto {
 	 */
 	public void setCommentid(int commentid) {
 		this.commentid = commentid;
+	}
+
+	/**
+	 * Metoda służy do porównywania ze sobą obiektów typu CommentDto
+	 * @param obj obiekt, który chcemy porównać do aktualnego
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return this.commentid == ((CommentDto)obj).getCommentid();
 	}
 }

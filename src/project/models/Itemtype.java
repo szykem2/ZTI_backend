@@ -1,4 +1,4 @@
-package project.models;
+ï»¿package project.models;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -8,7 +8,7 @@ import project.dto.ItemStatusDto;
 import java.util.List;
 
 /**
- * Klasa trwa³oœci dla tabeli ITEMTYPE w bazie danych
+ * Klasa trwaÅ‚oÅ›ci dla tabeli ITEMTYPE w bazie danych
  */
 @Entity
 @NamedQuery(name="Itemtype.findAll", query="SELECT i FROM Itemtype i")
@@ -30,7 +30,7 @@ public class Itemtype implements Serializable {
 	private String type;
 	
 	/**
-	 * Lista elementów danego typu
+	 * Lista elementÃ³w danego typu
 	 */
 	private List<Item> items;
 
@@ -87,9 +87,9 @@ public class Itemtype implements Serializable {
 	}
 
 	/**
-	 * Metoda usuwaj¹ca element z listy
-	 * @param item obiekt elementu, który ma zostaæ usuniêty
-	 * @return zmodyfikowany obiekt elementu przes³any jako argument
+	 * Metoda usuwajÄ…ca element z listy
+	 * @param item obiekt elementu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return zmodyfikowany obiekt elementu przesÅ‚any jako argument
 	 */
 	public Item addItem(Item item) {
 		getItems().add(item);
@@ -99,9 +99,9 @@ public class Itemtype implements Serializable {
 	}
 
 	/**
-	 * Metoda usuwaj¹ca element z listy
-	 * @param item obiekt elementu, który ma zostaæ usuniêty
-	 * @return zmodyfikowany obiekt elementu przes³any jako argument
+	 * Metoda usuwajÄ…ca element z listy
+	 * @param item obiekt elementu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return zmodyfikowany obiekt elementu przesÅ‚any jako argument
 	 */
 	public Item removeItem(Item item) {
 		getItems().remove(item);
@@ -110,4 +110,12 @@ public class Itemtype implements Serializable {
 		return item;
 	}
 
+	/**
+	 * Metoda sÅ‚uÅ¼y do porÃ³wnywania ze sobÄ… obiektÃ³w typu ItemType
+	 * @param obj obiekt, ktÃ³ry chcemy porÃ³wnaÄ‡ do aktualnego
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return this.typeid == ((Itemtype)obj).getTypeid();
+	}
 }

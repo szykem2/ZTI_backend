@@ -1,4 +1,4 @@
-package project.models;
+ï»¿package project.models;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Klasa trwa³oœci dla tabeli USERS w bazie danych
+ * Klasa trwaÅ‚oÅ›ci dla tabeli USERS w bazie danych
  */
 @Entity
 @Table(name="USERS")
@@ -24,52 +24,52 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * ID u¿ytkownika
+	 * ID uÅ¼ytkownika
 	 */
 	private int userid;
 
 	/**
-	 * adres email u¿ytkownika
+	 * adres email uÅ¼ytkownika
 	 */
 	private String email;
 
 	/**
-	 * nazwa u¿ytkownika
+	 * nazwa uÅ¼ytkownika
 	 */
 	private String login;
 	
 	/**
-	 * has³o do konta u¿ytkownika
+	 * hasÅ‚o do konta uÅ¼ytkownika
 	 */
 	private String password;
 	
 	/**
-	 * Lista komentarzy napisanych przez danego u¿ytkownika
+	 * Lista komentarzy napisanych przez danego uÅ¼ytkownika
 	 */
 	private List<Comment> comments;
 	
 	/**
-	 * Lista elementów, których u¿ytkownik jest odpowiedzialny za rozwi¹zanie
+	 * Lista elementÃ³w, ktÃ³rych uÅ¼ytkownik jest odpowiedzialny za rozwiÄ…zanie
 	 */
 	private List<Item> isOwner;
 	
 	/**
-	 * Lista elementów, których u¿ytkownik jest odpowiedzialny za akceptacjê rozwi¹zania
+	 * Lista elementÃ³w, ktÃ³rych uÅ¼ytkownik jest odpowiedzialny za akceptacjÄ™ rozwiÄ…zania
 	 */
 	private List<Item> isApprover;
 	
 	/**
-	 * Lista projektów, do których u¿ytkownik jest autoryzowany
+	 * Lista projektÃ³w, do ktÃ³rych uÅ¼ytkownik jest autoryzowany
 	 */
 	private List<Project> projects;
 	
 	/**
-	 * Lista projektów, w których u¿ytkownik jest administratorem
+	 * Lista projektÃ³w, w ktÃ³rych uÅ¼ytkownik jest administratorem
 	 */
 	private List<Project> isAdmin;
 	
 	/**
-	 * Lista projektów, do których u¿ytkownik poprosi³ o dostêp
+	 * Lista projektÃ³w, do ktÃ³rych uÅ¼ytkownik poprosiÅ‚ o dostÄ™p
 	 */
 	private List<Project> requests;
 
@@ -154,9 +154,9 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * Metoda dodaj¹ca komentarz do listy
-	 * @param comment obiekt komentarza, który ma zostaæ usuniêty
-	 * @return zmodyfikowany obiekt komentarza przes³any jako argument
+	 * Metoda dodajÄ…ca komentarz do listy
+	 * @param comment obiekt komentarza, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return zmodyfikowany obiekt komentarza przesÅ‚any jako argument
 	 */
 	public Comment addComment(Comment comment) {
 		getComments().add(comment);
@@ -166,9 +166,9 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * Metoda usuwaj¹ca komentarz z listy
-	 * @param comment obiekt komentarza, który ma zostaæ usuniêty
-	 * @return zmodyfikowany obiekt komentarza przes³any jako argument
+	 * Metoda usuwajÄ…ca komentarz z listy
+	 * @param comment obiekt komentarza, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return zmodyfikowany obiekt komentarza przesÅ‚any jako argument
 	 */
 	public Comment removeComment(Comment comment) {
 		getComments().remove(comment);
@@ -193,9 +193,9 @@ public class User implements Serializable {
 	}
 	
 	/**
-	 * Metoda dodaj¹ca element do listy
-	 * @param item obiekt elementu, który ma zostaæ usuniêty
-	 * @return zmodyfikowany obiekt elementu przes³any jako argument
+	 * Metoda dodajÄ…ca element do listy
+	 * @param item obiekt elementu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return zmodyfikowany obiekt elementu przesÅ‚any jako argument
 	 */
 	public Item addIsOwner(Item item) {
 		getIsOwner().add(item);
@@ -205,9 +205,9 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * Metoda usuwaj¹ca element z listy
-	 * @param item obiekt elementu, który ma zostaæ usuniêty
-	 * @return zmodyfikowany obiekt elementu przes³any jako argument
+	 * Metoda usuwajÄ…ca element z listy
+	 * @param item obiekt elementu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return zmodyfikowany obiekt elementu przesÅ‚any jako argument
 	 */
 	public Item removeIsOwner(Item item) {
 		getIsOwner().remove(item);
@@ -232,9 +232,9 @@ public class User implements Serializable {
 	}
 	
 	/**
-	 * Metoda dodaj¹ca element do listy
-	 * @param isApprover obiekt elementu, który ma zostaæ usuniêty
-	 * @return zmodyfikowany obiekt elementu przes³any jako argument
+	 * Metoda dodajÄ…ca element do listy
+	 * @param isApprover obiekt elementu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return zmodyfikowany obiekt elementu przesÅ‚any jako argument
 	 */
 	public Item addIsApprover(Item isApprover) {
 		getIsOwner().add(isApprover);
@@ -244,9 +244,9 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * Metoda usuwaj¹ca element z listy
-	 * @param isApprover obiekt elementu, który ma zostaæ usuniêty
-	 * @return zmodyfikowany obiekt elementu przes³any jako argument
+	 * Metoda usuwajÄ…ca element z listy
+	 * @param isApprover obiekt elementu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return zmodyfikowany obiekt elementu przesÅ‚any jako argument
 	 */
 	public Item removeIsApprover(Item isApprover) {
 		getIsApprover().remove(isApprover);
@@ -307,8 +307,8 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * Metoda s³u¿y do porównywania ze sob¹ obiektów typu User
-	 * @param obj obiekt, który chcemy porównaæ do aktualnego
+	 * Metoda sÅ‚uÅ¼y do porÃ³wnywania ze sobÄ… obiektÃ³w typu User
+	 * @param obj obiekt, ktÃ³ry chcemy porÃ³wnaÄ‡ do aktualnego
 	 */
 	@Override
 	public boolean equals(Object obj) {

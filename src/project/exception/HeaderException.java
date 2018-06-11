@@ -1,8 +1,8 @@
-package project.exception;
+ï»¿package project.exception;
 
 import javax.ws.rs.core.Response;
 /**
- * Klasa definiuj¹ca wyj¹tek rzucany w przypadku problemu z parsowaniem tokena uwierzytelniaj¹cego
+ * Klasa definiujÄ…ca wyjÄ…tek rzucany w przypadku problemu z parsowaniem tokena uwierzytelniajÄ…cego
  * @see Throwable
  */
 public class HeaderException extends Throwable{
@@ -11,13 +11,13 @@ public class HeaderException extends Throwable{
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
-	 * obiekt typu Response, który ma zostaæ zwrócony jako odpowiedŸ do klienta
+	 * obiekt typu Response, ktÃ³ry ma zostaÄ‡ zwrÃ³cony jako odpowiedÅº do klienta
 	 */
 	
 	private Response resp;
 	/**
-	 * Konstruktor wyj¹tku
-	 * @param resp obiekt typu Response, który ma zostaæ zwrócony jako odpowiedŸ do klienta
+	 * Konstruktor wyjÄ…tku
+	 * @param resp obiekt typu Response, ktÃ³ry ma zostaÄ‡ zwrÃ³cony jako odpowiedÅº do klienta
 	 */
 	
 	public HeaderException(Response resp ) {

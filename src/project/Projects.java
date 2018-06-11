@@ -1,4 +1,4 @@
-package project;
+ï»¿package project;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -16,15 +16,15 @@ import project.validators.HeaderValidator;
 import java.util.*;
 
 /**
- * Klasa endpointu /projects daj¹ca funkcjonalnoœæ obs³ugi projektów zarówno przez zwyk³ych u¿ytkowników jak i administratorów
+ * Klasa endpointu /projects dajÄ…ca funkcjonalnoÅ›Ä‡ obsÅ‚ugi projektÃ³w zarÃ³wno przez zwykÅ‚ych uÅ¼ytkownikÃ³w jak i administratorÃ³w
  */
 @Path("/projects")
 public class Projects {
 	
 	/**
-	 * Metoda s³u¿¹ca do pobierania listy projektów, do których wgl¹du zalogowany u¿ytkownik jest autoryzowany.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do pobierania listy projektÃ³w, do ktÃ³rych wglÄ…du zalogowany uÅ¼ytkownik jest autoryzowany.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania lub 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@GET
@@ -52,10 +52,10 @@ public class Projects {
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do dodawania nowego projektu. U¿ytkownik, który tworzy projekt automatycznie staje siê jego administratorem.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param pr sparsowany obiekt typu Project przes³any z aplikacji klienta
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do dodawania nowego projektu. UÅ¼ytkownik, ktÃ³ry tworzy projekt automatycznie staje siÄ™ jego administratorem.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param pr sparsowany obiekt typu Project przesÅ‚any z aplikacji klienta
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania lub 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@POST
@@ -81,10 +81,10 @@ public class Projects {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do usuwania projektu. Wszyscy u¿ytkownicy s¹ automatycznie usuwani z projektu, elementy i komentarze s¹ usuwane.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID projektu, który ma zostaæ usuniêty
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli nie uda³o siê  autoryzowaæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do usuwania projektu. Wszyscy uÅ¼ytkownicy sÄ… automatycznie usuwani z projektu, elementy i komentarze sÄ… usuwane.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID projektu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania, 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika lub 403 FORBIDDEN jeÅ¼eli nie udaÅ‚o siÄ™  autoryzowaÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@Path("{id}")
@@ -106,10 +106,10 @@ public class Projects {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do pobierania u¿ytkowników autoryzowanych do wyœwietlenia projektu.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID projektu, dla którego nale¿y zwóciæ przypisanych u¿ytkowników 
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli nie uda³o siê  autoryzowaæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do pobierania uÅ¼ytkownikÃ³w autoryzowanych do wyÅ›wietlenia projektu.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID projektu, dla ktÃ³rego naleÅ¼y zwÃ³ciÄ‡ przypisanych uÅ¼ytkownikÃ³w 
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania, 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika lub 403 FORBIDDEN jeÅ¼eli nie udaÅ‚o siÄ™  autoryzowaÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@Path("{id}/users")
@@ -141,11 +141,11 @@ public class Projects {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do dodawania autoryzacji dla u¿ytkownika.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID projektu, do którego nale¿y dodaæ u¿ytkownika 
-	 * @param usr sparsowany obiekt typu User, który zawiera dane identyfikacyjne u¿ytkownika, którego nale¿y dodaæ do projektu
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli nie uda³o siê  autoryzowaæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do dodawania autoryzacji dla uÅ¼ytkownika.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID projektu, do ktÃ³rego naleÅ¼y dodaÄ‡ uÅ¼ytkownika 
+	 * @param usr sparsowany obiekt typu User, ktÃ³ry zawiera dane identyfikacyjne uÅ¼ytkownika, ktÃ³rego naleÅ¼y dodaÄ‡ do projektu
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania, 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika lub 403 FORBIDDEN jeÅ¼eli nie udaÅ‚o siÄ™  autoryzowaÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@Path("{id}/users")
@@ -168,10 +168,10 @@ public class Projects {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do pobierania administratorów wyœwietlanego projektu.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID projektu, dla którego nale¿y zwóciæ przypisanych administratorów 
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do pobierania administratorÃ³w wyÅ›wietlanego projektu.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID projektu, dla ktÃ³rego naleÅ¼y zwÃ³ciÄ‡ przypisanych administratorÃ³w 
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania lub 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@Path("{id}/admins")
@@ -200,11 +200,11 @@ public class Projects {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do dodawania u¿ytkownika jako administratora.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID projektu, do którego nale¿y przypisaæ nowego administratora 
-	 * @param usr sparsowany obiekt typu User, który zawiera dane identyfikacyjne u¿ytkownika, którego nale¿y dodaæ do projektu
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli nie uda³o siê  autoryzowaæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do dodawania uÅ¼ytkownika jako administratora.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID projektu, do ktÃ³rego naleÅ¼y przypisaÄ‡ nowego administratora 
+	 * @param usr sparsowany obiekt typu User, ktÃ³ry zawiera dane identyfikacyjne uÅ¼ytkownika, ktÃ³rego naleÅ¼y dodaÄ‡ do projektu
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania, 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika lub 403 FORBIDDEN jeÅ¼eli nie udaÅ‚o siÄ™  autoryzowaÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@Path("{id}/admins")
@@ -227,11 +227,11 @@ public class Projects {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do usuwania u¿ytkownika z projektu.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID projektu, z którego nale¿y usun¹æ u¿ytkownika 
-	 * @param userid ID u¿ytkownika, którego nale¿y usun¹æ z zadanego projektu
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 403 FORBIDDEN je¿eli nie uda³o siê  autoryzowaæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do usuwania uÅ¼ytkownika z projektu.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID projektu, z ktÃ³rego naleÅ¼y usunÄ…Ä‡ uÅ¼ytkownika 
+	 * @param userid ID uÅ¼ytkownika, ktÃ³rego naleÅ¼y usunÄ…Ä‡ z zadanego projektu
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania, 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika lub 403 FORBIDDEN jeÅ¼eli nie udaÅ‚o siÄ™  autoryzowaÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@Path("{id}/users/{userid}")
@@ -254,7 +254,7 @@ public class Projects {
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do obs³ugi rz¹dania typu OPTIONS dla endpointu /projects.
+	 * Metoda sÅ‚uÅ¼Ä…ca do obsÅ‚ugi rzÄ…dania typu OPTIONS dla endpointu /projects.
 	 */
 	@OPTIONS
 	public Response getOptions() {
@@ -264,7 +264,7 @@ public class Projects {
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do obs³ugi rz¹dania typu OPTIONS dla endpointu /projects/{id}.
+	 * Metoda sÅ‚uÅ¼Ä…ca do obsÅ‚ugi rzÄ…dania typu OPTIONS dla endpointu /projects/{id}.
 	 */
 	@Path("{id}")
 	@OPTIONS

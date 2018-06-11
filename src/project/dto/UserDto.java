@@ -1,12 +1,14 @@
-package project.dto;
+Ôªøpackage project.dto;
 
 import java.io.Serializable;
+
+import project.models.Itemstatus;
 import project.models.User;
 
 /**
- * Klasa s≥uøπca do przesy≥ania obiektu uøytkownika
+ * Klasa s≈Çu≈ºƒÖca do przesy≈Çania obiektu u≈ºytkownika
  */
-public class UserDto implements Serializable{
+public class UserDto implements Serializable {
 
 	/**
 	 * serial version UID
@@ -14,23 +16,23 @@ public class UserDto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * ID uøytkownika
+	 * ID u≈ºytkownika
 	 */
 	private int id;
 
 	/**
-	 * nazwa uøytkownika
+	 * nazwa u≈ºytkownika
 	 */
 	private String login;
 
 	/**
-	 * adres email uøytkownika
+	 * adres email u≈ºytkownika
 	 */
 	private String email;
 
 	/**
 	 * Konstruktor obiektu
-	 * @param u obiekt uøytkownika, ktÛry ma zostaÊ przes≥any
+	 * @param u obiekt u≈ºytkownika, kt√≥ry ma zostaƒá przes≈Çany
 	 * @see project.models.User
 	 */
 	public UserDto(User u) {
@@ -85,5 +87,14 @@ public class UserDto implements Serializable{
 	 */
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	/**
+	 * Metoda s≈Çu≈ºy do por√≥wnywania ze sobƒÖ obiekt√≥w typu UserDto
+	 * @param obj obiekt, kt√≥ry chcemy por√≥wnaƒá do aktualnego
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return this.id == ((UserDto)obj).getId();
 	}
 }

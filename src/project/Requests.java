@@ -1,4 +1,4 @@
-package project;
+ï»¿package project;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +22,16 @@ import project.models.User;
 import project.validators.HeaderValidator;
 
 /**
- * Klasa endpointu /request daj¹ca funkcjonalnoœæ obs³ugi próœb o dostêp do projektu
+ * Klasa endpointu /request dajÄ…ca funkcjonalnoÅ›Ä‡ obsÅ‚ugi prÃ³Å›b o dostÄ™p do projektu
  */
 @Path("/requests")
 public class Requests {
 	
 	/**
-	 * Metoda s³u¿¹ca do dodawania proœby o do³¹czenie do projektu.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID projektu, o dostêp do którego sk³adana jest proœba
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do dodawania proÅ›by o doÅ‚Ä…czenie do projektu.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID projektu, o dostÄ™p do ktÃ³rego skÅ‚adana jest proÅ›ba
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania lub 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@Path("{id}")
@@ -50,10 +50,10 @@ public class Requests {
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do pobierania proœby o do³¹czenie do projektu.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID projektu, o dostêp do którego sk³adana jest proœba
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do pobierania proÅ›by o doÅ‚Ä…czenie do projektu.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID projektu, o dostÄ™p do ktÃ³rego skÅ‚adana jest proÅ›ba
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania lub 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@Path("{id}")
@@ -79,9 +79,9 @@ public class Requests {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do pobierania projektów, o dostêp do których u¿ytkownik mo¿e prosiæ.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do pobierania projektÃ³w, o dostÄ™p do ktÃ³rych uÅ¼ytkownik moÅ¼e prosiÄ‡.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania lub 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@GET
@@ -109,11 +109,11 @@ public class Requests {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do akceptacji proœby o do³¹czenie do projektu.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID projektu, o dostêp do którego sk³adana jest proœba
-	 * @param userid ID projektu, o dostêp do którego sk³adana jest proœba
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do akceptacji proÅ›by o doÅ‚Ä…czenie do projektu.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID projektu, o dostÄ™p do ktÃ³rego skÅ‚adana jest proÅ›ba
+	 * @param userid ID projektu, o dostÄ™p do ktÃ³rego skÅ‚adana jest proÅ›ba
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania lub 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@Path("{id}/{userid}")
@@ -134,11 +134,11 @@ public class Requests {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do odrzucania proœby o do³¹czenie do projektu.
-	 * @param headers header rz¹dania pobierany z kontekstu
-	 * @param id ID projektu, o dostêp do którego sk³adana proœba jest odrzucana
-	 * @param userid ID u¿ytkownika, o którego proœba jest odrzucana
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania lub 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ lub autoryzowaæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do odrzucania proÅ›by o doÅ‚Ä…czenie do projektu.
+	 * @param headers header rzÄ…dania pobierany z kontekstu
+	 * @param id ID projektu, o dostÄ™p do ktÃ³rego skÅ‚adana proÅ›ba jest odrzucana
+	 * @param userid ID uÅ¼ytkownika, o ktÃ³rego proÅ›ba jest odrzucana
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania lub 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ lub autoryzowaÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@Path("{id}/{userid}")
@@ -159,7 +159,7 @@ public class Requests {
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do obs³ugi rz¹dania typu OPTIONS dla endpointu /requests.
+	 * Metoda sÅ‚uÅ¼Ä…ca do obsÅ‚ugi rzÄ…dania typu OPTIONS dla endpointu /requests.
 	 */
 	@OPTIONS
 	public Response getOptions() {
@@ -169,7 +169,7 @@ public class Requests {
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do obs³ugi rz¹dania typu OPTIONS dla endpointu /requests/{id}.
+	 * Metoda sÅ‚uÅ¼Ä…ca do obsÅ‚ugi rzÄ…dania typu OPTIONS dla endpointu /requests/{id}.
 	 */
 	@Path("{id}")
 	@OPTIONS

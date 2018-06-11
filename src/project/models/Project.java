@@ -1,11 +1,11 @@
-package project.models;
+ï»¿package project.models;
 
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
 /**
- * Klasa trwa³oœci dla tabeli PROJECTS w bazie danych
+ * Klasa trwaÅ‚oÅ›ci dla tabeli PROJECTS w bazie danych
  */
 @Entity
 @Table(name="PROJECTS")
@@ -33,22 +33,22 @@ public class Project implements Serializable {
 	private String name;
 	
 	/**
-	 * Lista elementów przpisanych do danego projektu
+	 * Lista elementÃ³w przpisanych do danego projektu
 	 */
 	private List<Item> items;
 
 	/**
-	 * lista autoryzowanych u¿ytkowników
+	 * lista autoryzowanych uÅ¼ytkownikÃ³w
 	 */
 	private List<User> users;
 
 	/**
-	 * lista administratorów projektu
+	 * lista administratorÃ³w projektu
 	 */
 	private List<User> admins;
 
 	/**
-	 * lista u¿ytkowników, którzy chc¹ uzyskaæ dostêp do projektu
+	 * lista uÅ¼ytkownikÃ³w, ktÃ³rzy chcÄ… uzyskaÄ‡ dostÄ™p do projektu
 	 */
 	private List<User> requestors;
 
@@ -118,9 +118,9 @@ public class Project implements Serializable {
 	}
 
 	/**
-	 * Metoda dodaj¹ca element do listy
-	 * @param item obiekt elementu, który ma zostaæ usuniêty
-	 * @return zmodyfikowany obiekt elementu przes³any jako argument
+	 * Metoda dodajÄ…ca element do listy
+	 * @param item obiekt elementu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return zmodyfikowany obiekt elementu przesÅ‚any jako argument
 	 */
 	public Item addItem(Item item) {
 		getItems().add(item);
@@ -130,9 +130,9 @@ public class Project implements Serializable {
 	}
 
 	/**
-	 * Metoda usuwaj¹ca element z listy
-	 * @param item obiekt elementu, który ma zostaæ usuniêty
-	 * @return zmodyfikowany obiekt elementu przes³any jako argument
+	 * Metoda usuwajÄ…ca element z listy
+	 * @param item obiekt elementu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
+	 * @return zmodyfikowany obiekt elementu przesÅ‚any jako argument
 	 */
 	public Item removeItem(Item item) {
 		getItems().remove(item);
@@ -187,8 +187,8 @@ public class Project implements Serializable {
 	}
 
 	/**
-	 * Metoda s³u¿y do porównywania ze sob¹ obiektów typu Project
-	 * @param obj obiekt, który chcemy porównaæ do aktualnego
+	 * Metoda sÅ‚uÅ¼y do porÃ³wnywania ze sobÄ… obiektÃ³w typu Project
+	 * @param obj obiekt, ktÃ³ry chcemy porÃ³wnaÄ‡ do aktualnego
 	 */
 	@Override
 	public boolean equals(Object obj) {

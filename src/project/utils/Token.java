@@ -1,4 +1,4 @@
-package project.utils;
+Ôªøpackage project.utils;
 
 import java.io.Serializable;
 import javax.crypto.spec.SecretKeySpec;
@@ -11,29 +11,29 @@ import project.exception.TokenException;
 import project.models.*;
 
 /**
- * Klasa udostÍpniajπca interfejs do obs≥ugi tokenÛw uwierzytelniajπcych
+ * Klasa udostƒôpniajƒÖca interfejs do obs≈Çugi token√≥w uwierzytelniajƒÖcych
  * @see Serializable
  */
-public class Token implements Serializable{
+public class Token implements Serializable {
 
 	/**
 	 * serial version UID
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
-	 * Klucz aplikacji, uøywany do szyfrowania tokena
+	 * Klucz aplikacji, u≈ºywany do szyfrowania tokena
 	 */
 	private static final String apiKey = "74^ac0.#@!8bc?xf";
 	/**
-	 * czas øycia tokena
+	 * czas ≈ºycia tokena
 	 */
 	private static final int ttl = 3600000;
 	/**
-	 * token uwierzytelniajπcy
+	 * token uwierzytelniajƒÖcy
 	 */
 	private String token;
 	/**
-	 * algorytm szyfrujπcy
+	 * algorytm szyfrujƒÖcy
 	 */
 	private static final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 	
@@ -52,9 +52,9 @@ public class Token implements Serializable{
 	}
 	
 	/**
-	 * Metoda s≥uøπca do generowania tokena na podstawie danych uøytkownika.
-	 * @param user obiekt typu User zawierajπcy dane uøytkownika
-	 * @return token uwierzytelniajπcy
+	 * Metoda s≈Çu≈ºƒÖca do generowania tokena na podstawie danych u≈ºytkownika.
+	 * @param user obiekt typu User zawierajƒÖcy dane u≈ºytkownika
+	 * @return token uwierzytelniajƒÖcy
 	 */
 	public static Token generateToken(User user) {
 		Token ret = new Token();
@@ -75,10 +75,10 @@ public class Token implements Serializable{
 	}
 	
 	/**
-	 * Metoda wrapper s≥uøπca do dekodowania podanego tokena
-	 * @param tkn token uwierzytelniajπcy
-	 * @return obiekt typu user powsta≥y z danych zakodowanych w tokenie
-	 * @throws TokenException gdy token jest b≥Ídny lub straci≥ waønoúc
+	 * Metoda wrapper s≈Çu≈ºƒÖca do dekodowania podanego tokena
+	 * @param tkn token uwierzytelniajƒÖcy
+	 * @return obiekt typu user powsta≈Çy z danych zakodowanych w tokenie
+	 * @throws TokenException gdy token jest b≈Çƒôdny lub straci≈Ç wa≈ºno≈õc
 	 */
 	public static User decodeToken(String tkn) throws TokenException {
 		Token token = new Token();
@@ -88,9 +88,9 @@ public class Token implements Serializable{
 	}
 	
 	/**
-	 * Metoda s≥uøπca do dekodowania podanego tokena
-	 * @return obiekt typu user powsta≥y z danych zakodowanych w tokenie
-	 * @throws TokenException gdy token jest b≥Ídny lub straci≥ waønoúc
+	 * Metoda s≈Çu≈ºƒÖca do dekodowania podanego tokena
+	 * @return obiekt typu user powsta≈Çy z danych zakodowanych w tokenie
+	 * @throws TokenException gdy token jest b≈Çƒôdny lub straci≈Ç wa≈ºno≈õc
 	 */
 	public User decodeToken() throws TokenException{
 		Claims claims = null;

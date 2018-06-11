@@ -1,7 +1,4 @@
-package project.validators;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+ï»¿package project.validators;
 
 import javax.ws.rs.Consumes;
 
@@ -17,15 +14,15 @@ import javax.ws.rs.core.Response;
 import project.dbutils.Database;
 
 /*
- * Klasa definiuj¹ca endpoint s³u¿¹cy do walidacji loginu
+ * Klasa definiujÄ…ca endpoint sÅ‚uÅ¼Ä…cy do walidacji loginu
  */
 @Path("/")
 public class LoginValidator extends Application {
 
 	/*
-	 * Metoda s³u¿¹ca do sprawdzania poprawnoœci loginu zarówno zgodnoœci z wymaganiami jak i dostêpnoœci w bazie.
-	 * @param login login u¿ytkownika podlegaj¹cy walidacji
-	 * @return odpowiedŸ serwera HTML status code 200 OK dla poprawnego rz¹dania, 401 UNAUTHORIZED je¿eli nie uda³o siê uwierzytelniæ u¿ytkownika lub 409 FORBIDDEN je¿eli nie uda³o siê  autoryzowaæ u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do sprawdzania poprawnoÅ›ci loginu zarÃ³wno zgodnoÅ›ci z wymaganiami jak i dostÄ™pnoÅ›ci w bazie.
+	 * @param login login uÅ¼ytkownika podlegajÄ…cy walidacji
+	 * @return odpowiedÅº serwera HTML status code 200 OK dla poprawnego rzÄ…dania, 401 UNAUTHORIZED jeÅ¼eli nie udaÅ‚o siÄ™ uwierzytelniÄ‡ uÅ¼ytkownika lub 409 FORBIDDEN jeÅ¼eli nie udaÅ‚o siÄ™  autoryzowaÄ‡ uÅ¼ytkownika
 	 * @see Response
 	 */
 	@POST
@@ -46,12 +43,12 @@ public class LoginValidator extends Application {
 	}
 	
 	/*
-	 * Metoda s³u¿¹ca do sprawdzania zgodnoœci loginu z przyjêtymi wymaganiami.
-	 * @param login login u¿ytkownika podlegaj¹cy walidacji
-	 * @return wartoœæ logiczna mówi¹ca o poprawnoœci nazwy u¿ytkownika
+	 * Metoda sÅ‚uÅ¼Ä…ca do sprawdzania zgodnoÅ›ci loginu z przyjÄ™tymi wymaganiami.
+	 * @param login login uÅ¼ytkownika podlegajÄ…cy walidacji
+	 * @return wartoÅ›Ä‡ logiczna mÃ³wiÄ…ca o poprawnoÅ›ci nazwy uÅ¼ytkownika
 	 * @see Response
 	 */
 	private static boolean validate(String login) {
-		return login.length() > 30 || login.length() < 5;
+		return login.length() < 30 && login.length() > 5;
 	}
 }

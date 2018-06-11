@@ -1,12 +1,13 @@
-package project.dto;
+Ôªøpackage project.dto;
 
 import java.io.Serializable;
 
+import project.models.Itemstatus;
 import project.models.Project;
 /**
- * Klasa s≥uøπca do przesy≥ania projektu
+ * Klasa s≈Çu≈ºƒÖca do przesy≈Çania projektu
  */
-public class ProjectDto implements Serializable{
+public class ProjectDto implements Serializable {
 
 	/**
 	 * serial version UID
@@ -29,13 +30,13 @@ public class ProjectDto implements Serializable{
 	private String title;
 
 	/**
-	 * flaga mÛwiπca o tym, czy uøytkownik jest administratorem projektu
+	 * flaga m√≥wiƒÖca o tym, czy u≈ºytkownik jest administratorem projektu
 	 */
 	private boolean isAdmin;
 
 	/**
 	 * Konstruktor obiektu
-	 * @param p obiekt projektu, ktÛry ma zostaÊ przes≥any
+	 * @param p obiekt projektu, kt√≥ry ma zostaƒá przes≈Çany
 	 * @see project.models.Project
 	 */
 	public ProjectDto(Project p) {
@@ -99,5 +100,14 @@ public class ProjectDto implements Serializable{
 	 */
 	public void setIsAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	/**
+	 * Metoda s≈Çu≈ºy do por√≥wnywania ze sobƒÖ obiekt√≥w typu ProjectDto
+	 * @param obj obiekt, kt√≥ry chcemy por√≥wnaƒá do aktualnego
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return this.id == ((ProjectDto)obj).getId();
 	}
 }

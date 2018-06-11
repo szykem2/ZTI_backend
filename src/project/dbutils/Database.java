@@ -1,4 +1,4 @@
-package project.dbutils;
+ï»¿package project.dbutils;
 
 import project.models.*;
 
@@ -6,12 +6,12 @@ import javax.ejb.Singleton;
 import java.util.*;
 
 /**
- * Klasa udostêpniaj¹ca interfejs bazodanowy
+ * Klasa udostÄ™pniajÄ…ca interfejs bazodanowy
  */
 @Singleton
 public class Database {
 	/**
-	 * Obiekt, który udostêpnia funkcjonalnoœæ JPA
+	 * Obiekt, ktÃ³ry udostÄ™pnia funkcjonalnoÅ›Ä‡ JPA
 	 */
 	private static final JPAConnection connection = new JPAConnection();
 	
@@ -22,69 +22,69 @@ public class Database {
 	}
 	
 	/**
-	 * Metoda s³u¿y do pobierania wszystkich u¿ytkowników z bazy danych
-	 * @return lista u¿ytkowników
+	 * Metoda sÅ‚uÅ¼y do pobierania wszystkich uÅ¼ytkownikÃ³w z bazy danych
+	 * @return lista uÅ¼ytkownikÃ³w
 	 */
 	public List<User> getUsers() {
 		return connection.getUserList();
 	}
 	
 	/**
-	 * Metoda s³u¿y do pobierania u¿ytkownika o zadanym id
-	 * @param id identyfikator u¿ytkownika
-	 * @return u¿ytkownik, którego id podano w argumencie
+	 * Metoda sÅ‚uÅ¼y do pobierania uÅ¼ytkownika o zadanym id
+	 * @param id identyfikator uÅ¼ytkownika
+	 * @return uÅ¼ytkownik, ktÃ³rego id podano w argumencie
 	 */
 	public User getUser(int id) {
 		return connection.getUser(id);
 	}
 
 	/**
-	 * Metoda s³u¿¹ca to uwierzytelnienia u¿ytkownika
-	 * @param login nazwa u¿ytkownika
-	 * @param password has³o
-	 * @return u¿ytkownik odpowiadaj¹cy podanym danym identyfikacyjnym
+	 * Metoda sÅ‚uÅ¼Ä…ca to uwierzytelnienia uÅ¼ytkownika
+	 * @param login nazwa uÅ¼ytkownika
+	 * @param password hasÅ‚o
+	 * @return uÅ¼ytkownik odpowiadajÄ…cy podanym danym identyfikacyjnym
 	 */
 	public User authorize(String login, String password) {
 		return connection.getUser(login, password);
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do pobierania projektu o zadanym id
+	 * Metoda sÅ‚uÅ¼Ä…ca do pobierania projektu o zadanym id
 	 * @param id identyfikator projektu
-	 * @return projekt, którego id zosta³o podane jako agument
+	 * @return projekt, ktÃ³rego id zostaÅ‚o podane jako agument
 	 */
 	public Project getProject(int id) {
 		return connection.getProject(id);
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do sprawdzania czy login znajduje siê w bazie
-	 * @param login nazwa u¿ytkownika, któr¹ nale¿y zwalidowaæ
-	 * @return wartoœæ logiczna mówi¹ca o tym, czy nazwa u¿ytkownika jest dostêpna
+	 * Metoda sÅ‚uÅ¼Ä…ca do sprawdzania czy login znajduje siÄ™ w bazie
+	 * @param login nazwa uÅ¼ytkownika, ktÃ³rÄ… naleÅ¼y zwalidowaÄ‡
+	 * @return wartoÅ›Ä‡ logiczna mÃ³wiÄ…ca o tym, czy nazwa uÅ¼ytkownika jest dostÄ™pna
 	 */
 	public Boolean validateLogin(String login) {
 		return connection.validateLogin(login);
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do sprawdzania czy adres email znajduje siê w bazie
-	 * @param email adres email, który nale¿y zwalidowaæ
-	 * @return wartoœæ logiczna mówi¹ca o tym, czy adres jest dostêpny
+	 * Metoda sÅ‚uÅ¼Ä…ca do sprawdzania czy adres email znajduje siÄ™ w bazie
+	 * @param email adres email, ktÃ³ry naleÅ¼y zwalidowaÄ‡
+	 * @return wartoÅ›Ä‡ logiczna mÃ³wiÄ…ca o tym, czy adres jest dostÄ™pny
 	 */
 	public Boolean validateEmail(String email) {
 		return connection.validateEmail(email);
 	}
 
 	/**
-	 * Metoda dodaj¹ca nowego u¿ytkownika do bazy
-	 * @param usr u¿ytkownik, którego nale¿y dodaæ
+	 * Metoda dodajÄ…ca nowego uÅ¼ytkownika do bazy
+	 * @param usr uÅ¼ytkownik, ktÃ³rego naleÅ¼y dodaÄ‡
 	 */
 	public void newUser(User usr) {
 		connection.newUser(usr);
 	}
 
 	/**
-	 * Metoda pobieraj¹ca z bazy element o zadanym id
+	 * Metoda pobierajÄ…ca z bazy element o zadanym id
 	 * @param id identyfikator elementu
 	 * @return element, o podanym identyfikatorze
 	 */
@@ -93,8 +93,8 @@ public class Database {
 	}
 	
 	/**
-	 * Metoda dodaj¹ca do bazy danych nowy komentarz
-	 * @param cmt obiekt komentarza, który nale¿y dodaæ do bazy
+	 * Metoda dodajÄ…ca do bazy danych nowy komentarz
+	 * @param cmt obiekt komentarza, ktÃ³ry naleÅ¼y dodaÄ‡ do bazy
 	 */
 	public void newComment(Comment cmt) {
 		cmt.getUser().getComments().add(cmt);
@@ -107,8 +107,8 @@ public class Database {
 	}
 	
 	/**
-	 * Metoda dodaj¹ca nowy element do bazy danych
-	 * @param it obiekt elementu, który nale¿y dodaæ
+	 * Metoda dodajÄ…ca nowy element do bazy danych
+	 * @param it obiekt elementu, ktÃ³ry naleÅ¼y dodaÄ‡
 	 */
 	public void newItem(Item it) {
 		connection.begin();
@@ -119,7 +119,7 @@ public class Database {
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do aktualizacji elementu w bazie
+	 * Metoda sÅ‚uÅ¼Ä…ca do aktualizacji elementu w bazie
 	 * @param it zmodyfikowany obiekt elementu
 	 */
 	public void updateItem(Item it) {
@@ -127,8 +127,8 @@ public class Database {
 	}
 	
 	/**
-	 * Metoda usuwaj¹ca element z bazy danych
-	 * @param id identyfikator elementu, który ma zostaæ usuniêty
+	 * Metoda usuwajÄ…ca element z bazy danych
+	 * @param id identyfikator elementu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
 	 */
 	public void removeItem(int id) {
 		connection.begin();
@@ -154,8 +154,8 @@ public class Database {
 	}
 	
 	/**
-	 * Metoda usuwaj¹ca element z bazy danych
-	 * @param id element, który ma zostaæ usuniêty
+	 * Metoda usuwajÄ…ca element z bazy danych
+	 * @param it element, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
 	 */
 	public void removeItem(Item it) {
 		if(it != null) {
@@ -181,8 +181,8 @@ public class Database {
 	}
 	
 	/**
-	 * Metoda usuwaj¹ca komentarz z bazy danych
-	 * @param c komentarz, który ma zostaæ usuniêty
+	 * Metoda usuwajÄ…ca komentarz z bazy danych
+	 * @param c komentarz, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
 	 */
 	public void removeComment(Comment c) {
 		if(c != null) {
@@ -195,9 +195,9 @@ public class Database {
 	}
 	
 	/**
-	 * Metoda s³u¿¹ca do tworzenia nowego projektu
-	 * @param issuer u¿ytkownik tworz¹cy projekt
-	 * @param pr nowy projekt, który ma zostaæ dodany
+	 * Metoda sÅ‚uÅ¼Ä…ca do tworzenia nowego projektu
+	 * @param issuer uÅ¼ytkownik tworzÄ…cy projekt
+	 * @param pr nowy projekt, ktÃ³ry ma zostaÄ‡ dodany
 	 */
 	public void newProject(User issuer, Project pr) {
 		issuer.getIsAdmin().add(pr);
@@ -213,8 +213,8 @@ public class Database {
 	}
 	
 	/**
-	 * Metoda usuwaj¹ca projekt i wszystkie jego zale¿noœci z bazy danych
-	 * @param id identyfikator projektu, który ma zostaæ usuniêty
+	 * Metoda usuwajÄ…ca projekt i wszystkie jego zaleÅ¼noÅ›ci z bazy danych
+	 * @param id identyfikator projektu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
 	 */
 	public void removeProject(int id) {
 		Project pr = connection.getProject(id);
@@ -238,9 +238,9 @@ public class Database {
 	}
 
 	/**
-	 * Metoda usuwaj¹ca u¿ytkownika z projektu
+	 * Metoda usuwajÄ…ca uÅ¼ytkownika z projektu
 	 * @param id identyfikator projektu
-	 * @param userid identyfikator u¿ytkownika, którego nale¿y usun¹æ
+	 * @param userid identyfikator uÅ¼ytkownika, ktÃ³rego naleÅ¼y usunÄ…Ä‡
 	 */
 	public void removeUserFromProject(int id, int userid) {
         Project pr = connection.getProject(id);
@@ -263,12 +263,15 @@ public class Database {
 	}
 
 	/**
-	 * Metoda dodaj¹ca u¿ytkownika do projektu
+	 * Metoda dodajÄ…ca uÅ¼ytkownika do projektu
 	 * @param pr obiekt projektu
-	 * @param usr obiekt u¿ytkownika
+	 * @param usr obiekt uÅ¼ytkownika
 	 */
 	public void addUserToProject(Project pr, User usr) {
 		User u = connection.getUser(usr.getLogin());
+		if(pr.getRequestors().contains(usr)) {
+			pr.getRequestors().remove(usr);
+		}
 		pr.getUsers().add(u);
 		u.getProjects().add(pr);
 		connection.begin();
@@ -278,8 +281,8 @@ public class Database {
 	}
 
 	/**
-	 * Metoda dodaj¹ca proœbê u¿ytkownika o do³¹czenie do projektu
-	 * @param usr obiekt u¿ytkownika
+	 * Metoda dodajÄ…ca proÅ›bÄ™ uÅ¼ytkownika o doÅ‚Ä…czenie do projektu
+	 * @param usr obiekt uÅ¼ytkownika
 	 * @param id identyfikator projektu
 	 */
 	public void newRequestor(User usr, int id) {
@@ -293,10 +296,10 @@ public class Database {
 	}
 
 	/**
-	 * Metoda zwracaj¹ca listê u¿ytkowników, którzy poprosili o dostêp
-	 * @param usr u¿ytkownik, który chce uzyskaæ listê u¿ytkowników, którzy poprosili o dostêp
+	 * Metoda zwracajÄ…ca listÄ™ uÅ¼ytkownikÃ³w, ktÃ³rzy poprosili o dostÄ™p
+	 * @param usr uÅ¼ytkownik, ktÃ³ry chce uzyskaÄ‡ listÄ™ uÅ¼ytkownikÃ³w, ktÃ³rzy poprosili o dostÄ™p
 	 * @param id identyfikator projektu
-	 * @return lista u¿ytkowników, którzy poprosili o dostêp do projektu
+	 * @return lista uÅ¼ytkownikÃ³w, ktÃ³rzy poprosili o dostÄ™p do projektu
 	 */
 	public List<User> getRequested(User usr, int id) {
 		Project pr = connection.getProject(id);
@@ -304,8 +307,8 @@ public class Database {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do odrzucania proœby o do³¹czenie do projektu
-	 * @param usr u¿ytkownik, którego proœba jest odrzucana
+	 * Metoda sÅ‚uÅ¼Ä…ca do odrzucania proÅ›by o doÅ‚Ä…czenie do projektu
+	 * @param usr uÅ¼ytkownik, ktÃ³rego proÅ›ba jest odrzucana
 	 * @param project identyfikator projektu
 	 */
 	public void denyAccess(User usr, int project) {
@@ -319,8 +322,8 @@ public class Database {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do akceptacji proœby o do³¹czenie do projektu
-	 * @param user identyfikator u¿ytkownika, którego proœba jest akceptowana
+	 * Metoda sÅ‚uÅ¼Ä…ca do akceptacji proÅ›by o doÅ‚Ä…czenie do projektu
+	 * @param user identyfikator uÅ¼ytkownika, ktÃ³rego proÅ›ba jest akceptowana
 	 * @param project identyfikator projektu
 	 */
 	public void acceptRequest(int project, int user) {
@@ -337,25 +340,25 @@ public class Database {
 	}
 
 	/**
-	 * Metoda zwracaj¹ca listê dostêpnych statusów
-	 * @return lista dostêpnych statusów
+	 * Metoda zwracajÄ…ca listÄ™ dostÄ™pnych statusÃ³w
+	 * @return lista dostÄ™pnych statusÃ³w
 	 */
 	public List<Itemstatus> getStatuses() {
 		return connection.getStatuses();
 	}
 	
 	/**
-	 * Metoda zwracaj¹ca listê dostêpnych typów
-	 * @return lista dostêpnych typów
+	 * Metoda zwracajÄ…ca listÄ™ dostÄ™pnych typÃ³w
+	 * @return lista dostÄ™pnych typÃ³w
 	 */
 	public List<Itemtype> getTypes() {
 		return connection.getTypes();
 	}
 
 	/**
-	 * Metoda dodaj¹ca administratora do projektu
+	 * Metoda dodajÄ…ca administratora do projektu
 	 * @param pr obiekt projektu
-	 * @param usr obiekt u¿ytkownika, który ma zostaæ dodany
+	 * @param usr obiekt uÅ¼ytkownika, ktÃ³ry ma zostaÄ‡ dodany
 	 */
 	public void addAdminToProject(Project pr, User usr) {
 		User u = connection.getUser(usr.getLogin());
@@ -371,15 +374,15 @@ public class Database {
 	}
 
 	/**
-	 * Metoda pobieraj¹ca listê projektów z bazy
-	 * @return lista projektów z bazy
+	 * Metoda pobierajÄ…ca listÄ™ projektÃ³w z bazy
+	 * @return lista projektÃ³w z bazy
 	 */
 	public List<Project> getProjects() {
 		return connection.getProjects();
 	}
 
 	/**
-	 * Metoda pobieraj¹ca status o zadanym identyfikatorze
+	 * Metoda pobierajÄ…ca status o zadanym identyfikatorze
 	 * @param id identyfikator statusu
 	 * @return status o zadym identyfikatorze
 	 */
@@ -393,7 +396,7 @@ public class Database {
 	}
 
 	/**
-	 * Metoda pobieraj¹ca typ o zadanym identyfikatorze
+	 * Metoda pobierajÄ…ca typ o zadanym identyfikatorze
 	 * @param id identyfikator typu
 	 * @return typ o zadym identyfikatorze
 	 */

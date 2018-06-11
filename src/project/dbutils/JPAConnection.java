@@ -1,4 +1,4 @@
-package project.dbutils;
+ï»¿package project.dbutils;
 
 import java.util.List;
 import javax.ejb.Singleton;
@@ -10,13 +10,13 @@ import javax.persistence.Persistence;
 import project.models.*;
 
 /**
- * Klasa odpowiadaj¹ca za udostêpnianie interfejsu JPA do komunikacji z baz¹ danych IBM DB2
+ * Klasa odpowiadajÄ…ca za udostÄ™pnianie interfejsu JPA do komunikacji z bazÄ… danych IBM DB2
  */
 @Singleton
 class JPAConnection {
 	
 	/**
-	 * Obiekt tworz¹cy managera podmiotu
+	 * Obiekt tworzÄ…cy managera podmiotu
 	 */
 	private static EntityManagerFactory managerFactory;
 	
@@ -26,12 +26,12 @@ class JPAConnection {
     private static EntityManager entityManager;
     
     /**
-     * Obiekt udostêpniaj¹cy funkcjonalnoœæ transakcji
+     * Obiekt udostÄ™pniajÄ…cy funkcjonalnoÅ›Ä‡ transakcji
      */
     private static EntityTransaction entityTransaction;
     
     /**
-     * flaga mówi¹ca o tym, czy operacja odbywa siê w ramach transakcji
+     * flaga mÃ³wiÄ…ca o tym, czy operacja odbywa siÄ™ w ramach transakcji
      */
     private boolean isWithinTransaction = false;
     
@@ -51,7 +51,7 @@ class JPAConnection {
     }
     
     /**
-     * Metoda rozpoczynaj¹ca transakcjê
+     * Metoda rozpoczynajÄ…ca transakcjÄ™
      */
     public void begin() {
     	entityTransaction.begin();
@@ -59,7 +59,7 @@ class JPAConnection {
     }
     
     /**
-     * Metoda koñcz¹ca transakcjê
+     * Metoda koÅ„czÄ…ca transakcjÄ™
      */
     public void commit() {
     	entityTransaction.commit();
@@ -67,8 +67,8 @@ class JPAConnection {
     }
  
     /**
-     * Metoda zwracaj¹ca listê zarejestrowanych u¿ytkowników
-     * @return lista u¿ytkowników
+     * Metoda zwracajÄ…ca listÄ™ zarejestrowanych uÅ¼ytkownikÃ³w
+     * @return lista uÅ¼ytkownikÃ³w
      */
     @SuppressWarnings("unchecked")
     public List<User> getUserList() {
@@ -82,9 +82,9 @@ class JPAConnection {
     }
     
     /**
-	 * Metoda s³u¿y do pobierania u¿ytkownika o zadanym id
-	 * @param id identyfikator u¿ytkownika
-	 * @return u¿ytkownik, którego id podano w argumencie
+	 * Metoda sÅ‚uÅ¼y do pobierania uÅ¼ytkownika o zadanym id
+	 * @param id identyfikator uÅ¼ytkownika
+	 * @return uÅ¼ytkownik, ktÃ³rego id podano w argumencie
 	 */
     public User getUser(int id) {
     	User usr = null;
@@ -98,10 +98,10 @@ class JPAConnection {
     }
     
     /**
-	 * Metoda s³u¿¹ca to uwierzytelnienia u¿ytkownika
-	 * @param login nazwa u¿ytkownika
-	 * @param password has³o
-	 * @return u¿ytkownik odpowiadaj¹cy podanym danym identyfikacyjnym
+	 * Metoda sÅ‚uÅ¼Ä…ca to uwierzytelnienia uÅ¼ytkownika
+	 * @param login nazwa uÅ¼ytkownika
+	 * @param password hasÅ‚o
+	 * @return uÅ¼ytkownik odpowiadajÄ…cy podanym danym identyfikacyjnym
 	 */
     @SuppressWarnings("unchecked")
 	public User getUser(String login, String password) {
@@ -118,9 +118,9 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do pobierania projektu o zadanym id
+	 * Metoda sÅ‚uÅ¼Ä…ca do pobierania projektu o zadanym id
 	 * @param id identyfikator projektu
-	 * @return projekt, którego id zosta³o podane jako agument
+	 * @return projekt, ktÃ³rego id zostaÅ‚o podane jako agument
 	 */
 	public Project getProject(int id) {
 		Project pr = null;
@@ -134,9 +134,9 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do sprawdzania czy adres email znajduje siê w bazie
-	 * @param email adres email, który nale¿y zwalidowaæ
-	 * @return wartoœæ logiczna mówi¹ca o tym, czy adres jest dostêpny
+	 * Metoda sÅ‚uÅ¼Ä…ca do sprawdzania czy adres email znajduje siÄ™ w bazie
+	 * @param email adres email, ktÃ³ry naleÅ¼y zwalidowaÄ‡
+	 * @return wartoÅ›Ä‡ logiczna mÃ³wiÄ…ca o tym, czy adres jest dostÄ™pny
 	 */
 	@SuppressWarnings("unchecked")
 	public Boolean validateEmail(String email) {
@@ -154,9 +154,9 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do sprawdzania czy login znajduje siê w bazie
-	 * @param login nazwa u¿ytkownika, któr¹ nale¿y zwalidowaæ
-	 * @return wartoœæ logiczna mówi¹ca o tym, czy nazwa u¿ytkownika jest dostêpna
+	 * Metoda sÅ‚uÅ¼Ä…ca do sprawdzania czy login znajduje siÄ™ w bazie
+	 * @param login nazwa uÅ¼ytkownika, ktÃ³rÄ… naleÅ¼y zwalidowaÄ‡
+	 * @return wartoÅ›Ä‡ logiczna mÃ³wiÄ…ca o tym, czy nazwa uÅ¼ytkownika jest dostÄ™pna
 	 */
 	@SuppressWarnings("unchecked")
 	public Boolean validateLogin(String login) {
@@ -174,8 +174,8 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda dodaj¹ca nowego u¿ytkownika do bazy
-	 * @param usr u¿ytkownik, którego nale¿y dodaæ
+	 * Metoda dodajÄ…ca nowego uÅ¼ytkownika do bazy
+	 * @param usr uÅ¼ytkownik, ktÃ³rego naleÅ¼y dodaÄ‡
 	 */
 	public void newUser(User usr) {
 		if(!isWithinTransaction) {
@@ -191,7 +191,7 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda pobieraj¹ca z bazy element o zadanym id
+	 * Metoda pobierajÄ…ca z bazy element o zadanym id
 	 * @param id identyfikator elementu
 	 * @return element, o podanym identyfikatorze
 	 */
@@ -207,8 +207,8 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda dodaj¹ca do bazy danych nowy komentarz
-	 * @param cmt obiekt komentarza, który nale¿y dodaæ do bazy
+	 * Metoda dodajÄ…ca do bazy danych nowy komentarz
+	 * @param cmt obiekt komentarza, ktÃ³ry naleÅ¼y dodaÄ‡ do bazy
 	 */
 	public void newComment(Comment cmt) {
 		if(!isWithinTransaction) {
@@ -224,8 +224,8 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda dodaj¹ca nowy element do bazy danych
-	 * @param it obiekt elementu, który nale¿y dodaæ
+	 * Metoda dodajÄ…ca nowy element do bazy danych
+	 * @param it obiekt elementu, ktÃ³ry naleÅ¼y dodaÄ‡
 	 */
 	public void newItem(Item it) {
 		if(!isWithinTransaction) {
@@ -241,7 +241,7 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do aktualizacji elementu w bazie
+	 * Metoda sÅ‚uÅ¼Ä…ca do aktualizacji elementu w bazie
 	 * @param it zmodyfikowany obiekt elementu
 	 */
 	public void updateItem(Item it) {
@@ -256,8 +256,8 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda usuwaj¹ca element z bazy danych
-	 * @param id identyfikator elementu, który ma zostaæ usuniêty
+	 * Metoda usuwajÄ…ca element z bazy danych
+	 * @param id identyfikator elementu, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
 	 */
 	public void removeItem(Item it) {
 		if(!isWithinTransaction) {
@@ -273,9 +273,9 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda s³u¿¹ca do tworzenia nowego projektu
-	 * @param issuer u¿ytkownik tworz¹cy projekt
-	 * @param pr nowy projekt, który ma zostaæ dodany
+	 * Metoda sÅ‚uÅ¼Ä…ca do tworzenia nowego projektu
+	 * @param issuer uÅ¼ytkownik tworzÄ…cy projekt
+	 * @param pr nowy projekt, ktÃ³ry ma zostaÄ‡ dodany
 	 */
 	public void newProject(Project pr) {
 		if(!isWithinTransaction) {
@@ -291,8 +291,8 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda usuwaj¹ca projekt i wszystkie jego zale¿noœci z bazy danych
-	 * @param pr projekt, który ma zostaæ usuniêty
+	 * Metoda usuwajÄ…ca projekt i wszystkie jego zaleÅ¼noÅ›ci z bazy danych
+	 * @param pr projekt, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
 	 */
 	public void removeProject(Project pr) {
 		pr.getAdmins().clear();
@@ -313,8 +313,8 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda aktualizuj¹ca u¿ytkownika
-	 * @param issuer u¿ytkownik, który ma zostaæ zaktualizowany
+	 * Metoda aktualizujÄ…ca uÅ¼ytkownika
+	 * @param issuer uÅ¼ytkownik, ktÃ³ry ma zostaÄ‡ zaktualizowany
 	 */
 	public void updateUser(User issuer) {
 		if(!isWithinTransaction) {
@@ -328,8 +328,8 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda aktualizuj¹ca projekt
-	 * @param pr projekt, który ma zostaæ zaktualizowany
+	 * Metoda aktualizujÄ…ca projekt
+	 * @param pr projekt, ktÃ³ry ma zostaÄ‡ zaktualizowany
 	 */
 	public void updateProject(Project pr) {
 		if(!isWithinTransaction) {
@@ -343,9 +343,9 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda pobieraj¹ca u¿ytkownika o zadanej nazwie u¿ytkownika
-	 * @param login nazwa u¿tykownika
-	 * @return u¿ytkownik, do którego pryzpisany jest dany login
+	 * Metoda pobierajÄ…ca uÅ¼ytkownika o zadanej nazwie uÅ¼ytkownika
+	 * @param login nazwa uÅ¼tykownika
+	 * @return uÅ¼ytkownik, do ktÃ³rego pryzpisany jest dany login
 	 */
 	@SuppressWarnings("unchecked")
 	public User getUser(String login) {
@@ -362,8 +362,8 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda pobieraj¹ca dostêpne statusy
-	 * @return lista statusów
+	 * Metoda pobierajÄ…ca dostÄ™pne statusy
+	 * @return lista statusÃ³w
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Itemstatus> getStatuses() {
@@ -377,8 +377,8 @@ class JPAConnection {
 	}
 	
 	/**
-	 * Metoda pobieraj¹ca dostêpne typy
-	 * @return lista typów
+	 * Metoda pobierajÄ…ca dostÄ™pne typy
+	 * @return lista typÃ³w
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Itemtype> getTypes() {
@@ -392,8 +392,8 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda pobieraj¹ca projekty z bazy danych
-	 * @return lista utworzonych projektów
+	 * Metoda pobierajÄ…ca projekty z bazy danych
+	 * @return lista utworzonych projektÃ³w
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Project> getProjects() {
@@ -407,7 +407,7 @@ class JPAConnection {
 	}
 	
 	/**
-	 * Metoda aktualizuj¹ca status
+	 * Metoda aktualizujÄ…ca status
 	 * @param itemstatus status
 	 */
 	public void updateStatus(Itemstatus itemstatus) {
@@ -422,7 +422,7 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda aktualizuj¹ca typ
+	 * Metoda aktualizujÄ…ca typ
 	 * @param itemtype typ
 	 */
 	public void updateType(Itemtype itemtype) {
@@ -437,8 +437,8 @@ class JPAConnection {
 	}
 
 	/**
-	 * Metoda usuwaj¹ca komentarz z bazy danych
-	 * @param c komentarz, który ma zostaæ usuniêty
+	 * Metoda usuwajÄ…ca komentarz z bazy danych
+	 * @param c komentarz, ktÃ³ry ma zostaÄ‡ usuniÄ™ty
 	 */
 	public void removeComment(Comment c) {
 		if(!isWithinTransaction) {

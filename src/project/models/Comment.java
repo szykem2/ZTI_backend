@@ -1,4 +1,4 @@
-package project.models;
+锘縫ackage project.models;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import javax.persistence.*;
 
 /**
- * Klasa trwa硂渃i dla tabeli COMMENTS w bazie danych
+ * Klasa trwa艂o艣ci dla tabeli COMMENTS w bazie danych
  */
 @Entity
 @Table(name="COMMENTS")
@@ -24,7 +24,7 @@ public class Comment implements Serializable {
 	private int commentid;
 	
 	/**
-	 * Zawarto滄 komentarza
+	 * Zawarto艣膰 komentarza
 	 */
 	private String content;
 	
@@ -34,7 +34,7 @@ public class Comment implements Serializable {
 	private Timestamp created;
 	
 	/**
-	 * Element, do kt髍ego przypisany jest komentarz
+	 * Element, do kt贸rego przypisany jest komentarz
 	 */
 	private Item item;
 	
@@ -63,35 +63,35 @@ public class Comment implements Serializable {
 	}
 
 	/**
-	 * {@link Comment#commentid}
+	 * {@link Comment#content}
 	 */
 	public String getContent() {
 		return this.content;
 	}
 
 	/**
-	 * {@link Comment#commentid}
+	 * {@link Comment#content}
 	 */
 	public void setContent(String content) {
 		this.content = content;
 	}
 
 	/**
-	 * {@link Comment#commentid}
+	 * {@link Comment#created}
 	 */
 	public Timestamp getCreated() {
 		return this.created;
 	}
 
 	/**
-	 * {@link Comment#commentid}
+	 * {@link Comment#created}
 	 */
 	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
 
 	/**
-	 * {@link Comment#commentid}
+	 * {@link Comment#item}
 	 */
 	@ManyToOne
 	@JoinColumn(name="ITEMID")
@@ -100,14 +100,14 @@ public class Comment implements Serializable {
 	}
 
 	/**
-	 * {@link Comment#commentid}
+	 * {@link Comment#item}
 	 */
 	public void setItem(Item item) {
 		this.item = item;
 	}
 
 	/**
-	 * {@link Comment#commentid}
+	 * {@link Comment#user}
 	 */
 	@ManyToOne
 	@JoinColumn(name="USERID")
@@ -116,10 +116,18 @@ public class Comment implements Serializable {
 	}
 
 	/**
-	 * {@link Comment#commentid}
+	 * {@link Comment#user}
 	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
 
+	/**
+	 * Metoda s艂u偶y do por贸wnywania ze sob膮 obiekt贸w typu Comment
+	 * @param obj obiekt, kt贸ry chcemy por贸wna膰 do aktualnego
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return this.commentid == ((Comment)obj).getCommentid();
+	}
 }

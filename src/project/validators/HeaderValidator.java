@@ -1,4 +1,4 @@
-package project.validators;
+ï»¿package project.validators;
 
 import java.util.List;
 import javax.ws.rs.core.HttpHeaders;
@@ -10,14 +10,14 @@ import project.exception.TokenException;
 import project.models.User;
 import project.utils.Token;
 /*
- * Klasa udostêpnianj¹ca interfejs do walidacji nag³ówków rz¹dania
+ * Klasa udostÄ™pnianjÄ…ca interfejs do walidacji nagÅ‚Ã³wkÃ³w rzÄ…dania
  */
 public class HeaderValidator {
 	/*
-	 * Metoda waliduj¹ca nag³ówek rz¹dania
-	 * @param header nag³ówek rz¹dania
-	 * @return obiekt u¿ytkownika, do któremu odpowiada token uwierzytelniaj¹cy przes³any w nag³ówku
-	 * @throws HeaderException gdy token uwierzytelniaj¹cy nie zosta³ podany, jest b³êdny lub straci³ wa¿noœæ
+	 * Metoda walidujÄ…ca nagÅ‚Ã³wek rzÄ…dania
+	 * @param header nagÅ‚Ã³wek rzÄ…dania
+	 * @return obiekt uÅ¼ytkownika, do ktÃ³remu odpowiada token uwierzytelniajÄ…cy przesÅ‚any w nagÅ‚Ã³wku
+	 * @throws HeaderException gdy token uwierzytelniajÄ…cy nie zostaÅ‚ podany, jest bÅ‚Ä™dny lub straciÅ‚ waÅ¼noÅ›Ä‡
 	 */
 	public static User validate(HttpHeaders header) throws HeaderException{
 		MultivaluedMap<String, String> rh = header.getRequestHeaders();

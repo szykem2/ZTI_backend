@@ -1,10 +1,11 @@
-package project.dto;
+ï»¿package project.dto;
 
 import java.sql.Timestamp;
 import project.models.Item;
+import project.models.Itemstatus;
 
 /**
- * Klasa s³u¿¹ca do przesy³ania obiektu typu Item
+ * Klasa sÅ‚uÅ¼Ä…ca do przesyÅ‚ania obiektu typu Item
  */
 public class ItemDto {
 
@@ -14,7 +15,7 @@ public class ItemDto {
 	private int itemid;
 
 	/**
-	 * flaga, mówi¹ca o tym czy stan obiektu to 'zaakceptowany'
+	 * flaga, mÃ³wiÄ…ca o tym czy stan obiektu to 'zaakceptowany'
 	 */
 	private Boolean approved;
 
@@ -29,12 +30,12 @@ public class ItemDto {
 	private String description;
 
 	/**
-	 * data koñca pracy nad elementem
+	 * data koÅ„ca pracy nad elementem
 	 */
 	private Timestamp resolutiondate;
 
 	/**
-	 * flaga, mówi¹ca o tym czy stan obiektu to 'rozwi¹zany'
+	 * flaga, mÃ³wiÄ…ca o tym czy stan obiektu to 'rozwiÄ…zany'
 	 */
 	private Boolean resolved;
 
@@ -56,20 +57,20 @@ public class ItemDto {
 	private ItemTypeDto itemtype;
 
 	/**
-	 * osoba odpowiedzialna za rozwi¹zanie elementu
+	 * osoba odpowiedzialna za rozwiÄ…zanie elementu
 	 * @see UserDto
 	 */
 	private UserDto owner;
 
 	/**
-	 * osoba odpowiedzialna za weryfikacjê/testowanie elementu
+	 * osoba odpowiedzialna za weryfikacjÄ™/testowanie elementu
 	 * @see User
 	 */
 	private UserDto approver;
 
 	/**
 	 * Konstruktor obiektu
-	 * @param it obiektu typu Item, który ma zostaæ przes³any
+	 * @param it obiektu typu Item, ktÃ³ry ma zostaÄ‡ przesÅ‚any
 	 * @see project.models.Item
 	 */
 	public ItemDto(Item it) {
@@ -240,4 +241,12 @@ public class ItemDto {
 		this.approver = approver;
 	}
 
+	/**
+	 * Metoda sÅ‚uÅ¼y do porÃ³wnywania ze sobÄ… obiektÃ³w typu ItemDto
+	 * @param obj obiekt, ktÃ³ry chcemy porÃ³wnaÄ‡ do aktualnego
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return this.itemid == ((ItemDto)obj).getItemid();
+	}
 }
