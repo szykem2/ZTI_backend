@@ -3,8 +3,6 @@
 import java.io.Serializable;
 import javax.persistence.*;
 
-import project.dto.ItemStatusDto;
-
 import java.util.List;
 
 /**

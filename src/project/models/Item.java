@@ -1,4 +1,5 @@
-﻿package project.models;
+﻿
+package project.models;
 
 import java.io.Serializable;
 import javax.persistence.*;

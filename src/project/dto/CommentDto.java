@@ -1,9 +1,7 @@
 ﻿package project.dto;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import project.models.Comment;
-import project.models.Itemstatus;
 
 /**
  * Klasa służąca do przesyłania obiektu komentarza
