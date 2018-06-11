@@ -6,8 +6,7 @@ version: v1
   get:
     description: Retrieve list of all users
     headers:
-      Authorization:
-        token <GENERATED_TOKEN>
+      Authorization: <GENERATED_TOKEN>
     responses:
       200:
         body:
@@ -25,8 +24,7 @@ version: v1
     get:
     description: Retrieve user with given id
     headers:
-      Authorization:
-        Token <GENERATED_TOKEN>
+      Authorization: <GENERATED_TOKEN>
     responses:
       200:
         body:
@@ -37,6 +35,7 @@ version: v1
                   "username": "CtestUSerKtestUSer3testUSerXtestUSerW",
                   "email": ""
               }
+
 /users/login:
   post:
     description: Endpoint for logging in - as response token is returned
@@ -71,13 +70,11 @@ version: v1
           }
     responses:
       200:
-      400:
+      409:
         body:
-          application/json:
+          text/plain:
             example: |
-              {
-                "errors": ["password must contain special characters or numbers", "email structure is not correct"]
-              }
+                "invalid login"
 
 /validateLogin:
   post:
@@ -109,8 +106,7 @@ version: v1
   get:
     description: Retrieves projects user is authorized to view
       headers:
-        Authorization:
-          token <GENERATED_TOKEN>
+        Authorization: <GENERATED_TOKEN>
       responses:
         200:
           body:
@@ -132,8 +128,7 @@ version: v1
   post:
     description: Create a project
       headers:
-        Authorization:
-          token <GENERATED_TOKEN>
+        Authorization: <GENERATED_TOKEN>
       body:
         application/json:
           example: |
@@ -144,12 +139,11 @@ version: v1
       responses:
         200:
 
-/projects/{id}
+/projects/{id}:
   delete:
     description: Delete a project
       headers:
-        Authorization:
-          token <GENERATED_TOKEN>
+        Authorization: <GENERATED_TOKEN>
       responses:
         204:
         404:
@@ -159,8 +153,7 @@ version: v1
   get:
     description: Get list of users without permission to view project with given id
     headers:
-      Authorization:
-        token <GENERATED_TOKEN>
+      Authorization: <GENERATED_TOKEN>
     body:
       application/json:
         example: |
@@ -182,55 +175,216 @@ version: v1
                   "username" : "testUser",
                 }
               ]
-      406:
+      401:
 
   post:
     description: Add permission to view project for a given user
+    headers:
+      Authorization: <GENERATED_TOKEN>
+    body:
+      application/json:
+        example: |
+          {
+            "email": "email@addres.com", 
+            "login": "username"
+          }
+    responses:
+      200:
+      401:
+      404:
 
 /projects/{id}/users/{userid}:
   delete:
     description: Remove user from project area
       headers:
-        Authorization:
-          token <GENERATED_TOKEN>
+        Authorization: <GENERATED_TOKEN>
     responses:
       204:
       403:
 
-/projects/{id}/reports:
+/projects/{id}/admins:
   get:
-    description: Generate reports for given project
+    description: Retrieve list of adminstrators of the project
     headers:
-      Authorization: token <GENERATED_TOKEN>
+      Authorization: <GENERATED_TOKEN>
+    responses:
+      200: 
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "id" : 1,
+                  "username" : "testUSername",
+                  "email" : "testEmail"
+                },
+                {
+                  "id" : 2,
+                  "username" : "testUSername1",
+                  "email" : "testEmail"
+                },
+              ]
+      401:
+  post:
+    description: Add new user as a administrator of a given project
+    headers:
+      Authorization: <GENERATED_TOKEN>
     body:
       application/json:
         example: |
           {
-            "itemid": <itemid>
+            "id" : 1,
+            "username" : "testUSername",
+            "email" : "testEmail"
           }
+    responses:
+      200: 
+      401:
 
 /items: 
-  get:
-    description: Get list of items assigned to a given project
   post:
     description: Create item in a given project area
-  put:
-    description: Update item
+      headers:
+        Authorization: <GENERATED_TOKEN>
+      body:
+        application/json:
+          example: |
+            [
+              {
+                "projectid": 1, 
+                "title": "itemName", 
+                "owner": "admin", 
+                "approver": "userName1", 
+                "type": 1, 
+                "creationDate": "date_when_created", 
+                "description": "Short description of the work item"
+              },
+              {
+                "projectid": 2, 
+                "title": "itemNameTwo", 
+                "owner": "admin", 
+                "approver": "userName1", 
+                "type": 1, 
+                "creationDate": "date_when_created", 
+                "description": "Short description of the work item"
+              }
+            ]
+    responses:
+      200:
+      401:
+      404:
 
 /items/{itemid}:
+  put:
+    description: Update work item
+      headers:
+        Authorization: <GENERATED_TOKEN>
+      body:
+        application/json:
+          example: |
+            [
+              {
+                "projectid": 1, 
+                "title": "itemName", 
+                "owner": "admin", 
+                "approver": "userName1", 
+                "type": 1, 
+                "creationDate": "date_when_created", 
+                "description": "Short description of the work item"
+              },
+              {
+                "projectid": 2, 
+                "title": "itemNameTwo", 
+                "owner": "admin", 
+                "approver": "userName1", 
+                "type": 1, 
+                "creationDate": "date_when_created", 
+                "description": "Short description of the work item"
+              }
+            ]
+      responses:
+        200:
+        401:
+        404:
   delete:
     description: Remove work item
+      headers: 
+        Authorization: <GENERATED_TOKEN>
+      responses:
+        200:
+        401:
+        404:
+
+/items/{projectid}:
+  get:
+    description: Get items assigned to project with a give project
       headers:
-        Authorization:
-          token <GENERATED_TOKEN>
+        Authorization: <GENERATED_TOKEN>
     responses:
-      204:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "id" : 1,
+                  "description" : "project description",
+                  "title" : "project name",
+                  "isAdmin" : true
+                },
+                {
+                  "id" : 2,
+                  "description" : "project description",
+                  "title" : "project name",
+                  "isAdmin" : false
+                }
+              ]
+      401:
       404:
-      406:
+
+/items/itemstatus:
+  get:
+    description: Retrieve item statuses
+  responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "commentid" : 1,
+                  "status" : "new"
+                },
+                {
+                  "commentid" : 2,
+                  "status" : "in progress"
+                }
+              ]
+
+/items/itemtypes:
+  get:
+    description: Retrieve item types
+  responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "commentid" : 1,
+                  "status" : "bug"
+                },
+                {
+                  "commentid" : 2,
+                  "status" : "feature"
+                }
+              ]
 
 /items/{itemid}/comments:
   get:
     description: Retrieve coments for a given item in a given project
+      headers:
+        Authorization: <GENERATED_TOKEN>
   responses:
       200:
         body:
@@ -250,3 +404,92 @@ version: v1
                   "content": <content_of_the_comment>
                 }
               ]
+      401:
+      404:
+  post:
+    description: Create new work item
+      headers:
+        Authorization: <GENERATED_TOKEN>
+      body:
+        application/json:
+          example: |
+            {
+              "content": <content_of_the_comment>, 
+              "created": <date_created>,
+            }
+  responses:
+    200:
+    401:
+
+/requests:
+  get:
+    description: Retrieve list of projects, to which user can request access
+    headers:
+      Authorization: <GENERATED_TOKEN>
+    responses: 
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "id" : 1,
+                  "description" : "project description",
+                  "title" : "project name",
+                },
+                {
+                  "id" : 2,
+                  "description" : "project description",
+                  "title" : "project name",
+                }
+              ]
+      401:
+
+/requests/{id}:
+  get:
+    description: Retrieve list of users who requested for access to the given project area
+    headers:
+      Authorization: <GENERATED_TOKEN>
+    responses: 
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "id" : 1,
+                  "username" : "testUSername",
+                  "email" : "testEmail"
+                },
+                {
+                  "id" : 2,
+                  "username" : "testUSername1",
+                  "email" : "testEmail"
+                },
+              ]
+      401:
+
+  post:
+    description: Request for access to the given project area
+    headers:
+      Authorization: <GENERATED_TOKEN>
+    responses: 
+      200:
+      401:
+
+/requests/{id}/{userid}:
+  post:
+    description: Accept user request
+    headers:
+      Authorization: <GENERATED_TOKEN>
+    responses: 
+      200:
+      401:
+
+  delete:
+    description: Deny user request
+    headers:
+      Authorization: <GENERATED_TOKEN>
+    responses: 
+      200:
+      401:

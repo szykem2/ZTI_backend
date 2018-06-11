@@ -7,7 +7,7 @@ import project.dto.UserDto;
 import project.exception.HeaderException;
 import project.models.*;
 import project.utils.*;
-import project.validators.HeaderValidator;
+import project.validators.*;
 
 import java.util.*;
 
@@ -47,6 +47,18 @@ public class Authentication extends Application {
 	@Path("/register")
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response register(User usr) {
+		LoginValidator v = new LoginValidator();
+		Response r = v.loginValidator(usr.getLogin());
+		if(r.getStatus() == Response.Status.CONFLICT.getStatusCode()) {
+			return Response.status(Response.Status.CONFLICT).entity("Invalid login").build();
+		}
+		
+		EmailValidator vd = new EmailValidator();
+		r = vd.emailValidator(usr.getEmail());
+		if(r.getStatus() == Response.Status.CONFLICT.getStatusCode()) {
+			return Response.status(Response.Status.CONFLICT).entity("Invalid email").build();
+		}
+		
 		Database db = new Database();
 		db.newUser(usr);
 		return Response.ok().build();

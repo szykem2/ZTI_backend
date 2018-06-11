@@ -22,7 +22,7 @@ public class LoginValidator extends Application {
 	/*
 	 * Metoda służąca do sprawdzania poprawności loginu zarówno zgodności z wymaganiami jak i dostępności w bazie.
 	 * @param login login użytkownika podlegający walidacji
-	 * @return odpowiedź serwera HTML status code 200 OK dla poprawnego rządania, 401 UNAUTHORIZED jeżeli nie udało się uwierzytelnić użytkownika lub 409 FORBIDDEN jeżeli nie udało się  autoryzować użytkownika
+	 * @return odpowiedź serwera HTML status code 200 OK dla poprawnego rządania lub 409 FORBIDDEN jeżeli nie udało się  autoryzować użytkownika
 	 * @see Response
 	 */
 	@POST

@@ -58,7 +58,7 @@ public class Items {
 			return Response.status(Response.Status.FORBIDDEN).build();
 		}
 		List<Item> lst = db.getProject(Integer.parseInt(projectid)).getItems();
-		System.out.println("List: " + lst.size());
+		lst.size();
 		if(lst.size() > 0) {
 			Item cmt = lst.get(0);
 		}
@@ -80,7 +80,7 @@ public class Items {
 	public Response getStatuses() {
 		Database db = new Database();
 		List<Itemstatus> lst = db.getStatuses();
-		System.out.println("List: " + lst.size());
+		lst.size();
 		if(lst.size() > 0) {
 			Itemstatus cmt = lst.get(0);
 		}

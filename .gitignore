@@ -7,6 +7,9 @@
 *.log
 *.pdf
 *.gz
+*.dvi
+*.out
+out
 *~
 *.png
 *.sql
