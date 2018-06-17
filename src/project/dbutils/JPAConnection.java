@@ -1,4 +1,5 @@
-﻿package project.dbutils;
+﻿
+package project.dbutils;
 
 import java.util.List;
 import javax.ejb.Singleton;
@@ -13,7 +14,7 @@ import project.models.*;
  * Klasa odpowiadająca za udostępnianie interfejsu JPA do komunikacji z bazą danych IBM DB2
  */
 @Singleton
-class JPAConnection {
+public class JPAConnection {
 	
 	/**
 	 * Obiekt tworzący managera podmiotu

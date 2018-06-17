@@ -1,5 +1,4 @@
 ﻿package project.dto;
-
 import project.models.Itemstatus;
 
 /**

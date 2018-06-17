@@ -2,7 +2,6 @@
 
 import java.sql.Timestamp;
 import project.models.Item;
-import project.models.Itemstatus;
 
 /**
  * Klasa służąca do przesyłania obiektu typu Item

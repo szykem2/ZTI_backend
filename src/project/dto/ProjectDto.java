@@ -1,8 +1,6 @@
 ﻿package project.dto;
 
 import java.io.Serializable;
-
-import project.models.Itemstatus;
 import project.models.Project;
 /**
  * Klasa służąca do przesyłania projektu

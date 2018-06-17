@@ -3,14 +3,11 @@
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
-import com.ibm.db2.jcc.t2zos.db;
-
 import project.dbutils.Database;
 import project.dto.ProjectDto;
 import project.dto.UserDto;
 import project.exception.HeaderException;
 import project.models.*;
-import project.utils.*;
 import project.validators.HeaderValidator;
 
 import java.util.*;

@@ -71,7 +71,7 @@ public aspect Log {
     }
     
     /**
-     * Rada uruchamiana dla zwyk³ych metod zwracaj¹cych typ Response
+     * Rada uruchamiana dla zwykï¿½ych metod zwracajï¿½cych typ Response
      */
     after(): regular() {
     	boolean cond = false;
