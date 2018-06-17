@@ -79,6 +79,14 @@ Repozytorium z kodem klienta znajduje się pod adresem:
 \url{https://github.com/szykem2/ZTI}
 \end{center}
 
+W celu enkrypcji hasła podanego przy rejestracji, wykorzystana została biblioteka jsSHA oraz algortym SHA-512. Biblioteka dostępna jest pod adresem:
+
+\begin{center}
+\url{https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.0.2/sha.js}
+\end{center}
+
+Opis funkcjonalności opisany został w sekcji Działanie aplikacji.
+
 \break
 
 \section{Serwer}
@@ -97,7 +105,7 @@ W celu przechowywania danych uwierzytelniających wykorzystana została technolo
 
 Serwer został wdrożony w chmurze IBM Cloud pod adresem:
 \begin{center}
-\url{SK-project.eu-gb.mybluemix.net/}
+\url{https://sk-project.eu-gb.mybluemix.net/}
 \end{center}
 
 Repozytorium z kodem serwera znajduje się pod adresem:
@@ -125,7 +133,36 @@ Diagram UML projektu:
 
 \section{Informacje wdrożeniowe}
 
-\hspace{11pt} Tu będzie opis jak zdeployować.
+\hspace{11pt} W celu wdrożenia projektu konieczne jest w pierwszej kolejności utworzenie bazy danych oraz skonfigurowanie interfejsu JNDI, gdzie przechowywane są dane autoryzacyjne do bazy danych.
+
+Do utworzenia bazy danych należy wykorzystać skrypt języka SQL dostępny pod adresem:
+
+\begin{center}
+\begin{adjustwidth}{-0.0cm}{}
+\url{http://orion.fis.agh.edu.pl/~4kubasiak/zti/projekt/database.sql}
+\end{adjustwidth}
+\end{center}
+
+Tworzy on wszystkie potrzebne tabele w domyślnym schemacie oraz wypełnia tabele \textbf{ITEMSTATUS} oraz \textbf{ITEMTYPE}.
+
+W środowisku programistycznym należy dodać, poza standardowymi elementami biblioteki javax, następujące biblioteki:
+\begin{itemize}
+\item \href{https://mvnrepository.com/artifact/org.json/json/20180130}{JSON}
+\item \href{https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on/1.56}{Bouncy Castle Crypto}
+\item \href{https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt/0.9.0}{JSON Web Token}
+\item \href{https://mvnrepository.com/artifact/org.aspectj/aspectjrt/1.6.9}{AspectJ Runtime}
+\item \href{https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind/2.8.9}{Jackson Databind}
+\item \href{https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.8.9}{Jackson Core}
+\item \href{https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.8.0}{Jackson Annotations}
+\end{itemize}
+
+Następnie należy pobrać oraz dodać do bibliotek sterownik interfejsu JDBC do wykorzystanej bazy danych.
+
+Po dodaniu wszystkich bibliotek należy zbudować projekt oraz wyeksportować plik .war, który należy uruchomić w usłudze chmurowej.
+
+Aby aplikacja działała należy jeszcze zmienić adres serwera w pliku \textbf{zti.js} w aplikacji klienta.
+
+\break
 
 \section{Działanie aplikacji}
 \hspace{11pt} W tym punkcie opisana jest funkcjonalność aplikacji klienta. 

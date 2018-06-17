@@ -147,7 +147,7 @@ version: v1
       responses:
         204:
         404:
-        406:
+        409:
 
 /projects/{id}/users:
   get:
@@ -191,7 +191,7 @@ version: v1
     responses:
       200:
       401:
-      404:
+      409:
 
 /projects/{id}/users/{userid}:
   delete:
@@ -272,7 +272,7 @@ version: v1
     responses:
       200:
       401:
-      404:
+      409:
 
 /items/{itemid}:
   put:
@@ -305,7 +305,8 @@ version: v1
       responses:
         200:
         401:
-        404:
+        409:
+
   delete:
     description: Remove work item
       headers: 
@@ -340,7 +341,7 @@ version: v1
                 }
               ]
       401:
-      404:
+      409:
 
 /items/itemstatus:
   get:
@@ -405,7 +406,8 @@ version: v1
                 }
               ]
       401:
-      404:
+      409:
+
   post:
     description: Create new work item
       headers:

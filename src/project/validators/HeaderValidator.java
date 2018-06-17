@@ -21,9 +21,9 @@ public class HeaderValidator {
 	 */
 	public static User validate(HttpHeaders header) throws HeaderException{
 		MultivaluedMap<String, String> rh = header.getRequestHeaders();
-	    List<String> l = rh.get("Authorization");
-	    User usr = null;
-	    try {
+		User usr = null;
+		try {
+		    List<String> l = rh.get("Authorization");
 	    	usr = Token.decodeToken(l.get(0));
 	    }
 	    catch(TokenException e) {

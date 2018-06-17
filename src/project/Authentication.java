@@ -106,7 +106,7 @@ public class Authentication extends Application {
         Database db = new Database();
         List<User> lst = db.getUsers();
         lst.size();
-        usr = lst.get(0);//just to instantiate the list due to jpa lazy binding
+        usr = lst.get(0);
         List<UserDto> l = new ArrayList<UserDto>();
         for(User u : lst) {
         	l.add(new UserDto(u));
